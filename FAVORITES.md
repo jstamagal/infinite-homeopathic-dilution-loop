@@ -874,3 +874,27 @@ This transforms code review from an assumed-reliable gate into an optimized proc
 
 ---
 
+## AI Assistant's Picks (Saturday Jan 17, 2026 - Thirty-Third Set)
+
+### Favorite from TAILS-IDEAS.md
+**Shadow Execution Tracer** (Response 190)
+
+### Favorite from BULK-IDEAS.md
+**Performance Regression Detective** (Response 19)
+
+---
+
+## Elevator Pitch: Shadow Execution Tracer
+
+Debugging production incidents often reveals a terrifying pattern: the disaster almost happened hundreds of times before it actually occurred. That retry logic that finally exhausted and crashed your service? It came within milliseconds of triggering during the previous month's traffic spikes. The circuit breaker that finally tripped? It was hovering at 99% of its threshold for weeks. Yet traditional code coverage treats all unexecuted code equally—whether it's genuinely dead or constantly on the verge of activation.
+
+The Shadow Execution Tracer transforms our understanding of code risk by monitoring not just what executes, but what almost executes. It tracks conditional branches at runtime, measuring how close non-executed paths came to triggering. When `if (retries > 5)` never executes because retries max at 4, that's distant dormant code. When `if (connectionTimeout > 30000)` doesn't trigger but connections regularly timeout at 29,800ms, that's a near-miss revealing system strain.
+
+The breakthrough is conditional sensitivity analysis. The tracer identifies brittle boundaries—conditions tuned so tightly that minor changes in production behavior will activate untested code paths. This guides intelligent chaos engineering: instead of randomly breaking things, target the conditions your production workload already stresses but hasn't quite triggered. Test the code that's always one edge case away from execution.
+
+For resilience engineering, this is transformative. You discover which error handling paths are genuinely unused versus which are teetering on activation. Circuit breakers configured at thresholds that will trip at the next minor load increase get flagged before the incident occurs. Timeouts set just above typical latency get adjusted before production spikes exceed them.
+
+For AI agents in 2026, shadow execution teaches crucial distinctions about unexecuted code. Not all zero-coverage code is dead—some is critical safety logic that hasn't been needed yet. The tracer helps agents distinguish unreachable code (safe to delete) from untested-but-important code (requiring proactive testing). It identifies assumptions encoded in conditionals: "This assumes connections resolve under 30 seconds—but we're approaching that limit." When agents suggest threshold changes or refactorings, they can query shadow execution data to understand which code is truly dormant versus precariously close to activation. This prevents the dangerous pattern where removing "unused" code eliminates critical safety nets that haven't been needed yet but will be essential during the next incident.
+
+---
+
