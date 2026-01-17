@@ -530,16 +530,6 @@ An AI tool that analyzes code to automatically suggest optimal error boundary pl
 <probability>0.47</probability>
 </response>
 
-## Response 102
-<response>
-<ideas>
-**Smart Code Formatting with Context Awareness**
-
-An auto-formatter that adapts style to context rather than enforcing rigid rules. Formats test files more readably (allows longer lines for test descriptions), tightens production code, relaxes formatting in prototype branches. Learns from team's manual formatting choices during code review—if developers consistently reformat something, the tool learns that preference. Balances consistency with readability, choosing formatting that minimizes diff size during refactorings. For AI-generated code, ensures formatting matches surrounding human-written code seamlessly. Contextual formatting reduces friction between automated tooling and human preferences, making formatting a non-issue rather than a constant debate.
-</ideas>
-<probability>0.53</probability>
-</response>
-
 ## Response 103
 <response>
 <ideas>
@@ -710,16 +700,6 @@ An AI system that learns your team's git workflow patterns and automates repetit
 <probability>0.52</probability>
 </response>
 
-## Response 121
-<response>
-<ideas>
-**Context-Aware Error Message Translator with Learning History**
-
-An AI-powered system that translates cryptic error messages into clear, actionable explanations personalized to your codebase and experience level. When a webpack error occurs, instead of showing stack traces, it explains: "You imported `AuthComponent` from the wrong path—you probably meant `@/components/auth` based on your project's import patterns." Learns from which explanations successfully resolved errors, improving suggestions over time. Analyzes recent changes to provide context: "This type error started after you modified the User interface—check the places where User is consumed." For junior developers, provides detailed walkthroughs; for seniors, gives terse technical hints. Integrates with IDE to show progressive disclosure: hover for quick fix, click for full explanation, right-click for related documentation. For AI agents in 2026, this transforms error handling from pattern matching to contextual reasoning, enabling them to provide genuinely helpful debugging guidance rather than generic Stack Overflow links.
-</ideas>
-<probability>0.50</probability>
-</response>
-
 ## Response 122
 <response>
 <ideas>
@@ -798,16 +778,6 @@ A system that provides real-time analytics during pair programming sessions to m
 An AI-driven onboarding system that creates personalized learning paths for new developers and tracks mastery of codebase concepts. Assesses incoming knowledge through interactive challenges, then generates custom curriculum: "You know React well but our state management patterns are unique—here's a targeted tutorial." Tracks progress through actual contributions, not just documentation reading. Identifies struggle points: if a developer repeatedly asks about authentication, it surfaces additional resources and suggests pairing with auth experts. Generates milestone-based achievements: "Understood core data models," "Made first API contribution," "Resolved first production incident." Compares onboarding velocity to historical data, flagging when new developers are struggling more than typical. For AI agents in 2026, this creates structured training data showing optimal learning sequences for complex codebases. Automatically updates curriculum as codebase evolves.
 </ideas>
 <probability>0.47</probability>
-</response>
-
-## Response 130
-<response>
-<ideas>
-**AI-Powered Code Comment Freshness Validator**
-
-An intelligent system that continuously validates whether code comments accurately reflect current code behavior. Goes beyond detecting commented-out code to understanding semantic drift—when refactorings make comments technically incorrect even though code works. Uses AI to compare comment claims against actual code execution: if a comment says "caches for 5 minutes" but code shows 10 minutes, it flags the discrepancy. Suggests comment updates when code changes, or vice versa—sometimes old comments reveal bugs in new code. Learns team commenting conventions to enforce consistency. Generates "comment health scores" for modules, identifying areas where documentation has rotted. For AI agents in 2026, this ensures comments are reliable training data rather than misleading noise, preventing agents from learning incorrect patterns from stale documentation.
-</ideas>
-<probability>0.53</probability>
 </response>
 
 ## Response 131
@@ -3011,4 +2981,1039 @@ For configuration management, this prevents subtle bugs where staging passes but
 For AI agents managing infrastructure in 2026, drift reconciliation teaches proper configuration hygiene. Agents learn which settings require synchronization, which appropriately vary per environment, and when drift indicates technical debt requiring cleanup. This prevents configuration entropy from silently undermining system reliability.
 </ideas>
 <probability>0.31</probability>
+</response>
+<response>
+<ideas>
+**"Import" Cycle Breaker:** Circular dependencies create silent bugs, but finding the cycle is tedious. This CLI `cycle-breaker` scans your codebase and reports: "Cycle detected: utils/auth.js → helpers/session.js → middleware/user.js → utils/auth.js." Unlike generic cycle detectors, it suggests where to break the cycle: "Break here: extract shared logic from helpers/session.js into a new module that both can depend on." It identifies the "weakest link"—the dependency that makes the least architectural sense. It doesn't just report problems; it proposes refactoring paths. It transforms circular dependency debugging from "where is the cycle?" into "here's exactly how to fix it." The tool prioritizes actionable solutions over raw detection.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Duplication Inspector:** Copy-paste detection is easy, but *structural* duplication (same logic, different implementation) is harder to spot. This tool `clone-find` uses abstract syntax tree analysis to find doppelgängers: "These three functions filter-transform-paginate but with different variable names—87% structural similarity." It doesn't just flag identical blocks; it surfaces opportunities to converge on a single abstraction OR intentionally diverge. The output helps you decide: "Clone intentional? (different contexts) → document why. Clone accidental? → extract shared abstraction." It's not a rigid "DRY everything" enforcer; it's a conversation starter about architectural patterns. It transforms duplication from obvious problem to nuanced decision—sometimes duplication is intentional, sometimes it's debt.
+</ideas>
+<probability>0.32</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Mutation Runner:** Mutation testing tools exist, but they're complex enterprise products. This is a simple CLI `mutate-test` that introduces small bugs (flip a boolean, change a < to <=, delete a line) and runs your test suite. If tests still pass, you have a "surviving mutant"—a test that didn't catch the bug. The output is clear: "Mutation in auth.js:47 (changed `true` to `false`) survived—test suite didn't catch this bug." It's not about 100% mutation coverage; it's about finding the gaps where your tests claim to validate behavior but actually don't. It transforms "we have 95% test coverage" into "our tests fail to catch these specific bug patterns." It's mutation testing made accessible—no complex configuration, just run it and see where your tests are blind.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Commit" Message Template Expander:** Conventional commits are great, but teams often struggle with consistency. This tool adds a subcommand `git template` that shows team-specific templates: "feat: add [scope] [description]\n\nBreaking change: [what breaks]\n\nRefs: #[ticket]" based on your project's conventions. Unlike generic commit message coaches, this reads your project's recent commits to learn patterns and generates a customized template. If your team uses "perf(database):" for performance issues, it learns that. It's not about enforcing rules; it's about providing scaffolding that matches your actual culture. Run `git template bug` and get a template that matches how your team actually writes bug fix commits, learned from your history.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Rebase Conflict Predictor:** `git rebase -i` is powerful until you hit 15 merge conflicts in a row. This tool `rebase-scope` analyzes your branch against main to estimate conflict probability *before* you rebase: "Your branch modified auth.js lines 45-89; main modified lines 60-75. 82% conflict probability." It shows an ASCII heatmap of files by risk: green (no overlap), yellow (different sections), red (overlapping modifications). It also detects "semantic conflicts"—renamed functions that main refactored differently. It transforms rebase from "hope for the best" into informed decision-making: rebase now while risk is low, or wait until you have time for conflict resolution. It's risk assessment before the pain starts.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Churn Analyzer:** Some files change constantly; others are frozen in time. This tool `churn-report` analyzes git history to identify "hot zones" (highly churned files) and "cold zones" (stable code). It surfaces: "auth/utils.js changed 47 times in 6 months (HOT ZONE)—consider extracting a stable core" or "payment/processor.js hasn't changed in 2 years (COLD ZONE)—is it abandoned or rock-solid?" It's not just statistics; it's risk assessment. High churn files are architectural pain points; zero-churn files might be technical debt time bombs. The output highlights "churn anomalies": files that SHOULD be stable but aren't (core utilities that keep changing) or files that SHOULD evolve but don't (config files untouched since 2019). It transforms codebase archaeology from "what changed" to "what's unstable"—identifying the friction points where architecture is still being discovered vs. the bedrock that's already solidified.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Flakiness Detector:** Flaky tests are silent killers of CI confidence. This tool `flake-detect` runs your test suite multiple times and identifies tests that fail intermittently. It doesn't just report "test X failed 3 out of 10 runs"; it analyzes the *patterns* of flakiness: "Test `checkoutFlow` fails only when run after `inventoryTest` (state leakage)" or "Test `apiTimeout` fails between 2-3 PM UTC (database backup window)" or "Test `uploadFile` fails when 5+ tests run in parallel (resource exhaustion)." It transforms "this test is flaky" into "here's exactly why and when." The output suggests fixes: "Add cleanup afterEach for state leakage" or "Add retry with exponential backoff for external API calls." It's not just test reliability; it's test *diagnostics*—turning mysterious random failures into predictable, fixable patterns. By running tests in isolation and parallel, in different orders and at different times, it maps the boundary conditions where tests break down.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Drift Detector:** "Works on my machine" happens when environments diverge silently. This CLI `env-diff` compares your local environment against staging/production to surface discrepancies. It checks: Node versions, dependency versions (including transitive), environment variables present/missing, database schema differences, and even feature flag configurations. The output shows: "Local: Node 20.11.0, Staging: 20.9.0 (MINOR VERSION MISMATCH)" or "LOCAL lacks AWS_REGION env var (using default us-east-1), PROD explicitly sets us-west-2" or "Local database schema: v47, Production: v45 (YOU'RE 2 MIGRATIONS BEHIND)." It transforms environment discrepancies from invisible deployment risks into visible, actionable diffs. Before you push, run `env-diff production` to see "you're about to deploy code that assumes environment variable FOO exists, but production doesn't have it." It's not environment variable management; it's environment *convergence*—ensuring your development reality matches production reality before deployment breaks it.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Log" Trace Correlator:** Distributed systems generate logs across multiple services, but finding the causal chain is manual pain. This tool `log-correlate` ingests logs from all services and correlates them by request ID, timestamp, and causal relationships. When you search for "error in payment processing," it doesn't just show the payment service error; it shows the *entire trace*: "User clicked checkout (web frontend) → Created payment intent (api-gateway) → Validated inventory (inventory-service) → Charged payment (payment-service) → Error: insufficient funds." It visualizes the request's journey through your system, highlighting where it slowed down, failed, or produced unexpected output. It transforms debugging distributed systems from "grep through 50 log files" into "see the complete story of this request." The output shows timing breakdowns: "Payment processing took 3.2s total; inventory check was 2.8s (87% of time)." It's not log aggregation; it's causal reconstruction—building the narrative of what actually happened, not just logging what each service saw.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Worktree Manager:** Git worktrees let you work on multiple branches simultaneously without stashing, but creating and managing them is manual friction. This CLI `worktree-manager` streamlines parallel development: `worktree create feature/auth` spins up a new worktree with a single command, automatically detects and cleans up stale worktrees, and shows a dashboard of all active branches. Unlike raw git worktree commands that require path management and manual cleanup, this handles the lifecycle: create → work → prune when done. It transforms "I need to test this branch but I'm mid-edit on another" from context-switching pain into seamless parallel workflows. It's not about fancy features; it's about removing the friction that stops developers from leveraging worktrees—an underused git feature that's perfect for "I need to quickly check this branch without losing my place."
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"NPM" Script Navigator:** `package.json` scripts accumulate organically until you have 47 npm commands and nobody remembers what they do. This CLI `npm-nav` lists all scripts with *their actual commands* visible: `test: jest --coverage` instead of just `test`. It supports fuzzy search, shows script *dependencies* (which scripts call which via `&&` or `npm-run-all`), and can visualize the script execution graph. Unlike `npm run` which only shows names, this shows the *reality* of what each script does. Run `npm-ui` and get an interactive TUI for exploring and running scripts. It transforms "what was the command for linting again?" from a package.json treasure hunt into instant visibility. It's not script management; it's script *archaeology*—making the hidden command landscape visible and explorable.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Port" Occupant Inspector:** `lsof -i :3000` shows what's holding a port, but not *what that process actually is*. This tool `port-inspect` goes deeper: it shows not just the PID, but the command line arguments, working directory, git repo (if applicable), and even the parent process that spawned it. It reveals: "Port 3000 held by `node /var/home/tj/project/server.js` (repo: tj/frontend, branch: feature/auth, parent: tmux)" instead of just "PID 12345: node." Unlike port killers that blindly terminate processes, this gives you *context* to decide whether you should kill it or not. It transforms "who's hogging port 3000?" from mystery into informed decision-making: know what you're killing before you kill it. The output is actionable intelligence, not raw process data.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Reflog Shortcut Recovery:** `git reflog` is powerful but shows raw commit hashes that mean nothing to humans. This tool `reflog-recover` translates reflog into *actions*: "HEAD@{3 hours ago}: commit 'Add auth middleware' (abc1234)" instead of just "HEAD@{3}: abc1234." It lets you fuzzy search reflog by commit message: `reflog find "payment"` shows all reflog entries mentioning "payment." It can also automatically restore to a reflog state: `reflog restore 3` jumps back 3 reflog entries with full context. Unlike raw reflog that requires memorizing hash positions, this makes time-travel intuitive. It transforms "I accidentally deleted commits, how do I get them back?" from panic into systematic recovery. It's safety rails for git's emergency room—the reflog is a lifesaver, but only if you can actually use it.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Version Conflict Visualizer:** Monorepos and multi-package projects suffer from dependency version mismatches—package A uses lodash@4.17.21, package B uses lodash@4.17.20, and subtle bugs emerge from the divergence. This tool `dep-conflict` scans all package.json files and visualizes version mismatches: "lodash ranges from 4.17.20 to 4.17.21 across 7 packages (MINOR VERSION DRIFT)." It shows "version anchors"—which packages pin which versions—and suggests consolidation strategies. Unlike `npm ls` which shows the tree, this shows the *conflicts*: where versions diverge, how widely they're used, and which packages to update to align them. It transforms "why does this work in dev but not prod?" (different versions installed in different environments) into visible, fixable inconsistencies. It's not dependency auditing; it's dependency *harmonization*—finding the version fractures that cause "works on my machine" bugs.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Age Monitor:** Feature branches have a half-life—stale branches accumulate merge conflicts and technical debt. This CLI `branch-age` analyzes all branches and flags "zombie branches": branches older than 14 days with diverged commits from main. It shows: "feature/auth-tweaks is 23 days old, 47 commits behind main, 94% merge conflict probability." Unlike stale branch detectors that just list everything, this prioritizes by "merge cost vs. value": low-effort merges (recent, minimal divergence) vs. high-effort merges (ancient, massive conflicts). It transforms branch cleanup from manual archaeology into informed triage: merge now while it's cheap, or abandon and re-implement. The output suggests actions: "Merge this (3 conflicts expected) or kill it (re-create from main later)." It's not branch management; it's technical debt prevention—stale branches are merging debt.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Runtime Anomaly Detector:** Test suites usually have predictable runtime patterns—some tests take 10ms, others 500ms, but it's consistent. This tool `test-time` tracks test execution times and flags anomalies: "Test `userLogin` took 4.2s (normally 120ms)—18x slowdown detected." It reveals: "Test slowdown detected after commit #abc123 (added database index)." Unlike performance profilers that require manual investigation, this is automatic regression detection for *test performance*, not just test correctness. It catches: "This test now makes external API calls (added integration accidentally)" or "Database query regression (N+1 query introduced)." The output trends performance over time: "Test suite degraded from 12s to 47s over 6 months (291% slower)." It transforms test performance from invisible degradation into visible metrics—catching the slow rot where tests gradually become too slow to run frequently.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Complexity Bloom Tracker:** Complexity doesn't increase linearly—it "blooms" in specific files. This tool `complexity-bloom` tracks cyclomatic complexity over time to identify "complexity explosions": "auth/utils.js went from complexity score 12 to 47 in 3 months (291% increase)." It visualizes complexity growth as a heat map, showing which files are accumulating complexity faster than they're being refactored. The output flags "complexity hot spots": "This file grows by 3.2 complexity points per month on average—schedule refactoring." Unlike static analysis that shows current complexity, this shows *complexity velocity*—which files are becoming unmanageable and when they'll cross maintainability thresholds. It transforms technical debt from invisible accumulation into visible urgency: you can see the complexity bloom before it becomes an unmanageable thicket.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Config" Validation Doctor:** Configuration files (.env, YAML, JSON) break deployments when invalid, but validation is usually syntax-only. This tool `config-doctor` validates configuration against *runtime reality*: it tests whether database connection strings actually connect, whether API keys are valid (not expired), whether URLs are reachable. Run `config-doctor .env` and get: "✓ DATABASE_URL connects (ping: 12ms), ✗ API_KEY expired 2024-12-01, ⚠ REDIS_URL unreachable (timeout)." Unlike linters that catch syntax errors, this catches semantic invalidity—config that *looks* right but *doesn't work*. It prevents "deployed with broken config" disasters by catching them before push. The output also detects "unused config" (variables defined but never referenced) and "missing defaults" (variables required but no default provided). It's not config validation; it's config *verification*—testing whether your config describes a world that actually exists.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Size Visualizer:** Commits vary wildly in scope—some are tiny typo fixes, others are massive refactors. This tool `commit-size` analyzes commit history to show "commit size distribution": "Median commit: 23 lines changed, but you have 7 commits >500 lines (possible monster commits)." It visualizes commit sizes as a histogram, flagging anomalies: "Commit #abc123 touched 127 files in 47 modules (blast radius: EXTREME)." The output distinguishes between "large refactor" (intentional, documented) and "catch-all commit" (accidentally bundled unrelated changes). It transforms commit hygiene from abstract advice into visible patterns: "You have 23 'monster commits' >300 lines—consider splitting for clearer history." Unlike git blame that shows per-line authorship, this shows per-commit *scope*—helping teams recognize when they're bundling too much into single commits. It's not code review; it's archaeological insight into how you work.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"NPM" Dependency Duplicate Finder:** Monorepos accumulate duplicate dependencies across packages—package A uses lodash@4.17.20, package B uses lodash@4.17.21, and subtle bugs emerge from the version mismatch. This tool `dep-dupe` scans all package.json files to identify duplicates: "lodash appears as 4.17.20 in 3 packages and 4.17.21 in 5 packages (VERSION DRIFT)." Unlike `npm dedupe` which only fixes direct dependencies, this shows the *scope* of duplication across the entire monorepo. It prioritizes by "risk impact": duplicates of libraries with behavioral differences between versions get flagged as HIGH RISK. The output suggests consolidation strategies: "Align all packages to 4.17.21 (safe upgrade path)" or "Accept drift—document why versions differ." It transforms "why does this work in dev but not prod?" into visible version inconsistencies that can be systematically resolved. It's not dependency management; it's dependency *harmonization*.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Worktree Auditor:** Git worktrees let you work on multiple branches simultaneously, but stale worktrees accumulate like digital clutter—forgotten branches checked out months ago, still consuming disk space. This CLI `worktree-audit` scans for worktrees and flags "abandoned worktrees": worktrees pointing to branches that were deleted or merged weeks ago. It shows: "Worktree at ~/project-feature-auth points to branch feature/auth (deleted 47 days ago)." It offers one-click cleanup: `worktree-audit --prune` removes stale worktrees automatically. Unlike raw `git worktree` commands that require manual path management, this handles lifecycle hygiene—preventing worktrees from becoming zombie directories. It transforms parallel development from "I'll just leave this worktree around" to confident cleanup knowing you won't lose work. It's not a new feature; it's hygiene automation for an existing git feature that's underused because cleanup is manual friction.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Variable Leaks Detector:** Environment variables are intended to be configuration, but they often leak into application logic—hardcoded assumptions that break when environments differ. This tool `env-leak` scans code to find "environment variable coupling": places where env vars are used in logic flow rather than configuration. It flags: "process.env.FEATURE_FLAG used in 15 places (logic coupling—should use feature flag system)" or "process.env.NODE_ID hardcoded as 'prod' in 3 files (deployment assumption leaked)." The output distinguishes between "legitimate config" (database URLs, API keys) and "logic leaks" (behavior-changing flags scattered through code). It transforms environment variable usage from invisible coupling into visible architectural debt. This addresses a universal problem: what starts as a simple environment flag becomes a behavioral dependency that makes code unportable across environments. The tool doesn't just find env vars; it finds *abuse* of env vars.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Remote Sync Status Checker:** Distributed teams work with multiple remotes (origin, upstream, fork), but knowing which remote has which commits is manual confusion. This CLI `remote-sync` shows a matrix of commit status across all remotes: "Your branch is ahead of origin by 3 commits, behind upstream by 7 commits, and your fork is 47 commits behind both." It visualizes the "sync topology" so you know whether to push, pull, or rebase before starting work. Unlike `git remote -v` which just lists remotes, this shows the *divergence state*—preventing "I worked on the wrong branch for two days" disasters. It transforms multi-remote workflow from "guess and check" into informed decision-making: you know *before* you start work whether you're in sync with the source of truth. It's not about adding features; it's about visibility into distributed git workflows that otherwise require manual status checking across multiple remotes.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Timeout Analyzer:** Test timeouts are usually arbitrary numbers copied from Stack Overflow or legacy settings that nobody remembers setting. This tool `test-timeout` analyzes your test suite to surface "timeout anomalies": tests with suspiciously short timeouts (flakiness risk) or extremely long timeouts (hanging tests disguised as passing). It reveals: "47 tests have timeout=5000ms (copied from package.json default—never adjusted)" or "Test `slowOperation` has timeout=60000ms but actual runtime is 850ms (58x buffer—test is slow, not complex)." The output suggests timeout adjustments based on actual runtime percentiles: "Set timeout to 95th percentile + 20% buffer (1200ms for this test)." Unlike test runners that just fail on timeout, this analyzes whether timeouts are *appropriate* for what they're testing. It transforms timeout configuration from arbitrary constants into data-driven settings based on actual execution behavior. This addresses a universal pain point: tests timeout unpredictably in CI, but diagnosing *why* (genuinely slow operation vs. unrealistically tight timeout) is tedious manual work.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Import" Dependency Graph Visualizer:** `import` statements create invisible dependency webs that teams don't visualize until refactoring breaks everything. This CLI `dep-graph` generates interactive dependency graphs showing relationships between modules: "utils/auth.js is imported by 47 files (HIGH COUPLING)" or "services/payment.js imports 23 modules (FAN-OUT RISK)." Unlike static analysis that lists files, this shows *dependency topography*—where modules are tightly coupled, where circular dependencies lurk, and where changes will ripple. It highlights "dependency debt": modules with excessive fan-in (too many dependents) or fan-out (too many imports). Run `dep-graph path/to/file.js` before refactoring to see impact radius: "Refactoring auth.js touches 23 files—plan accordingly." It transforms "I'll just extract this function" from blind surgery into informed architectural awareness. It's not just visualization; it's impact *forecasting*—knowing what you'll break before you break it.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" TODO Graveyard:** TODO comments accumulate like technical debt, but most are never addressed—they just rot. This CLI `todo-audit` treats TODOs as debt instruments that age and accumulate interest. It scans codebase for TODO/FIXME/HACK comments and tracks their age: "TODO in auth.js (2023-06-15): 'Refactor this mess' — 647 days old (CRITICAL DEBT)." It categorizes by severity: "BUG FIXMEs (shipping issues)" vs. "NICE-TO-HAVE TODOs (technical wishes)." Unlike grep that just lists comments, this prioritizes by "debt urgency": age + severity + proximity to hot code paths. The output shows "stale TODOs" that should be deleted (ideas that never happened) vs. "urgent TODOs" that need immediate attention. It transforms TODO comments from invisible clutter into visible debt with interest—knowing which TODOs are genuine work items vs. abandoned wishes. When you delete code, it asks: "Remove TODO or convert to issue?" It's not TODO tracking; it's TODO *hygiene*—preventing TODO rot from accumulating unnoticed.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Blame Anonymizer:** `git blame` shows who changed each line, but sometimes you need *what* changed without *who* changed it—especially when evaluating legacy code without bias. This CLI `blame-anon` strips authorship information from blame output, showing only commit dates and messages: "Line 47: 2024-03-15 'Fix authentication bug'" instead of "alice@company.com (2024-03-15)." It enables "accountability-free archaeology"—evaluating code quality without knowing who wrote it. Run `blame-anon utils/auth.js` before refactoring to see change history without social bias against specific developers. Unlike standard blame that mixes technical signal with social noise, this isolates the technical signal: when and why code changed, not who changed it. It transforms code review from "who wrote this mess?" into "what history does this code have?"—supporting meritocratic code evaluation. The tool also offers "blame-summary": aggregated statistics without individual attribution. It's not about hiding accountability; it's about separating technical history from social dynamics.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Console" Log Tax Calculator:** Console.log statements are technical debt—each one accumulates "tax" in production performance, log noise, and maintenance burden. This CLI `log-tax` scans codebase to calculate the total cost of logging: "472 console.log statements across 127 files—estimated 3.2ms production slowdown + 12MB log bloat per day." It categorizes by severity: "DEBUG logs in production (HIGH TAX)" vs. "ERROR logs in error handlers (APPROPRIATE)." It flags "log debt": logs in hot paths (request handlers, rendering loops) that performance-tax every execution. The output shows "log cleanup ROI": which logging statements to remove for maximum performance gain. Unlike linters that ban all console.log, this distinguishes between "appropriate logging" (error tracking, critical debugging) and "log debt" (forgotten debug statements, spammy tracing). It transforms console.log cleanup from manual archaeology into prioritized debt reduction—knowing which logs cost the most and which actually provide value. When you ship code, it asks: "Did you audit your log tax?" It's not anti-logging; it's *efficient* logging.
+</ideas>
+<probability>0.29</probability>
+</response>
+<response>
+<ideas>
+**"Import" Dead Code Detector:** Unused imports accumulate like technical debt—they clutter files, confuse readers, and create false dependencies. This CLI `import-dead` scans codebases to identify imports that are declared but never referenced: "lodash/map imported in 23 files but only used in 3 (87% dead import rate)." Unlike linters that flag unused imports per-file, this analyzes *import usage patterns across the entire codebase*: "moment.js imported in 47 files, but 39 of them only use moment.format()—consider extracting to a utility." It flags "import zombies": imports from deleted features that were never cleaned up. The output shows "import cleanup ROI": which imports to remove for maximum clarity gain. It transforms import cleanup from manual archaeology into systematic debt reduction—knowing which imports are actively used vs. legacy residue. When you refactor, it warns: "You're removing the last usage of `axios`—3 other files can delete their import too." It's not import organization; it's import *hygiene*—preventing dead imports from accumulating unnoticed.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Comment Decay Detector:** Comments rot—implementation changes but comments don't update until the comment lies. This CLI `comment-decay` detects comment-code divergence by comparing natural language comments against AST analysis: "Comment says 'iterates over users' but code actually iterates over active_users (DECAYED)." Unlike linters that flag missing comments, this flags *misleading* comments—where the comment no longer matches reality. It categorizes decay severity: "CRITICAL: Comment describes opposite behavior" vs. "MINOR: Comment mentions outdated variable name." The output shows "comment debt": files with highest concentration of decayed comments. It transforms comment maintenance from "delete all comments" (throwing away wisdom) to "fix the lies"—prioritizing which comments to update, which to delete, and which are still accurate. When you modify code, it warns: "You're changing behavior protected by 3 comments—are they still accurate?" It's not comment style enforcement; it's comment *integrity*—ensuring comments describe reality, not fantasy.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Variable Shadowing Detector:** Environment variables can be "shadowed"—set in .env file, overridden in shell, then overridden again in docker-compose.yml, creating invisible precedence chains that cause "works on my machine" bugs. This CLI `env-shadow` traces the complete precedence chain for each environment variable: "NODE_ENV: .env says 'development', shell says 'production', docker-compose says 'staging' → winner: docker-compose (staging)." Unlike `printenv` that shows final values, this shows *how* that value was determined and where it was overridden. It flags "shadowing hazards": variables set in multiple places with conflicting values. The output visualizes the "variable precedence tree" so you can trace which config file wins and why. It transforms environment variable debugging from "why is this different?" into "here's the exact chain of overrides." It's not env var management; it's env var *forensics*—tracing invisible precedence chains that cause config divergence across environments.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Message Completeness Checker:** Commit messages often lack critical context—what problem was solved, what alternatives were rejected, what breaks compatibility. This CLI `commit-check` analyzes commit message completeness against a "context framework": Does it mention the problem? The solution approach? Breaking changes? Related issues? It scores commits: "Commit #abc123: COMPLETENESS 47%—missing: problem statement, breaking changes." Unlike commit message linters that enforce format (conventional commits), this enforces *context richness*—does the commit preserve enough information for future developers? The output shows "context gaps": what's missing from the commit narrative. It transforms commit hygiene from "follow the template" into "tell the complete story"—ensuring commits aren't just grammatically correct, but *informationally complete*. When you commit, it prompts: "You mentioned the fix, but not what broke—add problem statement?" It's not style enforcement; it's *context* enforcement—preserving the full story behind each change.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Peer Dependency Conflict Resolver:** When packages have conflicting peer dependency requirements, installation fails with cryptic errors: "package A requires react@^18.0.0, package B requires react@^17.0.0." This CLI `peer-conflict` analyzes peer dependency conflicts and suggests resolution strategies: "Conflict: 3 packages require React 17, 7 packages require React 18 → Resolution: Upgrade to React 18 (safe migration path, 3 packages support both versions)." Unlike `npm ls` that just lists conflicts, this provides *actionable migration strategies*—which version to choose, which packages need updates, and whether the transition is safe. It flags "impossible conflicts": peer dependencies that genuinely can't be reconciled (requires package maintainer intervention). The output shows "conflict resolution roadmap": step-by-step upgrade path to harmonize dependencies. It transforms peer dependency errors from mystifying blockers into systematic migration plans. It's not dependency auditing; it's conflict *resolution*—turning "installation failed" into "here's exactly how to fix it."
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Duplicate Import Consolidator:** Files across the codebase import the same dependencies but declare them separately, creating maintenance friction when updating. This CLI `import-consolidate` analyzes import patterns and suggests consolidation opportunities: "lodash/debounce is imported in 47 files—create shared `utils/debounce.js` wrapper." Unlike dead code detectors that flag unused imports, this identifies *duplicate import patterns* that could benefit from centralization. It distinguishes between "legitimate duplication" (different contexts need direct imports) and "consolidation candidates" (same import, same usage pattern). The output shows "consolidation ROI": which imports to centralize for maximum maintainability gain. It transforms import management from manual archaeology into systematic debt reduction. When you update a dependency, it shows: "You're updating lodash—23 files can benefit from centralized wrapper." It's not import organization; it's import *consolidation*—reducing duplication at the import level.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Stale Reference Cleaner:** Git accumulates "stale references"—branches deleted on remote but still locally, tags pointing to nowhere, refs that were never cleaned up. This CLI `ref-clean` scans for and reports stale references: "Remote branch `feature/auth` was deleted 47 days ago but still exists locally—safe to prune." Unlike `git remote prune` which only handles remote branches, this identifies all types of reference rot: local branches tracking deleted remotes, tags pointing to non-existent commits, refs in weird states. It offers batch cleanup: `ref-clean --prune` removes all stale references after confirmation. It transforms reference hygiene from manual archaeology into automated maintenance—preventing stale refs from cluttering your repository and confusing developers. It's not a new git feature; it's cleanup automation for the accumulated cruft that git doesn't automatically remove.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Coverage Gap Analyzer:** Coverage reports show percentage covered, but not *which* functionality is missing tests. This CLI `coverage-gap` analyzes coverage alongside code complexity to identify "testing debt": high-complexity functions with zero or low coverage. It reveals: "Function `processPayment` has complexity score 47 but 0% coverage (HIGH PRIORITY GAP)" or "Authentication module has 94% coverage overall, but `resetPassword` is completely untested." Unlike coverage tools that show raw percentages, this prioritizes by *risk*: complex, critical code that lacks test coverage. The output flags "coverage shadows": untested code that runs in production but isn't validated. It transforms coverage from vanity metric into risk assessment—showing which untested code is most likely to cause production incidents. It's not about hitting 100% coverage; it's about testing the riskiest code first.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Config" Variable Source Tracer:** Configuration values come from multiple sources—.env files, CLI arguments, hardcoded defaults, config loaders—creating confusion about which source wins. This CLI `config-trace` traces the complete provenance of each config value: "DATABASE_URL: default='postgres://localhost' → .env overrides to 'postgres://prod-db' → CLI flag overrides to 'postgres://test-db' → final value: 'postgres://test-db'." Unlike `printenv` that shows final values, this shows the *resolution path*—how each config value was determined and where it was overridden. It visualizes the "config resolution tree" so you can trace which config source won and why. Run `config-trace DATABASE_URL` and see the complete override chain. It transforms config debugging from "why is this different?" into "here's exactly how this value was computed." It's not config validation; it's config *provenance*—tracing invisible override chains that cause config divergence across environments.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Decision Archaeology:** Feature branches capture code changes but not the *decision alternatives* considered along the way. This tool adds `git decision` that captures decision points during branch development: "What problem did you encounter?", "What alternatives did you consider?", "What did you choose and why?". These decision fossils are indexed by branch name and commit range. When code review asks "why didn't you use Redis?", the archaeology reveals: "Considered Redis (added 200ms latency) vs. in-memory cache (chose for sub-millisecond response time); validated with load test showing 47x performance difference." Unlike commit messages that describe final implementation, this preserves the *exploration process*—options considered, trade-offs evaluated, dead ends abandoned. Six months later, when someone questions the approach, you can reconstruct the entire decision tree. It transforms branch history from "what changed" to "how they thought along the way"—preventing re-litigation of settled decisions and preserving the context behind implementation choices.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Error" Cascading Failure Forecaster:** Errors rarely occur in isolation—they cascade through systems, triggering secondary failures that compound the damage. This tool models "cascading failure paths" by analyzing error co-occurrence patterns in production logs. It reveals: "When `DatabaseConnectionTimeout` occurs, 73% of the time it triggers `CacheMissStorm` within 30 seconds, which then causes `APILatencySpike` and `UserFacingError`." Unlike error dashboards that show current errors, this shows *predictive relationships*—which errors tend to cause which other errors, in what order, and with what probability. It generates "cascade forecasts": "If you see error X, there's an 82% chance error Y will follow within 2 minutes." The output highlights "cascade break points": where to intervene to prevent secondary failures. It transforms error response from reactive to predictive—not just fixing the current error, but preventing the cascade that follows. It's not error monitoring; it's *cascade* monitoring—detecting the domino effects before they topple.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Semantic Drift Detector:** Dependencies maintain API compatibility while silently changing *semantics*—behavior that isn't captured in type signatures or documentation. This tool detects "semantic drift" by running real operations against dependency versions and fingerprinting their behavior: "Library v2.3.0 treats null input as error (throws); v2.4.0 treats null input as default value (returns empty)." It surfaces behavioral changes that break your code despite API compatibility: "Your code assumes v2.3.0 semantics; upgrading to v2.4.0 will cause silent bugs." Unlike dependency updaters that check for breaking API changes, this checks for breaking *behavioral* changes—catching the subtle mismatches where library updates preserve interfaces but violate assumptions about how they work. The output flags "semantic violations": when library updates change silent assumptions that your code depends on. It transforms dependency updates from "API compatibility check" to "behavioral compatibility check"—preventing breakage from invisible behavioral incompatibilities.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Refactor" Intent Preservation System:** Refactoring changes code structure but not behavior—yet the *intent* behind refactors is rarely preserved. Was this refactor for performance? Readability? Testability? This tool attaches invisible "intent metadata" to refactor commits: "Extract function: readability (nested logic was hard to follow)" or "Replace loop with map: performance (hot path in rendering)." When performance degrades later, you can query: "Show me all performance-focused refactors in the rendering module" and discover: "Refactored to avoid object allocation (2024-06-15) but recent changes re-introduced allocation." It transforms git history from "what changed" to "why we restructured it"—enabling forensic analysis of whether refactor goals are still being met. It's not just documenting changes; it's preserving the *purpose* of structural evolution, allowing future developers to understand whether past optimization decisions still hold or need revisiting. The system prevents re-litigation of settled design decisions by making the original intent discoverable.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Data Fidelity Analyzer:** Test suites rot when test data diverges from production reality. This tool runs your tests against a *snapshot* of production data (anonymized) to detect "data drift": tests that pass on synthetic data but fail on real-world edge cases. It reveals: "Test `processPayment()` passes with fake credit card numbers but fails on 3% of real payment methods (gift cards, prepaid cards)" or "User profile tests assume `email` field exists, but 12% of production users have null emails." It's not just testing code logic; it's testing whether your test universe matches reality. The output shows "data coverage gaps": where your synthetic test data is too simple, too uniform, or just wrong. It transforms "tests pass locally, fail in prod" from mysteries into specific discrepancies between test fantasy and production reality. It's not test coverage; it's test *fidelity*—measuring how well your test data represents the real world, preventing the silent divergence where test suites validate against fantasy while code runs in production reality.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Message Quality Analyzer:** Commit messages range from illuminating to useless ("fix stuff"), but analyzing quality across thousands of commits is manual. This CLI `commit-quality` scans your git history to score commit message quality across multiple dimensions: completeness (problem + solution + impact), clarity (imperative mood, specific scope), and context (issue refs, breaking changes noted). It reveals: "73% of commits lack problem statement—only describe what changed, not why" or "Commits from @alice average quality score 8.2/10; @bob averages 4.1/10 (vague messages)." It identifies "commit debt" accumulation: when recent commits have degraded quality compared to historical baseline. Unlike commit linters that enforce format, this analyzes *semantic quality*—whether commits preserve the why behind changes. The output helps teams improve commit hygiene: not by enforcing rules, but by showing patterns. "Your 'fix' commits rarely explain what was broken—consider adding problem statements." It transforms commit message quality from abstract opinion to measurable metric—helping teams improve git history over time.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Comment Quality Inspector:** Comments rot—they describe implementation details that change until the comment lies, or they're missing entirely where complexity needs explanation. This CLI `comment-audit` analyzes codebase comments to identify "comment debt": misleading comments, redundant comments (restating the obvious), and missing comments at complexity hotspots. It reveals: "File auth.js has 47 comments, but 12 are misleading (describe old behavior)" or "Function `processPayment` has complexity score 45 but zero comments (high-risk undocumented code)." Unlike linters that ban all comments, this distinguishes between "valuable intent comments" (why we chose this approach) and "implementation noise" (this loop iterates). It flags "comment decay": where comments diverge from current code behavior. The output suggests: "Update these 3 comments; delete these 8 redundant ones; add documentation to these 5 complex functions." It transforms comment maintenance from "delete all comments" (throwing away wisdom) to "curate the why, remove the what." This addresses a universal problem: codebases accumulate comment debt, but nobody has time to audit thousands of comments manually.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Variable Usage Analyzer:** Environment variables accumulate like digital clutter—added for features, experiments, or debugging, then forgotten. This CLI `env-audit` scans codebase to find "env var debt": variables defined but never referenced, referenced but never documented, or used in only one place (could be hardcoded). It reveals: "process.env.FEATURE_X_ENABLED defined in 5 files but never set (dead config)" or "API_KEY referenced in 23 places but no documentation (what format? where to get?)." It categorizes by "risk impact": missing critical vars (database URLs) vs. optional feature flags. The output shows "env var surface area": how many configuration knobs your codebase actually has. Unlike config validators that test values, this tests *usage patterns*—finding vars that are dead, undocumented, or over-scoped. It transforms environment variable management from "what do I need to set?" into "here's your complete configuration surface area—dead vars, undocumented vars, and critical paths." This addresses a universal pain: projects accumulate env vars over time, but nobody remembers what half of them do.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Lifecycle Stage Tracker:** Dependencies aren't static—they progress through lifecycle stages: active development, stable maintenance, deprecated, abandoned. This CLI `dep-lifecycle` analyzes your dependencies' github repositories, npm publication patterns, and release notes to classify lifecycle stage. It reveals: "lodash is STABLE (active maintenance, regular releases)" vs. "package-xyz is ABANDONED (last commit 2019, 12 open issues, no maintainer response)." Unlike dependency updaters that check for new versions, this checks for *project health*—is this library actively maintained, or is it zombie code? It flags "at-risk dependencies": abandoned packages you rely on. The output prioritizes by "migration urgency": "package-auth is ABANDONED and used in auth flow (HIGH RISK—find alternative)" vs. "package-colors is ABANDONED but only used in dev (LOW RISK)." It transforms dependency management from "are there updates?" to "is this dependency still alive?"—preventing the silent accumulation of zombie dependencies that become security risks when abandoned.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Assertion Completeness Checker:** Tests can have good coverage but terrible assertions—asserting nothing (tests that can't fail), asserting only happy paths, or asserting implementation details instead of behavior. This CLI `assert-check` analyzes your test suite to find "assertion debt": tests with missing or weak assertions. It reveals: "Test `userLogin` has no assertion—test passes if it doesn't crash (useless)" or "87% of tests only assert success case—error paths untested." It flags "implementation assertions": tests that assert internal state (how code works) instead of behavior (what code should do). The output shows "assertion quality score": percentage of tests with comprehensive assertions (success, failure, edge cases). Unlike coverage tools that measure quantity, this measures *assertion quality*—do your tests actually verify behavior, or just run code without checking results? It transforms test confidence from "95% coverage" to "47% of tests actually verify correctness—others are just code execution." This addresses a universal blind spot: teams obsess over coverage metrics while their tests assert nothing meaningful.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Conflict Resolution Learner:** Merge conflicts are painful, but teams develop patterns for resolving them—yet these patterns are never captured. This CLI `conflict-learn` analyzes how conflicts were resolved in the past to build a "resolution playbook." When you encounter a conflict, it shows: "This conflict pattern appeared 7 times before. Resolution strategy: 'accept theirs' (6 cases) or 'manual merge' (1 case)." It learns from resolution outcomes: "Last 3 times this conflict was resolved by 'accept ours,' post-merge bugs appeared—recommend manual review." Unlike git conflict markers that show the conflict, this shows *how similar conflicts were successfully resolved*. It flags "high-risk conflicts": patterns where past resolutions led to bugs. The output builds institutional knowledge: "Team resolves package.json conflicts by accepting theirs 89% of time—codify as merge driver?" It transforms conflict resolution from "guess and hope" into "apply proven resolution pattern." It's not conflict detection; it's conflict *resolution knowledge*—preserving what worked before so teams don't re-solve the same conflicts blindly.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Isolation Violation Scanner:** Tests should be isolated, but state leakage between tests is invisible until tests fail mysteriously in CI. This CLI `test-leak` runs tests in randomized order with instrumentation to detect "state pollution": database rows left behind, global variables modified, singleton instances mutated. It reveals: "Test `userSignup` creates user but doesn't clean up—causes `authTest` to fail when run after (username collision)" or "Test modifies process.env.NODE_ENV—breaks 4 subsequent tests that assume 'test' environment." Unlike test sanitizers that just add cleanup hooks, this maps the "contamination graph": which tests pollute what state, and which tests are vulnerable to what pollution. It outputs "isolation violations": test pairs that can't run together and must be serialized. The output suggests fixes: "Add cleanup afterEach for database" or "Use fresh fixture for each test." It transforms flaky test debugging from "why is this failing randomly?" into "here are the exact state leaks causing cross-test contamination." It's not test fixing; it's *isolation* enforcement—ensuring tests don't depend on execution order or shared state.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"API" Contract Drift Detector:** API contracts (OpenAPI specs, GraphQL schemas, TypeScript interfaces) promise behavior—but implementations silently drift away from specs over time. This CLI `api-drift` compares contract definitions against actual implementation behavior to find "contract violations." It reveals: "OpenAPI spec says `/users` returns 400 on invalid input, but implementation actually returns 422 (contract drift)" or "TypeScript interface promises `email: string` but implementation returns null 12% of time (type lie)." Unlike contract validators that check syntax, this validates *semantic adherence*—does the implementation actually do what the contract promises? It flags "contract rot": specs that document ideal behavior rather than actual behavior. The output shows "drift velocity": how quickly implementations diverge from contracts over time. It transforms API documentation from "aspirational spec" to "behavioral truth"—catching the silent divergence where contracts lie about what code actually does. It's not contract validation; it's contract *integrity*—ensuring promises match reality.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Merge Cost Estimator:** Merge conflicts are inevitable, but their *cost* varies wildly—some conflicts resolve in seconds, others require hours of careful reconciliation. This CLI `merge-cost` analyzes branches against main to estimate "merge effort" before you attempt: "feature/auth is 23 commits behind main, 47 conflicting lines across 4 files—estimated 20-40 minutes to resolve." It shows conflict complexity: "Simple conflicts (same lines, different values) vs. Semantic conflicts (same function renamed differently)." Unlike conflict predictors that just show probability, this estimates *time investment* required. It reveals: "Merging now will cost ~2 hours. Waiting for main to merge feature/x (in PR) reduces conflicts—merge then in ~15 minutes." The output helps teams schedule merges strategically: do expensive merges when you have focused time, defer them when dependencies will converge. It transforms merge planning from "hope for the best" into informed time budgeting. It's not conflict detection; it's *effort* estimation—knowing how much pain a merge will cause before you start.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Review Attention Allocator:** Code review time is finite, but not all code needs equal scrutiny—some changes are mechanical refactor, others are critical security fixes. This CLI `review-focus` analyzes pull requests to calculate "review risk scores" based on change impact: "PR #123 modifies authentication logic (HIGH RISK—security-sensitive, touches 12 critical paths) vs. PR #124 updates README formatting (LOW RISK—documentation only)." It suggests review effort allocation: "Spend 47 minutes reviewing auth changes, 2 minutes reviewing docs." Unlike code review tools that flag style issues, this prioritizes *review attention*—what actually needs deep review vs. what can be auto-merged. It reveals: "You spent equal time reviewing typo fix and SQL injection fix—attention misallocated." The output helps teams optimize review bandwidth: focus limited cognitive resources on high-risk changes. It transforms code review from "review everything equally" to "review proportionally to risk"—catching the attention waste where teams treat trivial changes and critical changes with equal scrutiny. It's not code review automation; it's review *attention* optimization—ensuring finite review bandwidth targets the most important changes.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Dead Feature Detector:** Features accumulate like sediment—added for valid reasons, then slowly abandoned as user needs evolve. This CLI `dead-feature` analyzes production usage data to identify "zombie features": code paths that exist but execute rarely or never. It reveals: "Function `legacyImport` hasn't been called in 6 months (0 invocations in 2M requests)—dead feature" or "Endpoint `/api/v1/xml` called 47 times in Q4 (0.002% of traffic)—maintenance burden disproportionate to usage." Unlike dead code detectors that find unused *definitions*, this finds unused *functionality*—features that ship, run, but serve no meaningful user need. The output prioritizes by "maintenance cost vs. usage": high-complexity, zero-usage features are deletion candidates. It transforms feature bloat from invisible accumulation into visible deletion opportunities—catching the silent waste where teams maintain features that nobody uses. It's not code cleanup; it's *product* hygiene—aligning codebase reality with actual user behavior.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Slowdown Regression Tracker:** Test suites gradually accumulate slowdown—each commit adds a few milliseconds, and over months tests become painfully slow. This CLI `test-debt` tracks test execution time over time to identify "performance debt accumulation." It reveals: "Test suite degraded from 47 seconds to 4 minutes in 6 months (411% slowdown)—primary culprits: database seeding (+127s), cleanup hooks (+45s)." Unlike one-off profiling, this shows *temporal degradation*—which commits added how much test debt. It surfaces: "Commit #abc123 added integration test (+23s runtime)—tests now too slow for rapid TDD iteration." The output flags "test debt hotspots": specific tests that consume disproportionate time. It transforms test performance from invisible erosion into visible debt—showing exactly where test slowness accumulated and when. When tests get too slow to run frequently, you can query: "Which tests made the suite 10x slower?" and get an actionable reduction plan. It's not test optimization; it's test *debt* tracking—measuring how test suite performance decays over time.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Merge Conflict Pattern Learner:** Teams resolve merge conflicts repeatedly but never capture the patterns—same files conflict, same resolution strategies, repeated manually. This CLI `conflict-pattern` analyzes conflict history to identify "conflict recurrence." It reveals: "package.json conflicts 94% of time when both branches add dependencies—resolution: accept theirs, then re-add your deps (automatable?)" or "auth.js conflicts when both branches modify authentication logic—resolution requires manual review (document in runbook)." Unlike conflict predictors that estimate probability, this captures *resolution strategies*—how similar conflicts were successfully resolved before. It flags "automatable conflicts": patterns where resolution could be scripted (merge drivers, conflict markers). The output builds a "conflict playbook": "These 7 file types have predictable resolution patterns—consider custom merge drivers." It transforms conflict resolution from "figure it out each time" into "apply proven strategy." It's not conflict detection; it's conflict *pattern* recognition—learning from repeated merge pain to prevent future friction.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Installation Cost Analyzer:** `npm install` shows download progress but not the *hidden installation costs*—post-install scripts, build time, disk space. This CLI `install-cost` measures the true cost of adding dependencies: "Package `webpack` installs in 2 seconds but adds 340ms to every build (build cost), 127MB disk space, 47 transitive dependencies." Unlike `npm ls` that shows the tree, this shows *operational costs*—how each dependency taxes development workflow. It reveals: "You're considering adding `prettier`—build time impact: +12ms per run, disk: +23MB, install time: +3 seconds. Alternative: use built-in formatter (0 cost)." The output calculates "dependency ROI": value provided vs. operational cost. It transforms dependency addition from "this seems useful" to informed cost-benefit analysis—seeing the hidden taxes before they accumulate. It prevents the silent accumulation where "just adding this one tiny package" gradually bloats install times and builds. It's not dependency auditing; it's *cost* analysis—measuring what dependencies actually cost in development workflow friction.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Log" Output Explosion Detector:** Logging is helpful until it becomes noise—debug statements that spam logs, making real issues impossible to find. This CLI `log-spam` analyzes production logs to identify "log pollution": log statements that fire too frequently or carry no useful signal. It reveals: "DEBUG 'Processing request' logged 847,234 times in 24 hours (99% of log volume)—0 signal, 100% noise" or "logger.info('User logged') fires 47 times per second—consider sampling or metrics instead." Unlike log analyzers that search for errors, this finds *excessive logging*—statements that drown useful signal in noise. It categorizes by "noise severity": spam (fires >100/sec), redundant (duplicates existing logs), useless (logs static data). The output suggests "log cleanup": delete, downlevel to DEBUG, or replace with metrics. It transforms logging from "more is better" to "signal-to-noise ratio matters"—preventing log volume from making debugging impossible. It's not log management; it's log *hygiene*—keeping logs useful by eliminating the noise.
+</ideas>
+<probability>0.27</probability>
+</response>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Blast Radius Estimator:* Commits vary wildly in impact scope—some changes touch one file, others ripple through the entire codebase. This CLI `blast-radius` analyzes each commit's "impact surface area": how many modules, services, and systems are potentially affected. It reveals: "Commit #abc123 modified 3 files but affects 47 modules through transitive dependencies (HIGH BLAST RADIUS)" vs. "Commit #def456 refactored 100 lines but impact is isolated (LOW BLAST RADIUS)." Unlike git diff that shows changed lines, this shows *impact reach*—where the change will ripple. Before you push, it flags: "This commit touches authentication logic—12 services depend on this; expect ripple effects." The output helps triage code review: "High blast radius commits need thorough review; low blast radius can be quick-reviewed." It transforms code review from "all commits equal" to "review proportional to impact"—catching where "small" commits have massive, unexpected consequences. This addresses real pain: one-line config changes that break everything vs. massive refactor that's safely isolated.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Assertion Philosophy Analyzer:* Test suites encode philosophical assumptions about what "correctness" means—some tests verify exact values (assert.equal), others verify behavior (assert.calledOnce), others verify invariants (assert.greaterThan). This CLI `test-philosophy` analyzes your test suite's "assertion philosophy" to reveal testing mindset: "87% of tests use exact equality—testing implementation, not behavior" or "Zero tests verify error handling—happy path only." Unlike coverage tools that measure quantity, this measures *assertion quality*—what dimensions of correctness your tests actually validate. It surfaces "philosophical gaps": areas your tests never consider (error paths, edge cases, concurrency, performance regression). The output flags "assertion debt": where your test philosophy is misaligned with production reality. It transforms test analysis from "are we testing enough?" to "are we testing the RIGHT properties?"—shifting from test coverage to test *philosophy* alignment with what actually matters in production. This addresses universal blind spot: teams obsess over coverage percentages while testing the wrong things.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Complexity Velocity Tracker:* Complexity doesn't increase linearly—it accelerates in specific files. This CLI `complexity-vel` tracks cyclomatic complexity over time to identify "complexity hotspots": "auth/utils.js went from complexity 12 to 47 in 3 months (291% increase, accelerating)." Unlike static analysis that shows current complexity, this shows *complexity velocity*—which files are accumulating technical debt faster than they're being refactored. It flags "complexity explosions": files that crossed maintainability thresholds recently. The output trends complexity growth: "At current velocity, payment/processor.js will be unmaintainable in 2.3 months." It transforms technical debt from invisible accumulation into visible urgency—showing which files need refactoring NOW before they become unmanageable. This addresses real pain: complexity creeps up gradually until suddenly code is impossible to work with.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Transitive Cost Calculator:* `npm install` shows download progress but not *hidden costs*—build time impact, disk usage, test slowdown. This CLI `dep-cost` measures the true operational cost of each dependency: "Package `webpack` installs fast but adds 340ms to every build (BUILD TAX), 127MB disk space, 47 transitive deps." Unlike `npm ls` that shows the tree, this shows *operational taxes*—how each dependency costs development workflow. It reveals: "You're considering adding `prettier`—build time impact: +12ms per run, disk: +23MB. Alternative: use built-in formatter (0 cost)." The output calculates "dependency ROI": value provided vs. operational cost. It transforms dependency addition from "this seems useful" to informed cost-benefit analysis—seeing the hidden taxes before they accumulate. This addresses real pain: "just add this one tiny package" gradually bloats install times and builds until workflows are painfully slow.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Import" Dead Import Scanner:* Unused imports accumulate like technical debt—they clutter files, confuse readers, and create false dependencies. This CLI `import-dead` scans codebases to identify imports that are declared but never referenced: "lodash/map imported in 23 files but only used in 3 (87% dead import rate)." Unlike linters that flag unused imports per-file, this analyzes *import usage patterns across the entire codebase*: "moment.js imported in 47 files, but 39 of them only use moment.format()—consider extracting to utility." It flags "import zombies": imports from deleted features that were never cleaned up. The output shows "import cleanup ROI": which imports to remove for maximum clarity gain. It transforms import cleanup from manual archaeology into systematic debt reduction—knowing which imports are actively used vs. legacy residue. When you refactor, it warns: "You're removing the last usage of `axios`—3 other files can delete their import too." This addresses real pain: files accumulate unused imports that nobody bothers to clean up.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Message Quality Analyzer:** Commit messages range from illuminating to useless ("fix stuff"), but analyzing quality across thousands of commits is manual. This CLI `commit-quality` scans your git history to score commit message quality across multiple dimensions: completeness (problem + solution + impact), clarity (imperative mood, specific scope), and context (issue refs, breaking changes noted). It reveals: "73% of commits lack problem statement—only describe what changed, not why" or "Commits from @alice average quality score 8.2/10; @bob averages 4.1/10 (vague messages)." It identifies "commit debt" accumulation: when recent commits have degraded quality compared to historical baseline. Unlike commit linters that enforce format, this analyzes *semantic quality*—whether commits preserve the why behind changes. The output helps teams improve commit hygiene: not by enforcing rules, but by showing patterns. "Your 'fix' commits rarely explain what was broken—consider adding problem statements." It transforms commit message quality from abstract opinion to measurable metric—helping teams improve git history over time.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Comment Quality Inspector:** Comments rot—they describe implementation details that change until the comment lies, or they're missing entirely where complexity needs explanation. This CLI `comment-audit` analyzes codebase comments to identify "comment debt": misleading comments, redundant comments (restating the obvious), and missing comments at complexity hotspots. It reveals: "File auth.js has 47 comments, but 12 are misleading (describe old behavior)" or "Function `processPayment` has complexity score 45 but zero comments (high-risk undocumented code)." Unlike linters that ban all comments, this distinguishes between "valuable intent comments" (why we chose this approach) and "implementation noise" (this loop iterates). It flags "comment decay": where comments diverge from current code behavior. The output suggests: "Update these 3 comments; delete these 8 redundant ones; add documentation to these 5 complex functions." It transforms comment maintenance from "delete all comments" (throwing away wisdom) to "curate the why, remove the what." This addresses a universal problem: codebases accumulate comment debt, but nobody has time to audit thousands of comments manually.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Variable Usage Analyzer:** Environment variables accumulate like digital clutter—added for features, experiments, or debugging, then forgotten. This CLI `env-audit` scans codebase to find "env var debt": variables defined but never referenced, referenced but never documented, or used in only one place (could be hardcoded). It reveals: "process.env.FEATURE_X_ENABLED defined in 5 files but never set (dead config)" or "API_KEY referenced in 23 places but no documentation (what format? where to get?)." It categorizes by "risk impact": missing critical vars (database URLs) vs. optional feature flags. The output shows "env var surface area": how many configuration knobs your codebase actually has. Unlike config validators that test values, this tests *usage patterns*—finding vars that are dead, undocumented, or over-scoped. It transforms environment variable management from "what do I need to set?" into "here's your complete configuration surface area—dead vars, undocumented vars, and critical paths." This addresses a universal pain: projects accumulate env vars over time, but nobody remembers what half of them do.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Lifecycle Stage Tracker:** Dependencies aren't static—they progress through lifecycle stages: active development, stable maintenance, deprecated, abandoned. This CLI `dep-lifecycle` analyzes your dependencies' github repositories, npm publication patterns, and release notes to classify lifecycle stage. It reveals: "lodash is STABLE (active maintenance, regular releases)" vs. "package-xyz is ABANDONED (last commit 2019, 12 open issues, no maintainer response)." Unlike dependency updaters that check for new versions, this checks for *project health*—is this library actively maintained, or is it zombie code? It flags "at-risk dependencies": abandoned packages you rely on. The output prioritizes by "migration urgency": "package-auth is ABANDONED and used in auth flow (HIGH RISK—find alternative)" vs. "package-colors is ABANDONED but only used in dev (LOW RISK)." It transforms dependency management from "are there updates?" to "is this dependency still alive?"—preventing the silent accumulation of zombie dependencies that become security risks when abandoned.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Assertion Completeness Checker:** Tests can have good coverage but terrible assertions—asserting nothing (tests that can't fail), asserting only happy paths, or asserting implementation details instead of behavior. This CLI `assert-check` analyzes your test suite to find "assertion debt": tests with missing or weak assertions. It reveals: "Test `userLogin` has no assertion—test passes if it doesn't crash (useless)" or "87% of tests only assert success case—error paths untested." It flags "implementation assertions": tests that assert internal state (how code works) instead of behavior (what code should do). The output shows "assertion quality score": percentage of tests with comprehensive assertions (success, failure, edge cases). Unlike coverage tools that measure quantity, this measures *assertion quality*—do your tests actually verify behavior, or just run code without checking results? It transforms test confidence from "95% coverage" to "47% of tests actually verify correctness—others are just code execution." This addresses a universal blind spot: teams obsess over coverage metrics while their tests assert nothing meaningful.
+</ideas>
+<probability>0.27</probability>
+</response>
+<response>
+<ideas>
+**"Log" Output Explosion Detector:** Logging is helpful until it becomes noise—debug statements that spam logs, making real issues impossible to find. This CLI `log-spam` analyzes production logs to identify "log pollution": log statements that fire too frequently or carry no useful signal. It reveals: "DEBUG 'Processing request' logged 847,234 times in 24 hours (99% of log volume)—0 signal, 100% noise" or "logger.info('User logged') fires 47 times per second—consider sampling or metrics instead." Unlike log analyzers that search for errors, this finds *excessive logging*—statements that drown useful signal in noise. It categorizes by "noise severity": spam (fires >100/sec), redundant (duplicates existing logs), useless (logs static data). The output suggests "log cleanup": delete, downlevel to DEBUG, or replace with metrics. It transforms logging from "more is better" to "signal-to-noise ratio matters"—preventing log volume from making debugging impossible. It's not log management; it's log *hygiene*—keeping logs useful by eliminating the noise.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Blast Radius Estimator:** Commits vary wildly in impact scope—some changes touch one file, others ripple through the entire codebase. This CLI `blast-radius` analyzes each commit's "impact surface area": how many modules, services, and systems are potentially affected. It reveals: "Commit #abc123 modified 3 files but affects 47 modules through transitive dependencies (HIGH BLAST RADIUS)" vs. "Commit #def456 refactored 100 lines but impact is isolated (LOW BLAST RADIUS)." Unlike git diff that shows changed lines, this shows *impact reach*—where the change will ripple. Before you push, it flags: "This commit touches authentication logic—12 services depend on this; expect ripple effects." The output helps triage code review: "High blast radius commits need thorough review; low blast radius can be quick-reviewed." It transforms code review from "all commits equal" to "review proportional to impact"—catching where "small" commits have massive, unexpected consequences. This addresses real pain: one-line config changes that break everything vs. massive refactor that's safely isolated.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Assertion Philosophy Analyzer:** Test suites encode philosophical assumptions about what "correctness" means—some tests verify exact values (assert.equal), others verify behavior (assert.calledOnce), others verify invariants (assert.greaterThan). This CLI `test-philosophy` analyzes your test suite's "assertion philosophy" to reveal testing mindset: "87% of tests use exact equality—testing implementation, not behavior" or "Zero tests verify error handling—happy path only." Unlike coverage tools that measure quantity, this measures *assertion quality*—what dimensions of correctness your tests actually validate. It surfaces "philosophical gaps": areas your tests never consider (error paths, edge cases, concurrency, performance regression). The output flags "assertion debt": where your test philosophy is misaligned with production reality. It transforms test analysis from "are we testing enough?" to "are we testing the RIGHT properties?"—shifting from test coverage to test *philosophy* alignment with what actually matters in production. This addresses universal blind spot: teams obsess over coverage percentages while testing the wrong things.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Complexity Velocity Tracker:** Complexity doesn't increase linearly—it accelerates in specific files. This CLI `complexity-vel` tracks cyclomatic complexity over time to identify "complexity hotspots": "auth/utils.js went from complexity 12 to 47 in 3 months (291% increase, accelerating)." Unlike static analysis that shows current complexity, this shows *complexity velocity*—which files are accumulating technical debt faster than they're being refactored. It flags "complexity explosions": files that crossed maintainability thresholds recently. The output trends complexity growth: "At current velocity, payment/processor.js will be unmaintainable in 2.3 months." It transforms technical debt from invisible accumulation into visible urgency—showing which files need refactoring NOW before they become unmanageable. This addresses real pain: complexity creeps up gradually until suddenly code is impossible to work with.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Transitive Cost Calculator:** `npm install` shows download progress but not *hidden costs*—build time impact, disk usage, test slowdown. This CLI `dep-cost` measures the true operational cost of each dependency: "Package `webpack` installs fast but adds 340ms to every build (BUILD TAX), 127MB disk space, 47 transitive deps." Unlike `npm ls` that shows the tree, this shows *operational taxes*—how each dependency costs development workflow. It reveals: "You're considering adding `prettier`—build time impact: +12ms per run, disk: +23MB. Alternative: use built-in formatter (0 cost)." The output calculates "dependency ROI": value provided vs. operational cost. It transforms dependency addition from "this seems useful" to informed cost-benefit analysis—seeing the hidden taxes before they accumulate. This addresses real pain: "just add this one tiny package" gradually bloats install times and builds until workflows are painfully slow.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Import" Dead Import Scanner:** Unused imports accumulate like technical debt—they clutter files, confuse readers, and create false dependencies. This CLI `import-dead` scans codebases to identify imports that are declared but never referenced: "lodash/map imported in 23 files but only used in 3 (87% dead import rate)." Unlike linters that flag unused imports per-file, this analyzes *import usage patterns across the entire codebase*: "moment.js imported in 47 files, but 39 of them only use moment.format()—consider extracting to utility." It flags "import zombies": imports from deleted features that were never cleaned up. The output shows "import cleanup ROI": which imports to remove for maximum clarity gain. It transforms import cleanup from manual archaeology into systematic debt reduction—knowing which imports are actively used vs. legacy residue. When you refactor, it warns: "You're removing the last usage of `axios`—3 other files can delete their import too." This addresses real pain: files accumulate unused imports that nobody bothers to clean up.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Message Quality Analyzer:** Commit messages range from illuminating to useless ("fix stuff"), but analyzing quality across thousands of commits is manual. This CLI `commit-quality` scans your git history to score commit message quality across multiple dimensions: completeness (problem + solution + impact), clarity (imperative mood, specific scope), and context (issue refs, breaking changes noted). It reveals: "73% of commits lack problem statement—only describe what changed, not why" or "Commits from @alice average quality score 8.2/10; @bob averages 4.1/10 (vague messages)." It identifies "commit debt" accumulation: when recent commits have degraded quality compared to historical baseline. Unlike commit linters that enforce format, this analyzes *semantic quality*—whether commits preserve the why behind changes. The output helps teams improve commit hygiene: not by enforcing rules, but by showing patterns. "Your 'fix' commits rarely explain what was broken—consider adding problem statements." It transforms commit message quality from abstract opinion to measurable metric—helping teams improve git history over time.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Comment Quality Inspector:** Comments rot—they describe implementation details that change until the comment lies, or they're missing entirely where complexity needs explanation. This CLI `comment-audit` analyzes codebase comments to identify "comment debt": misleading comments, redundant comments (restating the obvious), and missing comments at complexity hotspots. It reveals: "File auth.js has 47 comments, but 12 are misleading (describe old behavior)" or "Function `processPayment` has complexity score 45 but zero comments (high-risk undocumented code)." Unlike linters that ban all comments, this distinguishes between "valuable intent comments" (why we chose this approach) and "implementation noise" (this loop iterates). It flags "comment decay": where comments diverge from current code behavior. The output suggests: "Update these 3 comments; delete these 8 redundant ones; add documentation to these 5 complex functions." It transforms comment maintenance from "delete all comments" (throwing away wisdom) to "curate the why, remove the what." This addresses a universal problem: codebases accumulate comment debt, but nobody has time to audit thousands of comments manually.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Variable Usage Analyzer:** Environment variables accumulate like digital clutter—added for features, experiments, or debugging, then forgotten. This CLI `env-audit` scans codebase to find "env var debt": variables defined but never referenced, referenced but never documented, or used in only one place (could be hardcoded). It reveals: "process.env.FEATURE_X_ENABLED defined in 5 files but never set (dead config)" or "API_KEY referenced in 23 places but no documentation (what format? where to get?)." It categorizes by "risk impact": missing critical vars (database URLs) vs. optional feature flags. The output shows "env var surface area": how many configuration knobs your codebase actually has. Unlike config validators that test values, this tests *usage patterns*—finding vars that are dead, undocumented, or over-scoped. It transforms environment variable management from "what do I need to set?" into "here's your complete configuration surface area—dead vars, undocumented vars, and critical paths." This addresses a universal pain: projects accumulate env vars over time, but nobody remembers what half of them do.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Lifecycle Stage Tracker:** Dependencies aren't static—they progress through lifecycle stages: active development, stable maintenance, deprecated, abandoned. This CLI `dep-lifecycle` analyzes your dependencies' github repositories, npm publication patterns, and release notes to classify lifecycle stage. It reveals: "lodash is STABLE (active maintenance, regular releases)" vs. "package-xyz is ABANDONED (last commit 2019, 12 open issues, no maintainer response)." Unlike dependency updaters that check for new versions, this checks for *project health*—is this library actively maintained, or is it zombie code? It flags "at-risk dependencies": abandoned packages you rely on. The output prioritizes by "migration urgency": "package-auth is ABANDONED and used in auth flow (HIGH RISK—find alternative)" vs. "package-colors is ABANDONED but only used in dev (LOW RISK)." It transforms dependency management from "are there updates?" to "is this dependency still alive?"—preventing the silent accumulation of zombie dependencies that become security risks when abandoned.
+</ideas>
+<probability>0.30</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Assertion Completeness Checker:** Tests can have good coverage but terrible assertions—asserting nothing (tests that can't fail), asserting only happy paths, or asserting implementation details instead of behavior. This CLI `assert-check` analyzes your test suite to find "assertion debt": tests with missing or weak assertions. It reveals: "Test `userLogin` has no assertion—test passes if it doesn't crash (useless)" or "87% of tests only assert success case—error paths untested." It flags "implementation assertions": tests that assert internal state (how code works) instead of behavior (what code should do). The output shows "assertion quality score": percentage of tests with comprehensive assertions (success, failure, edge cases). Unlike coverage tools that measure quantity, this measures *assertion quality*—do your tests actually verify behavior, or just run code without checking results? It transforms test confidence from "95% coverage" to "47% of tests actually verify correctness—others are just code execution." This addresses a universal blind spot: teams obsess over coverage metrics while their tests assert nothing meaningful.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" File Coupling Analyzer:** Files have relationships beyond imports—data flow, shared dependencies, implicit coordination. This CLI `coupling-map` analyzes "execution coupling": which files tend to change together, which runtime modules coordinate implicitly, and where hidden dependencies exist. It reveals: "auth.js and payment.js change together 73% of time (implicit coupling—shared user state)" or "routes/api.js depends on utils/validator.js transitively through 4 modules (hidden dependency)." Unlike dependency graphs that show static imports, this shows *behavioral coupling*—which files are actually entangled at runtime. It flags "architectural violations": modules that should be independent but are coupled through data flow or shared state. The output visualizes "coupling clusters": groups of files that move together despite being in different directories. It transforms refactoring from "extract this function" to "disentangle these modules"—showing the invisible threads that bind files together. This addresses real pain: refactors break things because hidden coupling wasn't visible before changes began.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Coherence Checker:** Commits should tell atomic stories—one logical change, self-contained, reviewable. But "atomic" is subjective until multiple authors' interpretations diverge. This CLI `coherence-check` analyzes commits for "narrative coherence": does the changed code match the commit message? Do all modified files relate to the stated intent? It reveals: "Commit message: 'Fix auth bug' — actual changes: auth.js + unrelated CSS tweak + config comment (incoherent—multiple intents)" or "Commit #abc123 claims 'refactor for performance' — actually added features (message lies about intent)." Unlike commit linters that check format, this validates *semantic coherence*—whether the commit's story matches its reality. It flags "frankencode commits": bundles of unrelated changes that should be split. The output suggests commit splitting: "This commit has 3 distinct intents—split into (1) fix auth, (2) update CSS, (3) add feature X." It transforms commit hygiene from "follow conventional commits" to "tell honest, atomic stories"—ensuring each commit is reviewable and revertible. This addresses real pain: commits that touch everything make code review and rollback nightmares.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Function" Parameter Complexity Profiler:** Functions accumulate parameters over time—each new requirement adds another argument, creating complexity creep. This CLI `param-complex` profiles function signatures to identify "parameter debt": functions with too many parameters, too many optional parameters, or parameters that could be grouped. It reveals: "function `processPayment(user, amount, currency, method, retry, callback, options)` has 7 parameters (HIGH COMPLEXITY)—consider object parameter" or "Function `sendEmail` has 4 optional boolean flags (config soup—extract options object)." Unlike complexity analysis that counts lines, this focuses on *interface complexity*: how hard is it to call this function correctly? It flags "parameter explosions": functions where parameter count accelerated recently (added 3 params in 2 months). The output suggests refactoring: "Group these 5 params into `config` object" or "Extract this function into 3 focused functions." It transforms API design from "add another param" to "simplify the interface"—catching parameter debt before functions become uncallable. This addresses real pain: functions accumulate parameters until nobody remembers the correct order.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Environment Parity Auditor:** "Works in CI, fails locally" happens when test environments drift. This CLI `test-parity` compares your local test environment against CI to surface discrepancies. It checks: Node version mismatches, dependency version differences (including transitive), environment variable presence/absence, and test configuration differences. The output shows: "LOCAL: Node 20.11.0, CI: Node 20.9.0 (MINOR VERSION MISMATCH)" or "CI has CI=true env var (test changes behavior)—local lacks it" or "Local: jest@27.5.1, CI: jest@27.5.0 (PATCH VERSION DRIFT)." Unlike config diff tools that show file differences, this validates *execution environment equivalence*—will tests behave the same? It flags "parity blockers": differences that cause test divergence. Before you commit, run `test-parity` to see "you're about to push code that passes locally but will fail in CI." It transforms "tests pass locally, fail in CI" from mystery into visible environment gaps. This addresses universal pain: debugging why tests fail in CI but pass locally is tedious detective work.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Return Value Diversity Analyzer:** Functions promise return types, but actual return values often have hidden diversity—nulls, undefineds, error objects, multiple types. This CLI `return-diversity` analyzes runtime behavior to catalog "return value reality": what a function actually returns, not what its type signature claims. It reveals: "Function `getUser` claims to return User—actually returns User (87%), null (9%), undefined (4%) (diverse returns—callers must handle 3 cases)" or "Function `validateInput` returns boolean | string | {valid: boolean, errors: string[]} (3 types—unclear contract)." Unlike type checkers that verify signatures match, this captures *runtime return diversity*: the full spectrum of values functions produce in practice. It flags "implicit unions": functions that return multiple types without documenting it. The output shows "return value hotspots": functions with high diversity that surprise callers. It transforms API design from "type signatures match" to "return values are predictable"—catching the hidden diversity where type signatures lie about runtime behavior. This addresses real pain: functions claim to return one type but actually return five, causing silent bugs.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Implicit Contract Violation Scanner:** Functions make implicit promises about behavior—error handling patterns, timing expectations, side effects—that aren't captured in type signatures or documentation. This CLI `contract-scan` analyzes function execution to detect "contract violations": when function behavior breaks implicit expectations that callers depend on. It reveals: "Function `sendEmail()` promises non-blocking—detected 47 cases blocking main thread >500ms (contract violated)" or "Function `validateUser()` promises never to throw—12% of calls raise exceptions (silent promise broken)." Unlike contract testing that validates documented behavior, this validates *undocumented promises*—conventions that code implicitly follows. The output maps "contract debt": where function behavior diverges from expectations. It transforms "works in dev, breaks in prod" mysteries into specific broken promises: "Here are the 23 implicit contracts your code makes but doesn't keep." This addresses real pain: functions silently promise behavior they don't deliver, causing downstream bugs.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Execution Path Frequency Analyzer:** Tests cover lines of code, but not *execution path frequency*—which branches production actually takes vs. which tests exercise. This CLI `path-freq` instruments production to record "path frequency" and compares against test coverage. It reveals: "Production takes 'retry' path 73% of time; tests never simulate it—retry logic is completely untested" or "Tests exercise 'error handler' branch 100% of time; production hits it 0.1% of time—test coverage mismatch." Unlike coverage tools that measure "did we run this line?", this measures "is our test reality matching production reality?" The output shows "path frequency gaps": branches that production uses constantly but tests never touch. It transforms test coverage from vanity metric into fidelity metric—measuring how well your test universe models production's actual execution patterns. This addresses real pain: teams obsess over coverage percentages while testing irrelevant paths and missing production-critical ones.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Installation Side-Effect Catalog:** Dependencies promise functionality but secretly perform side effects during installation—post-install scripts that modify your system, environment, or configuration in undocumented ways. This CLI `install-spy` sandboxes dependency installation and records all mutations: "Package `cli-tool-xyz` runs post-install script that (1) adds global binary to /usr/local/bin, (2) modifies ~/.bashrc to add PATH entry, (3) creates config directory in ~/, (4) sends anonymous usage telemetry to https://analytics.example.com." Unlike package manifest viewers that show declared dependencies, this captures *undeclared behaviors*: operations that happen during installation but aren't documented. It flags "dangerous side effects": packages that modify system state, send data externally, or create persistent resources. The output reveals "installation transparency": what the package actually does vs. what it claims to do. This addresses real pain: npm install silently mutates systems in ways nobody intended, creating security and maintenance nightmares.
+</ideas>
+<probability>0.22</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Semantic Clone Finder:** Duplicate code detection finds identical blocks, but misses *semantic* duplicates—code that does the same thing but looks different. This CLI `semantic-clone` uses abstract syntax tree analysis to find "semantic clones": three different functions that all validate email addresses, but use different regex patterns, variable names, and error messages. It reveals: "These 5 functions are 94% semantically identical—all validate user input using allowlists. Converge into shared validator." Unlike structural clone detection, this recognizes behavior despite implementation differences. It surfaces "convergence opportunities": where the team accidentally reinvented the same wheel multiple times. The output distinguishes "intentional divergence" (different contexts need different implementations) from "accidental duplication" (same behavior, different code). This addresses real pain: codebases accumulate semantic debt where multiple functions do the same job but nobody realizes it.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Execution Time Budget Tracker:** Test suites accumulate runtime debt—each commit adds a few milliseconds, and suddenly tests take 10 minutes. This CLI `test-budget` assigns "time budgets" to test files and flags when tests exceed their allocation: "auth.test.js has budget 500ms—actual runtime 2.3s (460% over budget)." Unlike test profilers that identify slow tests after they're slow, this enforces *proactive budgets*—preventing test bloat before it accumulates. It reveals: "Integration test added +340ms—approaching budget limit, consider splitting or mocking." The output shows "budget violators": tests that consume disproportionate time relative to their value. When tests exceed budgets, it prompts: "This test is too slow for its value—split into unit + integration, or add to slow suite?" It transforms test performance from invisible erosion into visible budget constraints—catching test slowness before it makes the suite painful to run. This addresses real pain: test suites gradually becoming too slow to run frequently, with no single "smoking gun" to blame.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Divergence Velocity Tracker:** Feature branches diverge from main at different rates—some accumulate conflicts slowly, others explode in divergence. This CLI `diverge-vel` measures "divergence velocity": how many conflicting changes accumulate per day on your branch relative to main. It reveals: "feature/auth diverges at 4.7 conflicts/day (HIGH VELOCITY)—merge weekly or face massive conflicts" vs. "feature/logging diverges at 0.3 conflicts/day (LOW VELOCITY)—merge monthly, no problem." Unlike stale branch detectors that flag age, this shows *conflict accumulation rate*—how quickly merge costs increase. It flags "velocity anomalies": branches that suddenly accelerated in divergence (main landed conflicting changes). The output suggests merge timing: "At current velocity, merge in 3 days for minimal conflicts—or wait for main to stabilize." It transforms branch management from "merge when done" into "merge before divergence explodes"—recognizing that some branches race main while others coast. This addresses real pain: branches that sit for "just a few more days" until merge becomes nightmare.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Function Signature Entropy Analyzer:** Function signatures accumulate entropy—more parameters, more optional arguments, more overloads—until they're uncallable. This CLI `sig-entropy` measures "signature entropy" over time: "function `processPayment` had entropy score 1.2 in Jan (2 params), now 4.7 in Jun (7 params, 4 optional)—267% entropy increase." It tracks "entropy velocity": how fast function signatures are becoming more complex. It flags "entropy explosions": functions that crossed uncallability thresholds recently (added 3+ params in 1 month). The output reveals: "Function has 5 optional boolean flags—consider options object parameter" or "This function accumulated overloads—split into focused functions." Unlike complexity analyzers that count lines, this focuses on *interface complexity*: how hard is it to call this function correctly? It transforms API design from "add another param" to "simplify the interface"—catching signature entropy before functions become impossible to use. This addresses real pain: functions gradually accumulating parameters until nobody remembers the correct order or purpose.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Minor Version Fragmentation Analyzer:** Monorepos use peer dependencies and version ranges, but minor versions fragment across packages—package A uses lodash@4.17.20, B uses 4.17.21, C uses 4.17.22. This CLI `minor-frag` scans all package.json files to detect "minor version fragmentation": "lodash ranges from 4.17.20 to 4.17.22 across 7 packages (3 minor versions in use—patch fragmentation risk)." It shows "fragmentation hotspots": dependencies with the most version sprawl. Unlike version conflict detectors that only show mismatches, this reveals *version diversity*—how many different patch versions of the same library are in play. The output suggests consolidation: "Align all packages to 4.17.22 (safe patch upgrade, reduces fragmentation)." It transforms dependency management from "does this work?" into "how much version sprawl do we have?"—catching the accumulation of minor version differences that create "works on my machine" bugs. This addresses real pain: monorepos accumulating patch version differences that shouldn't matter but somehow do.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Mock Drift Velocity Calculator:** Mocks drift from real implementations at different rates—some APIs change weekly, others are stable for years. This CLI `mock-drift-vel` measures "mock drift velocity": how quickly mocks diverge from their source implementations. It reveals: "Mock `apiClient` drifts at 12% per week (HIGH VELOCITY)—API changes frequently, mock rots fast" vs. "Mock `database` drifts at 0.3% per month (LOW VELOCITY)—API stable, mock rarely needs updates)." It flags "drift hotspots": mocks that rot faster than others and need frequent refreshes. The output schedules "mock maintenance": "Update `apiClient` mock weekly—update `database` mock quarterly." Unlike mock validators that detect drift after it happened, this predicts *maintenance cadence*—how often each mock needs refreshing. It transforms mock maintenance from "update when tests fail" into "scheduled maintenance based on drift velocity"—preventing mocks from becoming fantasy implementations. This addresses real pain: some mocks rot quickly while others stay fresh, but teams treat all mocks with equal maintenance priority.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Merge Conflict Pattern Matcher:** Teams resolve merge conflicts repeatedly but never capture the patterns—same files conflict, same resolution strategies, repeated manually. This CLI `conflict-pattern` analyzes conflict history to identify "recurrent conflict signatures": "package.json conflicts 94% when both branches add dependencies—resolution: accept theirs, re-add your deps (automatable?)" or "auth.js conflicts when both modify authentication logic—resolution requires manual review (document in runbook)." It learns from resolution outcomes: "Last 3 times this conflict resolved by 'accept ours', post-merge bugs appeared—recommend manual review." Unlike conflict predictors that estimate probability, this captures *resolution patterns*—how similar conflicts were successfully resolved. The output builds a "conflict playbook": "These 7 conflict types have predictable resolutions—consider custom merge drivers." It transforms conflict resolution from "figure it out each time" into "apply proven strategy." This addresses real pain: resolving the same conflicts repeatedly because teams never codify what works.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Implicit Error Handling Gap Detector:** Functions make implicit promises about error handling—"this function never throws," "this function returns null on error"—but these promises are undocumented and routinely broken. This CLI `error-gap` analyzes function implementations to detect "error handling gaps": mismatches between claimed error behavior and actual error behavior. It reveals: "Function `validateUser` claims to return boolean—actually throws in 12% of cases (error contract violated)" or "Function `processPayment` documented as 'never throws'—detected 47 exception paths (documentation lies)." It flags "error handling debt": where error reality diverges from error documentation. The output shows "error contract violations": functions that break their implicit error handling promises. When you refactor, it warns: "You're calling `processPayment` without try/catch—this function throws unexpectedly (undocumented exception risk)." It transforms error handling from guesswork into explicit contracts—making invisible error behavior visible. This addresses real pain: functions that claim to be safe but actually throw, causing silent failures.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Transitive Dependency Churn Analyzer:** Dependencies pull in transitive dependencies that change frequently—each update brings new transitive deps, creating hidden churn. This CLI `transitive-churn` analyzes dependency updates to measure "transitive churn rate": how many transitive dependencies change over time. It reveals: "Updating lodash from 4.17.20 to 4.17.21 changed 0 transitive deps (STABLE)" vs. "Updating webpack from 5.0.0 to 5.1.0 changed 47 transitive deps (HIGH CHURN—introduces volatility)." It flags "churn hotspots": dependencies that pull in unstable transitive trees. The output shows "churn velocity": "This package's transitive deps change 12 times per month—expect frequent breakage." Unlike dependency updaters that show available updates, this shows *update volatility*—how much churn each update introduces. It transforms dependency updates from "is there a new version?" into "how much chaos will this update cause?"—catching high-churn dependencies before they destabilize the codebase. This addresses real pain: simple library updates that pull in cascades of transitive changes, breaking everything.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Merge Complexity Estimator:** Merge conflicts are inevitable, but their *complexity* varies wildly—some conflicts resolve in seconds, others require hours of careful reconciliation. This CLI `merge-complex` analyzes branches against main to estimate "merge complexity" before you attempt: "feature/auth has 23 commits behind main, 47 conflicting lines across 4 files—complexity: HIGH (semantic conflicts detected)." It shows conflict types: "Simple conflicts (same lines, different values) vs. Semantic conflicts (same function renamed differently)." The output reveals: "Merging now will require ~2 hours. Waiting for main to merge feature/x (in PR) reduces complexity—merge then in ~15 minutes." This transforms merge planning from "hope for the best" into informed time budgeting. This addresses real pain: merges that look trivial explode into semantic conflicts nobody anticipated.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Mock Fidelity Detector:** Tests use mocks to isolate units, but mocks silently diverge from the real implementations they mock—APIs change behavior, data structures evolve, and mocks become fantasy implementations that test against non-existent reality. This CLI `mock-fidelity` compares mock behavior against real implementation behavior to detect "mock drift": "Mock `apiClient` always returns success in 50ms—real API client has 12% failure rate and 340ms average latency (mock assumes perfect world)." It reveals: "Mock `database.getUser()` returns {id, email}—real implementation returns {id, email, createdAt, updatedAt} (mock missing fields)." The output shows "mock fidelity gaps": where test universe diverges from production reality. This transforms "tests pass with mocks, fail in production" from mystery into specific mock shortcomings. This addresses real pain: mocks lie about reality, and tests validate against fantasy instead of production behavior.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Temporary Debt Tracker:** Modern codebases accumulate "temporary state"—debug flags, feature toggles, experimental codepaths—that was meant to be short-lived but becomes permanent infrastructure. This CLI `temp-debt` detects temporary state that has calcified: code added with comments like "TODO: remove this after launch" that persisted for months. It reveals: "Feature flag FF_ENABLE_NEW_AUTH was added 2024-06-15 with comment 'remove after migration'—still present 8 months later, now referenced in 47 files (technical debt)." The output shows "expired temporaries": constructs that should have been deleted but became permanent. It prioritizes by "debt severity": how long expired, how widely referenced, how critical the path. This addresses real pain: "we'll clean this up later" becomes permanent architecture through neglect, creating maintenance nightmares.
+</ideas>
+<probability>0.21</probability>
+</response>
+
+<response>
+<ideas>
+**"Environment" Configuration Cascade Tracer:** Configuration values come from multiple sources—.env files, CLI arguments, hardcoded defaults, config loaders—creating confusion about which source wins. This CLI `config-cascade` traces the complete provenance of each config value: "DATABASE_URL: default='postgres://localhost' → .env overrides to 'postgres://prod-db' → CLI flag overrides to 'postgres://test-db' → final value: 'postgres://test-db'." Unlike `printenv` that shows final values, this shows the *resolution path*—how each config value was determined and where it was overridden. The output visualizes the "config precedence tree" so you can trace which config source won and why. This addresses real pain: debugging config is frustrating because nobody knows which source actually set a value, and changes in one place have no effect because another place overrides them.
+</ideas>
+<probability>0.19</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Rebase Cost Forecaster:** Feature branches accumulate divergence from main, but the *cost* of rebase is invisible until you're midway through 47 merge conflicts. This CLI `rebase-cost` analyzes your branch against main to estimate "rebase effort" before you start: "feature/auth is 23 commits behind main, 47 conflicting lines across 4 files—estimated 20-40 minutes to resolve." It shows conflict complexity breakdown: "Simple conflicts (same lines, different values): 12. Semantic conflicts (same function renamed differently): 3. Logical conflicts (both changed algorithm approaches): 2." Unlike conflict predictors that just show probability, this estimates *time investment* required. It reveals: "Rebase now: ~2 hours. Wait until main merges feature/x (in PR): ~15 minutes—temporal arbitrage available." The output helps schedule rebases strategically: do expensive merges when you have focused time, defer when dependencies will converge naturally. It transforms rebase planning from "hope for the best" into informed time budgeting. This addresses real pain: starting rebases blindly and getting stuck in conflict resolution hell.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Implicit Contract Extractor:** Functions make undocumented behavioral promises—error handling patterns, timing expectations, side effects—that aren't captured in type signatures or JSDoc. This CLI `contract-extract` analyzes function execution patterns to mine "behavioral contracts": "Function `processPayment` implicitly promises: (1) throws on invalid input, (2) never blocks longer than 5s, (3) succeeds 94% of time (6% failure rate from payment gateway), (4) has side effect: writes to audit log." It reveals: "Function `validateEmail` promises to return boolean—actually returns null in 12% of cases (broken contract)." Unlike type checkers that verify shape compatibility, this extracts *runtime promises*—what callers can actually expect based on how functions behave in production. The output flags "contract violations": when function behavior breaks implicit expectations. When you refactor, it warns: "You're changing behavior that 47 callers implicitly depend on—document as breaking change?" It transforms API documentation from guesswork to extracted reality—making invisible promises explicit so they can be validated. This addresses real pain: functions claim one thing in signatures but do another in reality.
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Adversarial Context Runner:** Test suites assume ideal execution contexts—isolated runs, stable timing, clean state—but production violates these assumptions. This CLI `test-adversary` runs your tests in "hostile contexts" to surface hidden assumptions: random execution order, parallel stress testing, injected network latency, simulated database connection churn, memory pressure scenarios. It reveals: "Test `userSignup` passes when run alone but fails 73% of time when run after `paymentTest` (state leakage: database pollution)" or "Test assumes 100ms timeout is sufficient—fails under simulated 300ms latency (assumption: ideal network)." Unlike standard test runners that verify "does this work?", this verifies "does this work ONLY in ideal conditions?" It surfaces "assumption violations": tests that pass in CI but fail in production because production violates their hidden expectations about the world. The output shows "context debt": which tests depend on artificial stability. This addresses real pain: tests pass locally/CI but fail mysteriously in production because test universe is too polite compared to production chaos.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Assumption Catalog:** Dependencies make invisible environmental assumptions—that `process.nextTick` exists, that `Buffer` is available, that `fetch` is polyfilled—that never surface until deployment breaks. This CLI `dep-assume` catalogs dependency assumptions by analyzing code and documentation: "Library X assumes process.nextTick exists (Node-specific, will break in browser)" or "Library Y requires global fetch (no polyfill included—assumes modern runtime)." When you consider deploying to new environments (Edge functions, browser, serverless), it surfaces "assumption violations": "You're using 3 libraries that assume Node APIs—won't run in Edge functions." Unlike compatibility checkers that test after deployment, this prevents deployment by revealing "this code assumes a world that doesn't exist in the target environment." The output maintains an "assumption catalog" indexed by environment requirements. Six months later, when considering serverless migration, query: "Show all dependencies assuming Node-specific APIs" and discover blockers before starting. This addresses real pain: discovering dependency incompatibilities during deployment emergencies instead of during planning.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Semantic Duplicate Finder:** Duplicate code detection finds identical blocks, but misses *semantic* duplicates—different implementations doing the same thing. This CLI `semantic-dupe` uses abstract syntax tree analysis to find "semantic clones": three different functions that all validate email addresses but use different regex patterns, variable names, and error messages. It reveals: "These 5 functions are 94% semantically identical—all validate user input using allowlists. Consider converging into shared validator." Unlike structural clone detection, this recognizes behavior despite implementation differences. It surfaces "convergence opportunities": where the team accidentally reinvented the same wheel multiple times. The output distinguishes "intentional divergence" (different contexts need different implementations) from "accidental duplication" (same behavior, different code). This addresses real pain: codebases accumulate semantic debt where multiple functions do the same job but nobody realizes it until maintenance requires updating all of them.
+</ideas>
+<probability>0.30</probability>
+</response>
+<response>
+<ideas>
+**"Git" Interactive Rebase Conflict Simulator:** `git rebase -i` is powerful until conflicts cascade. This CLI `rebase-sim` simulates the rebase before you commit: shows which commits will conflict, predicts conflict complexity, and suggests timing strategies. It reveals: "Rebasing now: 17 conflicts expected (estimated 45 minutes). Waiting for feature/x to merge (2 hours): conflicts drop to 3 (estimated 8 minutes)." Unlike conflict predictors that just show probability, this simulates *the actual rebase operation* in a sandbox, showing exactly which commits conflict and why. It provides "temporal arbitrage opportunities": moments when rebase cost is minimal. The output visualizes conflict heatmaps: green (safe to rebase), yellow (minor conflicts), red (massive conflicts). It transforms rebase from "hope for the best" into strategic timing—rebasing when merge cost is lowest. This addresses real pain: starting rebases that explode into conflict hell when waiting 2 hours would have made it trivial.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Function Call Site Divergence Tracker:** Functions have multiple call sites, but not all call sites use the function the same way—some pass nulls (undocumented), some rely on side effects (implicit), some ignore return values (dead code). This CLI `callsite-div` analyzes function usage across the codebase to detect "call site divergence": patterns that indicate the function's contract is broken or unclear. It reveals: "Function `validateUser` called in 47 places—23 pass null (undocumented behavior), 12 ignore return value (possibly dead calls), 3 rely on undocumented side effect (implicit contract violation)." Unlike static analysis that finds unused functions, this finds *function contract violations*: where usage patterns diverge from what the function promises. The output flags "API debt": functions whose reality doesn't match their interface. It transforms refactoring from "extract this function" into "fix the broken contract first"—recognizing that functions with divergent call sites are accidents waiting to happen. This addresses real pain: refactors break things because function contracts were implicitly violated in multiple places.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Transitive Dependency Churn Detector:** Dependencies pull in transitive dependencies that change frequently—each update brings new transitive deps, creating hidden churn that breaks builds mysteriously. This CLI `transitive-churn` analyzes dependency history to measure "transitive churn rate": how many transitive dependencies change over time. It reveals: "Updating lodash from 4.17.20 to 4.17.21 changed 0 transitive deps (STABLE). Updating webpack from 5.0.0 to 5.1.0 changed 47 transitive deps (HIGH CHURN—introduces volatility)." Unlike dependency updaters that show available updates, this shows *update volatility*: how much hidden churn each update introduces. The output flags "churn hotspots": dependencies that pull in unstable transitive trees. It calculates "churn velocity": "This package's transitive deps change 12 times per month—expect frequent breakage." It transforms dependency updates from "is there a new version?" into "how much chaos will this update cause?"—catching high-churn dependencies before they destabilize the codebase. This addresses real pain: simple library updates that pull in cascades of transitive changes, breaking everything.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Mock Fidelity Gap Detector:** Tests use mocks to isolate units, but mocks silently diverge from real implementations—APIs change behavior, data structures evolve, mocks become fantasy implementations. This CLI `mock-fidelity` compares mock behavior against real implementation to detect "mock drift": "Mock `apiClient` always returns success in 50ms—real API client has 12% failure rate and 340ms average latency (mock assumes perfect world)." It reveals: "Mock `database.getUser()` returns {id, email}—real implementation returns {id, email, createdAt, updatedAt} (mock missing fields)." The output shows "mock fidelity gaps": where test universe diverges from production reality. Unlike contract testing that validates API compatibility, this validates *behavioral realism*—do mocks actually model how the real system behaves? It transforms "tests pass with mocks, fail in production" from mystery into specific mock shortcomings: "Here are the 8 ways your mocks lie about reality." This addresses real pain: mocks that assume perfect world while production is messy, causing tests to validate fantasy instead of reality.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Coherence Analyzer:** Commits should tell atomic stories—one logical change, self-contained. But "atomic" is subjective until multiple unrelated changes appear in one commit. This CLI `coherence-check` analyzes commits for "narrative coherence": does the changed code match the commit message? Do all modified files relate to the stated intent? It reveals: "Commit message: 'Fix auth bug' — actual changes: auth.js + unrelated CSS tweak + config comment (incoherent—multiple intents)." It flags "frankencode commits": bundles of unrelated changes that should be split. The output suggests commit splitting: "This commit has 3 distinct intents—split into (1) fix auth, (2) update CSS, (3) add feature X." Unlike commit linters that check format, this validates *semantic coherence*—whether the commit's story matches its reality. It transforms commit hygiene from "follow conventional commits" to "tell honest, atomic stories"—ensuring each commit is reviewable and revertible. This addresses real pain: commits that touch everything make code review and rollback nightmares.
+</ideas>
+<probability>0.26</probability>
+</response>
+<response>
+<ideas>
+**"Code" Authorship Entropy Analyzer:** Git shows who wrote each line, but not the "authorship entropy"—how many different authors have touched a file, creating inconsistent styles and fragmented understanding. This CLI `entropy-check` measures authorship diversity across files: "auth/utils.js has 23 distinct authors over 4 years (HIGH ENTROPY—no single owner understands the whole file)." It visualizes "authorship fragmentation": files that became committee-written vs. files with clear ownership. Unlike git blame that shows per-line authorship, this aggregates to file-level "cognitive load": how many mental models does this file contain? It flags "entropy hotspots": files where high authorship correlates with bug density or slow change velocity. The output reveals: "Files with 10+ authors have 3.2x more bugs and take 4.7x longer to modify." It transforms code ownership from "who touched this last?" to "how fragmented is this file's mental model?"—helping teams identify files that need ownership consolidation or refactoring. This addresses real pain: files that became nobody's responsibility through committee authorship, making changes terrifying because nobody understands the full context.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Merge Conflict Archaeologist:** Merge conflicts are painful, but they're also valuable signals—places where development diverged and needs reconciliation. This CLI `conflict-dig` archives every merge conflict with context: what branches conflicted, what the conflicting changes were, how it was resolved, and why. When you resolve conflicts, it captures: "feature/auth vs. main — conflict in auth.js:47-89 (Alice added validation, Bob removed it). Resolution: kept validation (security priority)." Six months later, when similar conflicts appear, query: "Show all auth.js conflicts involving validation" and discover the resolution pattern. Unlike git history that shows final merged state, this preserves the *conflict topology*—what was contested and how it was settled. It builds a "conflict playbook" over time, revealing recurring conflict patterns: "47% of conflicts in payment.js involve timeout handling—consider extracting timeout policy." It transforms merge conflicts from mysterious recurring pain into documented negotiation history—preserving not just what was merged, but what almost wasn't. This addresses real pain: teams resolving the same conflicts repeatedly because nobody remembers the previous resolution logic.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Execution Time Budget Manager:** Test suites accumulate without time discipline—some tests take 10ms, others 10 seconds, and nobody notices until the suite becomes too slow to run frequently. This CLI `test-budget` assigns time budgets to tests and enforces them: "Unit tests: max 100ms each. Integration tests: max 5s each. E2E tests: max 30s each." When tests exceed budget, it flags: "Test `checkoutFlow` took 8.4s (budget: 5s)—BUDGET OVERRUN by 68%." It tracks "budget debt" over time: tests that started fast but gradually slowed down. Unlike performance profilers that require manual investigation, this is automatic governance—tests that get too slow fail their own time budget. The output shows "budget violations" by file: "auth/tests/ has 7 tests over budget (slow test cluster)." It transforms test performance from invisible degradation into enforced discipline—keeping tests fast enough to run frequently. This addresses real pain: test suites that gradually become too slow, causing teams to stop running them or skip them in CI.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Lifecycle Stage Detector:** Dependencies go through lifecycle stages—stable, deprecated, unmaintained, abandoned—but most teams don't track which stage their dependencies are in until security scanners flag them. This CLI `dep-lifecycle` classifies dependencies by "maintenance health": "moment.js: ABANDONED (no commit in 3 years, recommend migrate to date-fns)" or "lodash: STABLE (active maintenance, recent release)" vs. "package-xyz: DEPRECATED (readme says 'use official library instead')." It checks GitHub last commit date, npm publish recency, deprecation notices, and maintainer activity. The output flags "at-risk dependencies": packages that are unmaintained or deprecated but still in use. It prioritizes by "usage impact": widely-used abandoned dependencies are urgent; rarely-used deprecated deps are lower priority. Unlike dependency updaters that show available versions, this shows *lifecycle risk*—whether you're depending on dead code. It transforms dependency management from "are there updates?" to "are we depending on abandoned software?"—proactively identifying dependencies that need migration before they become security liabilities. This addresses real pain: discovering dependencies are abandoned only when vulnerabilities are announced and there's no maintainer to fix them.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Intent vs. Outcome Divergence:** Commit messages claim intent—"refactor for performance"—but the actual change might have had different effects—introduced a bug, or actually made performance worse. This CLI `intent-diverge` analyzes commits by comparing stated intent against actual semantic changes and production impact. It reveals: "Commit claims 'minor refactor' — actually changed error handling behavior (semantic shift not mentioned in message)" or "Commit message: 'performance optimization' — actual effect: 12% slower in production (intent failed)." Unlike git blame that shows authorship, this shows *intent integrity*—whether the story commits tell about themselves matches reality. It flags "intent debt": commits whose rationale no longer matches current code because subsequent changes undermined the original intent. The output highlights "misleading commits": messages that claim scope A but delivered scope B. It transforms commit hygiene from stylistic preference to semantic accuracy—ensuring git history describes what actually happened, not what developers thought happened. This addresses real pain: code archaeology where commit messages mislead about what changes actually do, causing future developers to misunderstand why code was changed.
+</ideas>
+<probability>0.28</probability>
+</response>
+<response>
+<ideas>
+**"Documentation" Execution Reality Gap:** Documentation describes intended behavior, but code drift creates "documentation lies"—functions documented to throw actually return null, parameters documented as required are optional, error cases documented as handled actually crash. This CLI `doc-reality` compares code execution against documentation to detect "doc gaps": "Doc says 'throws ValidationError if invalid input'—actual behavior: returns null without error (documentation doesn't match runtime)" or "Doc claims 'optional parameter'—code crashes when omitted (documentation assumes safe usage that's false)." Unlike documentation linters that check format, this checks *semantic fidelity*—does the documentation accurately describe what the code actually does? It reveals: "Function `parseUser()` documented to return User—actually returns User | null 34% of time (doc incomplete)." The output generates "doc violation reports": places where documentation promises behavior that code doesn't deliver. It transforms documentation from aspirational to forensic—catching not just outdated docs, but docs that never matched reality. This differs from execution reality divergence by focusing on *documentation fidelity* not just *assumption violations*—bridging the gap between what humans read and what code does.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Assertion Coherence Analyzer:** Test suites contain assertions that contradict each other—one test expects behavior X, another expects behavior not-X for the same input. This CLI `assert-conflict` scans tests to detect "assertion conflicts": "Test A expects `processPayment()` to throw on invalid amount; Test B expects it to return null (contradictory expectations)." Unlike test flakiness detectors that find intermittent failures, this finds *semantic contradictions*—tests that enforce incompatible behaviors. It reveals: "Three tests assert `user.email` is required; two tests successfully pass with null email (assertion coherence broken)." The output shows "coherence violations": where test suite demands mutually exclusive behaviors, indicating unclear requirements or half-migrated refactors. It transforms test maintenance from "add more tests" to "resolve test contradictions"—ensuring the test suite enforces a coherent model of correct behavior. This addresses real pain: tests passing individually but contradicting each other, making it impossible to satisfy all tests simultaneously. This differs from test reality gap by focusing on *inter-test contradictions* not *test-production mismatches*.
+</ideas>
+<probability>0.22</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Peer Version Pressure Analyzer:** In monorepos with multiple packages, different packages pressure each other to upgrade or downgrade dependencies—Package A requires lodash@4.17.21, Package B requires lodash@4.17.20, creating version conflict that must be resolved. This CLI `dep-pressure` analyzes "peer version pressure": which packages are blocking upgrades, which are forcing downgrades, what the cost of resolution is. It reveals: "Package A pins react@18.2.0, blocking 7 other packages from upgrading to react@18.3.0 (upgrade pressure: HIGH)" or "Package B requires old webpack@4, forcing 12 packages to stay on webpack@4 (downgrade pressure: HIGH)." Unlike dependency conflict visualizers that show version mismatches, this quantifies *upgrade pressure*—which packages are preventing the monorepo from upgrading, and what the cost of upgrading them would be. The output prioritizes "pressure relief": upgrade high-pressure packages first to unlock upgrades for dependent packages. It transforms dependency upgrades from "random chaos" to "strategic pressure relief"—upgrading packages that block the most other packages first. This differs from existing conflict visualizer by focusing on *upgrade pressure dynamics* not just *version mismatches*.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Staleness Detector:** Feature branches sit idle—created, worked on for a week, then abandoned as priorities shift. These "zombie branches" accumulate, creating merge conflicts and confusion. This CLI `branch-stale` identifies stale branches by multiple signals: "branch `feature/auth` last commit 47 days ago, 0 commits in 30 days, diverged from main by 847 commits (STALE)" or "branch `hotfix/payment` unmodified for 6 months but still open (ABANDONED)." Unlike branch cleanup tools that delete based on time, this categorizes staleness by *merge readiness*: "Ready to merge (up-to-date with main)", "Merge requires work (diverged, conflicts)", "Abandoned (no activity, unlikely to resume)." The output suggests branch lifecycle actions: merge now, delete, or mark as "on hold." It transforms branch management from "we have 47 open branches?" to "here are the 12 branches that need decisions"—distinguishing between active work, paused work, and dead work. This addresses real pain: branch hoarding where developers are afraid to delete branches "just in case," creating maintenance nightmare. This differs from existing worktree manager by focusing on *staleness detection* not *worktree lifecycle*.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Refactor Safety Net:** Refactoring changes code structure but risks behavior regressions—renaming a variable might break string-based access, extracting a function might change `this` context, splitting a module might break circular dependencies. This CLI `refactor-safe` creates a "behavior snapshot" before refactoring: run the test suite and capture production-like traffic, recording all inputs/outputs. After refactoring, re-run the same inputs and compare outputs: "Pre-refactor: `processPayment(100)` returned `{status: 'success'}`, Post-refactor: `processPayment(100)` returned `{status: 'success'}` (BEHAVIOR MATCHED)" or "Pre-refactor: `getUser(123)` threw AuthError, Post-refactor: returned null (BEHAVIOR CHANGED)." Unlike regression tests that require writing test cases, this captures *actual runtime behavior* as the regression test. It reveals: "Refactor changed behavior in 3 edge cases your tests didn't cover." The output shows "behavior diff": which operations changed behavior, how, and whether the change was intentional. It transforms refactoring from "hope tests catch regressions" to "prove behavior didn't change"—comparing actual runtime behavior before/after, not just test results. This differs from existing test ideas by capturing *runtime behavior fingerprints* not just *test coverage*.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Similarity Analyzer:** In large teams, multiple developers often work on similar features independently, unaware of each other. This tool `branch-similar` scans all branches to identify "semantic near-duplicates": "Branch `feature/user-auth-v2` (by @alice) and `feature/refactor-auth` (by @bob) both modify authentication flow—87% code overlap." It detects "parallel effort": "3 branches implementing image upload → consider merging efforts." The output shows "coordination opportunities": "You're working on X; @charlie is working on X → collaborate before duplicating work." Unlike branch comparison tools that require manual selection, this proactively surfaces hidden duplication across the entire team. It transforms "I didn't know anyone else was working on this" into visible coordination signals—preventing the tragedy of parallel development. It's not branch comparison; it's *effort convergence detection*—finding where the team is unknowingly pulling in the same direction.
+</ideas>
+<probability>0.21</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Peer Validator:** Dependency choices aren't just about functionality—peer pressure matters. This tool `dep-peers` shows what similar projects use: "You use webpack; 83% of projects like yours use vite (faster, simpler config)." It analyzes project metadata (language, framework, scale) to find "peer clusters" and surfaces adoption gaps: "Projects using Express + MongoDB typically use Mongoose, not raw mongo driver (you're the outlier)." The output isn't just recommendations; it's "peer validation": "47 projects similar to yours use library X—are you missing something?" Unlike dependency recommendation engines that suggest trendy libs, this shows *what your actual peers use*—projects with similar constraints and scale. It transforms "is this dependency right for us?" into "what do projects like ours actually use?"—evidence-based decision making instead of guessing. It's not package discovery; it's *peer benchmarking*—seeing what similar projects have converged on.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Ownership Linter:** Codebases develop *de facto* ownership patterns—certain developers always touch certain files—but these patterns are rarely explicit. This tool `git-ownership` analyzes git history to surface "territorial boundaries": "auth/* files: 87% of commits by @alice (primary owner), 11% by @bob (secondary), 2% others." It detects "orphaned zones": "legacy/payment.js hasn't been touched by the original author in 2 years—current owner: unclear." The output suggests "review routing": "PR modifies @alice's files → auto-request review from her." Unlike git blame that shows line-level history, this aggregates into *ownership maps*—who really owns which parts of the codebase. It transforms "who should review this PR?" from guessing to explicit ownership data—making invisible territorial patterns visible. It's not blame attribution; it's *responsibility mapping*—knowing who the actual experts are for each part of the system.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Coverage Gap Explorer:** Code coverage tools show what lines are executed, but not *which scenarios* are missing. This tool `scenario-gap` analyzes test coverage to identify "missing dimensions": "You test `login()` with valid credentials and invalid credentials, but don't test: expired tokens, rate limiting, concurrent logins, or account locks." It extracts test parameters and shows "coverage dimensions": "Authentication tested with 2/7 relevant scenarios (29% scenario coverage)." Unlike line coverage that measures "did we run this code?", this measures "did we test the *situations* this code handles?" The output suggests "scenario additions": "Add test for: login during database outage (untested error path)." It transforms "we have 90% coverage" into "we're missing these entire classes of scenarios"—catching the gaps where code is covered but edge cases aren't. It's not coverage metrics; it's *scenario space analysis*—mapping which real-world situations your tests actually simulate.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Commit" Size Governor:** Large commits are impossible to review effectively, but developers rarely realize how big is too big. This tool `commit-size` analyzes pending commits and flags review risk: "This commit touches 47 files across 12 modules (HUGE)—consider splitting into 5 focused commits." It provides "splitting guidance": "Extract database migration into separate commit, then feature logic, then tests." Unlike pre-commit hooks that just block large commits, this offers *decomposition strategies*—how to break a monster commit into reviewable pieces. The output shows "review burden estimates": "This commit requires ~15 minutes to review; splitting into 3 commits reduces to 5 minutes each." It transforms "I'll just commit everything at once" into "here's how to structure this for effective review"—making commit hygiene about reviewer experience, not arbitrary rules. It's not commit size limits; it's *reviewability optimization*—structuring commits for human comprehension.
+</ideas>
+<probability>0.25</probability>
+</response>
+
+<response>
+<ideas>
+**"PR" Description Fidelity Analyzer:** PR descriptions often drift from actual changes—initial description says "fix login bug," final code includes refactor + feature + bugfix. This tool `pr-fidelity` compares PR description against diff to measure "description accuracy": "PR description mentions 2 files, diff changes 7 (fidelity: 29%—description underreports scope)." Unlike PR linters that check description presence, this validates *description completeness*—does the description accurately reflect what changed? It reveals "scope creep": "This PR grew from 3 lines to 347 lines—description never updated." The output shows: "62% of your PRs have <50% fidelity—descriptions don't match changes." It transforms PR review from "read what they said they changed" into "verify what actually changed"—catching scope discrepancies that hide unintended modifications.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"File" Edit Frequency Volatility Detector:** Some files are edited constantly (high churn), others are stable. But churn *volatility* matters more—files that alternate between frequent edits and long silences indicate unstable requirements or incomplete abstractions. This tool `edit-volatility` analyzes git history to measure "churn variance": "auth.js has 47 edits over 6 months, but 40 edits occurred in 2 bursts (March and June)—indicates rewrites, not iteration." Unlike churn trackers that count total edits, this detects *edit patterns*—organic iteration vs. thrashing vs. abandonment. It reveals "volatility hotspots": "This file has 3 churn spikes—each spike followed by 3-month silence (incomplete refactors)." The output shows: "You have 12 high-volatility files; 8 correlate with abandoned features—stopping work on them might save wasted effort." It transforms file maintenance from "edit count" into *edit pattern*—distinguishing between healthy iteration and thrashing instability.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Function" Parameter Combinatorial Coverage Calculator:** Functions with N parameters have 2^N possible input combinations, but tests rarely cover all. This tool `param-combo` analyzes function signatures and test inputs to measure "combinatorial coverage": "function processUser(a, b, c) has 8 input combos; tests cover 3 (38%—missing: null/null/null, null/null/valid, null/valid/null)." Unlike coverage tools that measure line execution, this measures *input space exploration*—which parameter combinations are untested. It reveals "parameter gaps": "This function handles null for 'a' and 'b' but never both—undefined behavior when both are null." The output shows: "You have 234 functions; 47 have <20% combinatorial coverage—edge case risk." It transforms testing from "did I call this function?" into "did I test how parameters interact?"—catching untested input combinations.
+</ideas>
+<probability>0.33</probability>
+</response>
+
+<response>
+<ideas>
+**"Console" Log Statement Lifecycle Tracker:** Console logs are added during debugging, some get removed, others linger forever. This tool `log-lifecycle` tracks console statements through git history to measure "log persistence": "This console.log was added 427 days ago, never removed—indicates abandoned debugging or poor observability tooling." Unlike linters that flag all console.logs, this categorizes *log intent*: temporary debug (should be removed), intentional logging (should use proper logger), or permanent debug (code smell). It reveals "log debt": "You have 847 console.logs; 634 are >90 days old—debugging artifacts that became permanent." The output shows: "File auth.js has 23 console.logs, avg age 312 days—replace with proper logging or delete." It transforms console cleanup from "remove all logs" into *log hygiene*—distinguishing between temporary debugging and intentional output.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Merge" Conflict Resolution Survival Rate:** When merge conflicts happen, some resolutions stick, others get reverted or cause downstream bugs. This tool `conflict-survival` tracks conflict resolutions to measure "resolution quality": "This merge had 17 conflicts; 3 resolutions caused bugs within 7 days (resolution failure rate: 18%)." Unlike conflict resolution tools that help you merge, this analyzes *which resolution strategies work*—"keep theirs" vs. "keep ours" vs. manual merge. It reveals "resolution patterns": "Conflicts in package.json: 'keep theirs' has 73% failure rate (version conflicts break builds)—always resolve manually." The output shows: "Your team's conflict resolutions have 12% failure rate—manual merges fail least often (3%), auto-merge 'keep ours' fails most (27%)." It transforms merge conflicts from "get it resolved" into *resolve it well*—learning which conflict strategies minimize downstream bugs.
+</ideas>
+<probability>0.30</probability>
+</response>
+<response>
+<ideas>
+**"Code" Semantic Drift Monitor:** Function names evolve slower than their implementations—`validateUser()` originally checked email format, now also validates credit scores and runs background checks (semantic drift). This CLI `semantic-drift` analyzes function implementations over time to detect "meaning drift": "Function `sendNotification` originally only sent emails (year 1), now also sends SMS, pushes notifications, and updates dashboards (year 3)—semantic drift: HIGH (name no longer matches reality)." It reveals: "Function `parseData` now includes validation, transformation, and persistence—name suggests parsing, implementation does ETL (drift: should rename to `processDataPipeline`)" or "Module `auth-utils` now contains billing logic—semantic drift: misnamed, should extract `billing-utils`." When you refactor, it flags: "You're calling `calculateTotal`—implementation now includes tax calculation, currency conversion, and discount application (semantic overload: split into `calculateSubtotal`, `calculateTax`, `applyDiscount`)." It transforms code maintenance from "trust the name" to "verify the meaning matches the name"—catching where function names have become lies through gradual accretion of responsibilities. This addresses real pain: functions that do 10 things but their names suggest one thing.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Fragility Analyzer:** Test suites have different "fragility signatures"—some tests break constantly (fragile), others never break unless real bugs exist (robust). This CLI `test-fragility` analyzes test failure history to classify fragility: "Test `testCheckoutFlow` fails 23% of runs due to timing issues (HIGH FRAGILITY—flaky test, not product bug)" vs. "Test `testCalculatesTotal` never fails unless logic changes (LOW FRAGILITY—robust test, high signal)." It reveals: "Test suite has 47% fragility (most failures are false positives—team ignores test results)" or "Test `testAPI` fails when network is slow (fragility: timing-dependent, needs mocking)." When you improve tests, it prioritizes: "Fix 5 flaky tests first (they're drowning real failures in noise)" or "Delete `testRandomOrder` (fragility: 89%—tests random behavior, provides no value)." Unlike test coverage that shows what's tested, this reveals *which tests provide signal vs. noise*—catching where test suites are so fragile that teams ignore them. It transforms test maintenance from "all failures equal" to "fragility-weighted triage"—focusing on robust tests that catch real bugs vs. fragile tests that catch nothing. This addresses real pain: test suites that fail constantly, teaching teams to ignore all test results.
+</ideas>
+<probability>0.32</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Implicit Configuration Mapper:** Code has "implicit configuration"—values hardcoded as constants that should be config but aren't. This CLI `implicit-config` scans code to surface "hidden configuration": "Constant `MAX_RETRIES = 3` in `payment.js` (implicit config—should be environment variable, varies per deployment)" or "Timeout `5000` in `api-client.ts` (implicit config—hardcoded, should be `process.env.API_TIMEOUT`)." It reveals: "File `checkout.js` has 12 hardcoded values (implicit config: 3 are environment-specific, will break in staging vs. prod)" or "Module `email-service.ts` assumes SendGrid API URL (implicit config: doesn't support alternative providers)." It generates "config extraction reports": "Move these 7 constants to environment variables (deployment-specific)" or "Extract these 5 values to feature flags (business logic, not code constants)." Unlike linters that flag magic numbers, this classifies *which hardcoded values are actually implicit configuration*—values that vary between deployments, environments, or business conditions. This addresses real pain: "works on my machine" bugs caused by hardcoded environment-specific values.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Shadow Usage Scanner:** Projects accumulate "shadow dependencies"—libraries used in development but not in `package.json` (installed as transitive deps, used directly, will break when transitive dep updates). This CLI `shadow-deps` scans code to detect "undeclared dependencies": "Code imports `lodash debounce`—not in `package.json`, comes from `some-library` (shadow dependency: will break if `some-library` upgrades)." It reveals: "Using `axios` directly—only listed as transitive dependency of `api-client` (shadow dependency: unsafe, add to `package.json`)" or "Import `react/testing-library`—not in devDependencies, comes from `some-test-lib` (shadow dependency: fragile coupling)." When you audit dependencies, it flags: "You have 7 shadow dependencies (hidden breakage risk: add explicitly)" or "Dependency `X` brings in 12 transitive deps you're using directly (shadow dependency: declare them)." Unlike `npm audit` that checks for vulnerabilities, this detects *structural dependency problems*—depending on libraries that aren't in your manifest but are present incidentally. It transforms dependency management from "vulnerability scanning" to "supply chain validation"—catching where you're accidentally depending on implementation details of other packages. This addresses real pain: "production broke because transitive dependency upgraded and we were using it directly without declaring it."
+</ideas>
+<probability>0.29</probability>
+</response>
+
+<response>
+<ideas>
+**"Error" Cascading Failure Forecaster:** Errors trigger follow-on errors—database failure causes cache failure, which causes API failure, which causes frontend failure (cascading). This CLI `cascade-forecast` analyzes error patterns to predict "failure cascades": "Error `db-connection-lost` triggers 47 downstream errors within 30 seconds (cascade risk: HIGH—expect cascading failures)." It reveals: "When `payment-gateway` times out, 12 services experience errors (cascade pattern: circuit breaker needed)" or "Error `cache-miss` never triggers downstream errors (cascade risk: LOW—isolated failure)." When you design systems, it recommends: "Add circuit breaker at `payment-gateway` (cascades to 12 services)" or "Cache failures are isolated (no cascade mitigation needed)." It generates "cascade maps": which errors are "patient zero" for mass outages vs. which are dead ends. Unlike error tracking that logs individual failures, this reveals *failure propagation patterns*—which errors are single points of failure for entire systems. This addresses real pain: small errors that spiral into system-wide outages because failure cascades weren't anticipated.
+</ideas>
+<probability>0.34</probability>
+</response>
+<response>
+<ideas>
+**"Code" Cognitive Load Analyzer:** Code complexity metrics (cyclomatic complexity, lines of code) miss *cognitive load*—how much mental effort is required to understand this code? This CLI `cognitive-load` analyzes code to measure "mental effort": "Function `processPayment` has cognitive load 8.7 (HIGH—requires holding 8 separate concepts in working memory: payment methods, validation, error handling, retry logic, fallbacks, logging, metrics, state management)." It reveals: "File `checkout.js` has cognitive load 12.3 (EXCESSIVE—single function handles 12 concerns, extract modules)" or "Class `User` has load 2.1 (LOW—single responsibility, easy to understand)." It flags "cognitive bottlenecks": "This `if` chain has 7 branches, each with different error handling (load: HIGH—refactor to strategy pattern)" or "Function mixes business logic + data access + formatting (load: HIGH—separate layers)." When you refactor, it prioritizes: "Reduce load in `auth.js` (12.4) before `utils.js` (3.2)—auth.js is burning 4× more mental energy." Unlike complexity metrics that count branches, this estimates *human comprehension effort*—catching where simple code is actually confusing due to scattered concerns. This addresses real pain: "simple" 50-line functions that are exhausting to understand because they juggle 10 different responsibilities.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Commit Co-occurrence Pattern Detector:** Some commits always happen together—`change schema.js` + `change migration.js` (99% co-occurrence), suggesting they should be one atomic operation. This CLI `commit-cooccurs` analyzes commit history to detect "latent atomicity": "Files `schema.prisma` and `migration.sql` modified together in 94% of commits (co-occurrence: HIGH—should be single commit, not two separate commits)." It reveals: "Commits change `config.js` + `config.test.js` together 87% of the time (co-occurrence: missed test updates should be part of same commit)" or "Files `types.ts` and `implementation.ts` modified separately 76% of the time (co-occurrence: LOW—atomicity already good)." It recommends "commit consolidation": "Stop committing `schema.sql` and `models.js` separately—combine into single commits (they're always changed together)." Unlike git hooks that enforce patterns, this discovers *emergent patterns*—showing which changes are treated as atomic in practice but committed separately. This addresses real pain: multi-commit PRs where "commit 1 breaks tests, commit 2 fixes them"—bisection finds the wrong commit.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Dead Code Activation Risk Scanner:** Dead code isn't always safe to delete—some "unused" code is activated by rare conditions (error paths, feature flags, edge cases). This CLI `dead-risk` analyzes dead code to classify "activation risk": "Function `handleLegacyAPI` appears unused (0 direct calls) but is activated by `process.env.LEGACY_MODE = true` (activation risk: HIGH—environment-specific, delete = break production)." It reveals: "Function `retryPayment` has 0 calls—actually activated by error handler in `processPayment` (activation risk: INDIRECT—called via dynamic invocation, delete = break error recovery)" or "Class `OldCheckout` is unused—feature flag `new-checkout=false` activates it (activation risk: FEATURE FLAG—rare but real, 3% of traffic)." It flags "safe deletions": "Function `unusedHelper` has 0 calls, 0 dynamic references, 0 feature flags (activation risk: ZERO—truly dead, safe to delete)." Unlike dead code detectors that just flag unused code, this classifies *activation risk*—showing which "dead" code is actually hibernating. This addresses real pain: deleting "unused" code and breaking production in rare edge cases.
+</ideas>
+<probability>0.22</probability>
+</response>
+
+<response>
+<ideas>
+**"API" Response Validation Gap Detector:** APIs document expected responses, but tests don't validate all fields—some fields are never tested, some tests allow wrong data types. This CLI `api-gap` compares API specs to test assertions to find "validation gaps": "Endpoint `GET /user` documents 12 fields, tests validate 3 (validation gap: 75%—test allows wrong data in 9 fields)." It reveals: "Field `user.createdAt` documented as ISO-8601 string, tests accept any value (validation gap: type not enforced—could return `null` and test would pass)" or "Endpoint `POST /checkout` returns `error.code`—tests never validate `error.code` format (validation gap: undocumented field, test assumes any value)." It generates "gap reports": "Add assertions for 8 missing fields (critical: `payment.amount`, `user.id`—validate these or production bugs will slip through)." Unlike API contract testers that check if endpoints exist, this checks *which response fields are actually validated*—catching where tests pass but APIs return garbage. This addresses real pain: "all API tests pass" but production returns wrong data because tests never validated specific fields.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Singleton Instance Leak Detector:** Singletons are convenient but leak state—tests set `singleton.config = X`, next test expects `config = Y` but gets `X` (state pollution). This CLI `singleton-leak` detects "state leakage" in singleton patterns: "Singleton `Database` has 47 tests that modify its state (leak risk: HIGH—test #23 sets `Database.mock = true`, test #24 expects real database but gets mock)." It reveals: "Class `Config` is singleton—12 tests modify `Config.env` (state pollution: test isolation broken, order-dependent tests)" or "Module `logger` has global state—test #7 sets `logger.level = 'debug'`, test #8 assumes `'info'` (state leak: test #8 fails if run after #7, passes if run alone)." It flags "missing cleanup": "Test #3 modifies singleton but never resets (cleanup gap: add `afterEach(() => singleton.reset())`)." When you fix flaky tests, it diagnoses: "Test passes alone, fails in suite—singleton leak from test #12 (state pollution: reset singleton after test)." Unlike test isolation tools that check for missing cleanup, this specifically targets *singleton state leakage*—the most common source of test pollution. This addresses real pain: flaky tests that pass/fail depending on run order due to singleton state pollution.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Slowdown Regression Detector:** Test suites gradually accumulate performance debt—individual tests slow down by 50ms here, 200ms there, and suddenly the suite takes 10 minutes instead of 2. This CLI `test-slowdown` tracks individual test execution times over time to detect "performance regression": "Test `checkoutFlow` took 120ms in March, 340ms in April, 890ms in May (4× slowdown—regression detected)." It reveals: "Test suite accumulated 47 minutes of slowdown over 6 months (12 tests slowed by >100ms each)" or "Test `userLogin` suddenly 3× slower—commit `abc123` added logging without cleanup (slowdown culprit identified)." It generates "slowdown blame": which commits caused test performance degradation, by how much. Unlike performance profilers that require manual investigation, this is *continuous performance monitoring*—flagging tests as they slow down, not after they're already painful. It transforms test maintenance from "why is this suite so slow?" to "test #34 slowed by 200ms in commit xyz—revert or optimize." This addresses real pain: test suites that gradually become too slow to run frequently, degrading developer experience.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Async Stack Trace Truncation Revealer:** JavaScript async code loses stack trace information across `await` boundaries—errors show where the promise resolved, not where it was created. This tool `async-unwind` instruments async code to reconstruct "full async call stacks": "Error at `processPayment` line 456—async stack created at `checkout` line 89, triggered by API call at `api-client` line 23 (full async lineage: 3 levels up)." It reveals: "This error appears to originate in `utils.js`, but was actually triggered by async operation started in `controller.js` 5 seconds earlier (stack trace truncation hides root cause)" or "Promise rejection at `db.query`—created by `getUserData` → `processOrder` → `handleRequest` (async stack: 4 levels, truncated stack shows only bottom)." When you debug async errors, it shows the "promise creation site"—where the async operation started, not just where it failed. Unlike long-stack-trace tools that add overhead to all code, this selectively instruments *async boundaries* to reconstruct call stacks. It transforms async debugging from "where did this error surface?" to "where did this async operation start?"—catching the true origin of async failures. This addresses real pain: async errors that show stack traces pointing to the wrong place, making root cause analysis frustrating.
+</ideas>
+<probability>0.28</probability>
+</response>
+
+<response>
+<ideas>
+**"Dependency" Indirect Usage Amplifier:** Dependencies bring transitive dependencies—you use library A, which depends on B, which depends on C—but some dependencies are "amplifiers" that pull in massive trees. This CLI `dep-amplify` analyzes dependency graphs to detect "amplification risk": "You added `package-utils` (47KB)—it pulls in 23 transitive dependencies totaling 47MB (amplification: 1000×—tiny package, massive tree)." It reveals: "Dependency `webpack-plugin` adds 12 transitive deps, but `lodash` adds 0 (amplification: LOW vs. HIGH)" or "You're using 3% of `framework-X` API, but it loads 100% of its dependencies (amplification waste: 97% unused overhead)." It generates "amplification reports": which dependencies are lightweight vs. which are trojan horses for massive dependency trees. Unlike `npm ls` that shows the tree, this quantifies *amplification factor*—how much bloat each dependency introduces relative to its size. It transforms dependency selection from "this library is small" to "this library amplifies into 100MB of transitive deps"—catching where small packages are hiding massive dependency chains. This addresses real pain: `node_modules` bloating because "tiny" dependencies pull in enormous transitive trees.
+</ideas>
+<probability>0.31</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Binary File Bloat Detector:** Repositories accumulate binary files—images, PDFs, datasets—that bloat repository size and slow down clones. This CLI `binary-bloat` scans repository history to detect "binary bloat": "File `design-mockup.png` added in commit abc123 (47MB)—repository size increased by 300% (binary bloat: EXTREME)." It reveals: "Repository is 2.3GB—1.9GB is binary files in history (bloat ratio: 83%—most repo size is binaries)" or "Binary file `training-data.csv` (890MB) added 3 years ago, still in history (bloat persists even though deleted from HEAD)." It generates "bloat ancestry": which commits added the most binary weight, which branches are bloated, which files are responsible for repository size. Unlike git LFS that requires migration, this is *diagnostic*—showing what's bloating the repo so you can decide whether to migrate to LFS, clean history, or accept the bloat. It transforms repository maintenance from "why is clone so slow?" to "these 5 files are 90% of repo size—migrate or delete." This addresses real pain: repositories that become gigabytes due to accumulated binary files, making clones and pulls painfully slow.
+</ideas>
+<probability>0.26</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Exception Type Violation Detector:** Functions claim to throw specific error types via TypeScript types or JSDoc, but actually throw different types at runtime—breaking type safety and error handling assumptions. This tool `exception-violation` instruments code to detect "exception type mismatches": "Function `processPayment` typed to throw `PaymentError`, but actually throws `Error` (type violation: throwing generic instead of specific)." It reveals: "Function claims to throw `ValidationError`, runtime throws `null` (type violation: throwing non-Error object)" or "Try/catch expects `NetworkError`, but code throws `string` (type violation: catching wrong type)." When you refactor error handling, it flags: "You're catching `AuthError` but this function actually throws `Error` (type mismatch: catch block won't trigger)." It generates "exception type audits": which functions throw what they claim vs. what they actually throw. Unlike TypeScript that checks throw statements at compile time, this validates *runtime exception reality*—catching where error types are documented but not enforced. It transforms error handling from "trust the types" to "verify the runtime behavior"—catching where exception types are lies. This addresses real pain: error handling that silently fails because it catches the wrong error type.
+</ideas>
+<probability>0.23</probability>
+</response>
+<response>
+<ideas>
+**"Code" Type Guard Drift Detector:** TypeScript type guards are functions—`isUser(obj)`, `isValidEmail(str)`—that assert types at runtime. These guards *drift* from types: type says `email: string`, guard allows `email = null` (type narrowed incorrectly). This CLI `guard-drift` compares type definitions to type guard implementations to detect "guard invalidation": "Type `User` says `email: string` but `isUser()` guard returns `true` for objects with `email: null` (guard drift: allows values type forbids)." It reveals: "Guard `isAuthenticated()` checks `user !== null` but type `AuthenticatedUser` also requires `user.email !== null`—guard allows unverified users (drift: guard is too permissive)" or "Type guard claims to narrow `Animal` to `Dog` but doesn't check `bark` property (drift: type assertion unsound)." Unlike TypeScript compilers that check types, this checks *type guards themselves*—ensuring runtime checks actually enforce what types claim. This addresses real pain: TypeScript saying "this is safe" while runtime guard lets invalid data through—type system illusion of safety.
+</ideas>
+<probability>0.19</probability>
+</response>
+
+<response>
+<ideas>
+**"Git" Branch Staleness Bloom Calculator:** Branches go stale—code ages, conflicts accumulate—but developers merge without knowing *how much rebase pain* awaits. This CLI `branch-stale` calculates "staleness bloom": "Branch `feature/auth` last merged to main 47 days ago—diverged commits: 89. Estimated rebase conflicts: 12 files, 34 conflicts (staleness: HIGH)." It predicts merge complexity *before* attempting: "This branch will take 2-4 hours to rebase—conflicts concentrated in `schema.prisma`, `api/routes.ts`." It tracks "staleness cost": branches that become exponentially more expensive to merge over time. Unlike standard branch warnings that say "branch is old," this quantifies *merge cost*—enabling decisions to abandon stale branches vs. invest in rebase. It transforms branch management from "we should merge this" to "merging this costs X hours—worth it?"—exposing the hidden cost of delayed integration. This addresses real pain: starting a merge expecting 30 minutes, spending 6 hours resolving conflicts from 2 months of drift.
+</ideas>
+<probability>0.22</probability>
+</response>
+
+<response>
+<ideas>
+**"API" Response Shape Consistency Checker:** APIs return the same "resource" but in different shapes across endpoints—`/users` returns `{id, email}`, `/users/me` returns `{id, email, preferences}`. This CLI `api-shape-consist` scans API responses to detect "shape inconsistencies": "Resource `User` returned from 7 endpoints with 5 different shapes (inconsistency: HIGH—endpoint A includes `lastLogin`, endpoint B excludes it)." It reveals: "Two endpoints both return `Order` objects—one includes `lineItems`, one doesn't (inconsistency: same resource, different contracts)" or "Error responses have 3 different formats across endpoints (inconsistency: clients must handle 3 error shapes)." It generates "shape reports": which resources have consistent representations vs. endpoint-specific variations. Unlike API spec validators that check individual endpoints, this checks *resource consistency* across the entire API—catching where the same concept is represented differently depending on where you ask for it. It transforms API design from "each endpoint works" to "resources have canonical shapes"—reducing client confusion when the same entity looks different depending on which endpoint you call.
+</ideas>
+<probability>0.27</probability>
+</response>
+
+<response>
+<ideas>
+**"Code" Error Message Localization Gap Detector:** Error messages are written in English but codebases internationalize user-facing text—*except* errors. This CLI `error-localize` detects "localization gaps": "Error message 'Invalid email address' shown to users but never localized—French users see English (gap: user-facing error not in i18n system)." It distinguishes "developer errors" (stack traces, technical details) from "user errors" (validation failures, permission denied) and flags user-facing errors that bypass localization. It reveals: "47 error messages shown to users, 31 hardcoded in English (gap: 66% of errors not localized)" or "Error 'Payment failed' is localized but 'Credit card expired' is not (gap: partial localization—user sees mixed languages)." Unlike i18n linters that check UI text, this checks *error paths*—catching where error handling circumvents the localization system. This transforms internationalization from "UI is localized" to "errors are localized"—fixing the jarring experience where everything is translated except the error message.
+</ideas>
+<probability>0.21</probability>
+</response>
+
+<response>
+<ideas>
+**"Test" Flakiness Root Cause Categorizer:** Flaky tests are labeled "flaky" but the *cause* is rarely tracked—is it timing? Dependency order? Async race? This CLI `flaky-categorize` analyzes test failures to categorize "flakiness types": "Test `checkoutFlow` flaky—root cause: race condition between API mock and test timeout (category: async race)" vs. "Test `userLogin` flaky—root cause: test database not isolated between runs (category: state leakage)." It tracks "flakiness patterns": "47 flaky tests—23 are timing-dependent (use wait-for instead of sleep), 12 are state leakage (add database reset), 9 are dependency order (run in isolation)." Unlike flaky test detectors that flag "this test is flaky," this diagnoses *why*—grouping flaky tests by root cause to enable systemic fixes. It transforms flaky test management from "retry until it passes" to "fix the underlying timing/state/order problem"—addressing the systemic issue that makes tests unreliable. This addresses real pain: teams treating "flaky" as a property of individual tests rather than a symptom of specific failure modes that can be fixed categorically.
+</ideas>
+<probability>0.24</probability>
 </response>
