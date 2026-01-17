@@ -924,3 +924,39 @@ For AI agents in 2026, shadow execution teaches crucial distinctions about unexe
 
 ---
 
+## AI Assistant's Picks (Saturday Jan 17, 2026 - Thirty-Fifth Set)
+
+### Favorite from TAILS-IDEAS.md
+**Merge Conflict Autopsy Generator** (Response 176)
+
+### Favorite from BULK-IDEAS.md
+**Behavioral Regression Detector** (Response 200)
+
+---
+
+## Elevator Pitch: Merge Conflict Autopsy Generator
+
+Merge conflicts are treated as annoying interruptions—resolve them quickly and move on. But each conflict is a symptom of deeper issues: poor communication, architectural coupling, or parallel development without coordination. The Merge Conflict Autopsy Generator transforms conflicts from frustrating roadblocks into learning opportunities by forensically analyzing *why* they happened and how to prevent similar ones.
+
+When conflicts occur, the system doesn't just help resolve them—it performs root cause analysis. It examines the conflicting changes to identify underlying issues: Was it poor communication where both developers unknowingly worked on the same feature? Parallel feature development that should have been coordinated? A refactoring during a feature freeze? Or fundamental architectural coupling where every feature modification touches the same tightly-coupled modules?
+
+The breakthrough is transforming "just fix it and move on" into institutional learning. Each conflict generates a detailed autopsy report: what were both developers trying to accomplish? Were their goals compatible or fundamentally in tension? Could better architecture have prevented the conflict? The system builds a conflict knowledge base showing patterns: "Conflicts in the payment module are usually caused by race conditions between checkout flow changes and payment provider updates."
+
+For teams, this reveals systemic issues. If the same files generate conflicts repeatedly, that's an architectural smell indicating tight coupling. The system suggests structural changes: "These three modules conflict frequently—consider introducing an interface layer to decouple them." It identifies whether conflicts stem from organizational issues (poor sprint planning), technical issues (architectural coupling), or process issues (insufficient communication).
+
+For AI agents in 2026, conflict autopsies teach coordination patterns. Instead of just mechanically merging code, agents learn to recognize when proposed changes will conflict with ongoing work and suggest proactive coordination. The system preserves institutional knowledge about why conflicts happen, preventing teams from repeatedly hitting the same coordination failures.
+
+---
+
+## Elevator Pitch: Behavioral Regression Detector
+
+Traditional regression tests check that code doesn't break, but they miss behavioral regressions—subtle changes in how features work that are technically correct but violate user expectations. Response times increase slightly, results are ordered differently, error messages change, defaults shift. These changes don't break tests but degrade user experience, and teams don't discover them until users complain.
+
+The Behavioral Regression Detector monitors real user interactions to establish behavioral baselines: typical response times, common user paths, expected result patterns, and interaction flows. When code changes alter these behaviors—even without breaking functionality—it flags potential regressions. "After the latest deployment, search results are ordered differently. Users are clicking 40% deeper in results lists to find what they need—likely behavioral regression."
+
+The system combines production telemetry with user behavior analysis to detect degradation that automated tests miss. It learns which behavioral changes are improvements (faster responses, fewer errors) versus degradations (slower responses, worse relevance, increased user friction). For critical flows, it alerts on any behavioral deviation: "Checkout completion time increased from 2.3 seconds to 4.1 seconds—investigate before full rollout."
+
+The breakthrough is monitoring behavior, not just functionality. Features can work perfectly yet provide worse experiences. The detector catches subtle degradations invisible to unit tests: "API technically returns correct data, but 15% slower" or "Search still works, but relevance dropped 20%." For AI agents deploying changes in 2026, behavioral regression detection teaches that correctness isn't sufficient—maintaining expected user experience is equally critical. The system enables confident deployment by catching subtle degradations before they impact all users, making behavior a first-class test criterion alongside functionality.
+
+---
+

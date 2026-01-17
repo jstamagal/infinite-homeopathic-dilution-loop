@@ -687,3 +687,103 @@ For teams, this prevents wasted effort rediscovering solutions. For AI agents in
 </response>
 
 ---
+
+## Response 211
+<response>
+<ideas>
+**Architectural Decision Context Decay Detector**
+
+Architectural decisions make sense when made but become questionable as context evolves. Teams chose NoSQL for "massive scale" but have 500 users. They built microservices for "team autonomy" but remained a 3-person team. They selected Kubernetes for "flexibility" but spend more time on infrastructure than features. The Architectural Decision Context Decay Detector identifies when the assumptions justifying past decisions no longer hold.
+
+The system mines architecture decision records (ADRs), git history, and design docs to extract original justifications: "We chose Cassandra because we expected 10M users, needed multi-datacenter replication, and anticipated complex query patterns." It continuously monitors whether those assumptions remain valid by tracking actual usage patterns, team size, scaling needs, and operational complexity.
+
+When context diverges significantly from original assumptions, it flags architectural debt: "Your NoSQL database was chosen for horizontal scaling, but you've had 1,000 users for 2 years and complexity is hurting development velocity. Original assumption no longer holds—consider migrating to simpler SQL database." The detector quantifies the gap between assumed context and reality: "Microservices were justified for 10 independent teams; you have 4 developers who all touch every service."
+
+The breakthrough is detecting when architectural decisions outlive their validity. Many systems carry architectural complexity designed for problems they don't actually have—legacy of assumptions that were reasonable initially but became obsolete. The detector prevents the pattern where teams maintain complex architectures "because that's how we've always done it" without questioning whether it still makes sense.
+
+For teams, this provides permission to simplify when circumstances change. The detector generates simplification proposals: "Your current scale would be better served by a monolith—here's a migration path." For AI agents in 2026, this teaches that architecture isn't permanent truth but contextual choice. When original assumptions decay, reverting to simpler architectures might be the right move. The system makes architectural evolution bidirectional—not just "migrate to complexity" but also "migrate to simplicity when warranted."
+</ideas>
+<probability>0.04</probability>
+</response>
+
+---
+
+## Response 212
+<response>
+<ideas>
+**Implicit Assumption Violation Warner**
+
+Code embeds thousands of implicit assumptions that developers take for granted: "user IDs are numeric", "timestamps fit in 32 bits", "files are under 10MB", "API responses arrive in under 5 seconds", "users have one email address", "the system runs in one timezone". When these unwritten assumptions break, debugging becomes nightmarish because violations are invisible.
+
+The Implicit Assumption Violation Warner excavates hidden assumptions from code patterns, defensive checks, error handling, and historical bugs. It identifies what your code believes about the world: "This module assumes usernames are ASCII—contains no Unicode handling", "This function assumes non-null responses—no defensive checks", "This parser assumes well-formed JSON—crashes on malformed input".
+
+The system monitors production telemetry to detect when reality violates assumptions before catastrophic failure. When usernames start containing emojis, file sizes exceed expectations, or API latency grows, it warns: "Code assumption violated: Your authentication module assumes JWT tokens under 1KB, but new tokens from OAuth provider average 2.3KB. Potential buffer issues in 7 locations." It provides lead time to fix assumptions before they cause outages.
+
+The breakthrough is making implicit knowledge explicit and testable. Most assumptions are never documented—they're embedded in code structure, type choices, and error handling (or lack thereof). The warner surfaces these invisible contracts, making teams aware of brittleness. It generates assumption tests: "Assert file size < 10MB" based on discovered implicit constraints, making violations fail loudly rather than causing mysterious bugs.
+
+For AI agents in 2026, assumption awareness is critical for safe code generation. Instead of copying human tendency to embed hidden assumptions, agents learn to validate assumptions explicitly or design for assumption violations. The warner teaches that robust code doesn't assume—it validates, handles violations gracefully, and fails loudly when assumptions break. This prevents the pattern where systems work perfectly until the day a hardcoded assumption becomes false and everything breaks mysteriously.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
+
+## Response 213
+<response>
+<ideas>
+**Test Coverage Gap Explainer**
+
+Test coverage metrics lie. They show what's covered but hide *why* code remains uncovered. Some uncovered code is genuinely forgotten, but much is uncovered for good reasons: legacy modules too risky to refactor for testing, code requiring complex external dependencies, integration points intentionally tested manually, generated code tested at source, or code so simple testing adds no value.
+
+The Test Coverage Gap Explainer analyzes uncovered code to categorize *why* it lacks tests, transforming coverage reports from accusations into actionable intelligence. For each uncovered module, it determines: Is this legacy code too risky to touch? Does it require complex mocking? Is it auto-generated? Is it covered by higher-level integration tests? Or is it genuinely neglected technical debt?
+
+The system uses multiple signals: git history (old, untouched code), complexity metrics (simple getters vs. complex logic), dependency analysis (requires database, external APIs, file system), and team patterns (some codepaths are tested via integration suites rather than unit tests). It generates categorized coverage reports: "30% uncovered due to legacy code freeze, 15% covered by integration tests, 5% genuinely missing tests."
+
+The breakthrough is making test debt actionable by explaining context. Generic "improve coverage from 70% to 80%" mandates fail because they don't distinguish high-value testing from low-value busywork. The explainer identifies high-impact gaps: "These 3 uncovered modules handle payment processing and have frequent bugs—priority test targets" versus low-value gaps: "These 50 uncovered getter methods are simple property access—testing provides minimal value."
+
+For teams, this prevents wasting effort on coverage theater—writing tests for code that doesn't need them while neglecting genuinely untested critical paths. For AI agents in 2026, gap explanation teaches intelligent test prioritization. Instead of blindly generating tests for uncovered code, agents focus on coverage gaps that matter: complex logic, frequent bug locations, critical business flows. The explainer transforms coverage metrics from blunt instruments into nuanced guides for strategic test investment.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
+
+## Response 214
+<response>
+<ideas>
+**Unwritten Deployment Ritual Documenter**
+
+Every team has unwritten deployment rituals—tribal knowledge about the actual deployment process versus the documented process. "Check the error dashboard 5 minutes after deploy." "Notify #customer-support before major releases." "Never deploy on Fridays." "Watch memory usage for 30 minutes post-deploy." "If EU traffic drops, it's the CDN cache—invalidate manually." These rituals are invisible, known only to veterans, and lost when people leave.
+
+The Unwritten Deployment Ritual Documenter observes actual deployment behavior to capture these implicit processes. It monitors what people do during and after deployments: which dashboards they check, which notifications they send, how long they wait before declaring success, what rollback triggers they watch for, which manual interventions they perform when things go wrong.
+
+The system identifies patterns across deployments: "After 90% of production deploys, someone checks /health endpoints from 3 regions within 2 minutes" or "Database migrations are always run during 2-4am EST, never during business hours" or "After payment service deploys, the team watches Stripe webhook delivery rates for 15 minutes." It documents these observed rituals, distinguishing one-off actions from consistent patterns.
+
+The breakthrough is capturing tacit knowledge that never gets written down. Official runbooks say "deploy and monitor logs" but actual practice involves nuanced dashboard checking sequences, stakeholder notification patterns, and environment-specific gotchas learned through painful experience. The documenter makes invisible ritual visible: "Here's what experts actually do during deployments, not what the docs claim."
+
+For new team members, ritual documentation accelerates deployment confidence—they learn the real process, including unofficial-but-important steps. For AI agents in 2026, rituals teach operational wisdom that formal documentation misses. When agents automate deployments, they can encode actual tribal practices rather than theoretical processes. The documenter prevents knowledge loss during team turnover by preserving operational wisdom that exists only in veteran behavior patterns. It transforms deployment expertise from invisible tribal knowledge into explicit, teachable process documentation.
+</ideas>
+<probability>0.04</probability>
+</response>
+
+---
+
+## Response 215
+<response>
+<ideas>
+**Code Review Substance Analyzer**
+
+Code review comments reveal what teams actually care about versus what linters enforce. Some teams obsess over naming conventions, others focus on architecture, some prioritize test quality, others emphasize documentation. But this institutional priority is invisible—scattered across thousands of PR comments without synthesis.
+
+The Code Review Substance Analyzer mines PR review history to identify what your team genuinely values in code quality. It categorizes feedback: naming/style (superficial), logic bugs (critical), test coverage (quality), security concerns (critical), performance implications (depends), architecture patterns (strategic), documentation clarity (important). It quantifies where review energy goes: "40% of comments are style nitpicks, 30% are genuine logic issues, 20% are test suggestions, 10% are architecture discussions."
+
+The system identifies team-specific priorities that generic linters miss. One team consistently rejects PRs with insufficient error handling; another team always questions database query patterns; a third team emphasizes API backwards compatibility in every review. The analyzer surfaces these implicit standards: "Your team rejects PRs with console.log statements 95% of the time—enforce this automatically" or "Architecture discussions happen on 60% of PRs touching the data layer—flag these PRs for senior review."
+
+The breakthrough is making implicit team values explicit and automatable. Generic linters enforce universal rules; team-specific analyzers enforce *your* team's values. The system can auto-generate custom lint rules from review patterns: "Your team consistently requests TypeScript strict mode—enable it project-wide" or "You always question hard-coded timeouts—warn when new ones are added."
+
+For teams, this reduces review friction by catching team-specific concerns pre-review. Junior developers learn team values by seeing what actually matters to reviewers, not just what style guides say. For AI agents in 2026, review analysis teaches context-specific quality standards. Instead of applying generic best practices, agents learn your team's specific priorities—generating code that matches not just style but substance of what your team considers quality. The analyzer transforms code review from repeating the same feedback into teaching quality standards that get internalized and automated.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
