@@ -48,6 +48,24 @@ This describes import organization, unused import detection, and dependency opti
 
 ## January 17, 2026 Review - TAILS-IDEAS.md
 
+### "Commit" Intent Archaeologist
+**Original Probability:** 0.03
+
+**Reason for Removal:**
+This violates the explicit "Commit Message Archaeology" anti-pattern in PROMPT.md (lines 81-85). It analyzes commit patterns to identify "missed intents" where commit messages don't match actual changes, then suggests retroactively fixing or annotating git history. Git commits are immutable historical records, not living documents requiring maintenance. The tool treats commit hygiene as something needing post-hoc analysis rather than enforcement at commit time. "Intent bugs" are just poorly written commit messages—the solution is better review processes and commit templates, not archaeological analysis tools. The described functionality (comparing messages to semantic diffs) is basic code review that should happen before commits land, not months later. This creates busywork around git history that violates fundamental git philosophy: commits are snapshots in time, not maintenance burdens. Git already has blame, log, and diff tools for understanding history. Building systems to retroactively audit and suggest updates to immutable commit messages is architectural malpractice that treats symptoms rather than enforcing good commit discipline upfront.
+
+### "Commit" Intent Decay Tracker
+**Original Probability:** 0.05
+
+**Reason for Removal:**
+Another blatant violation of the "Commit Message Archaeology" anti-pattern. This tracks "intent decay"—when commit messages no longer match current reality because code evolved. It flags "zombie intents" where original commit purposes no longer apply and suggests "documentation updates or re-examination." This fundamentally misunderstands git: commit messages describe what WAS changed and why AT THAT TIME, not what the current state is. Of course a commit from 6 months ago about adding retry logic might be irrelevant if that logic was later removed—that's normal evolution captured in subsequent commits! The concept of "intent debt" treating historical commit messages as debt requiring payment is backwards. Git history is a timeline, not a living document. If code changes, new commits explain those changes. The original commits remain historically accurate descriptions of decisions made in their moment. This tool would have developers constantly updating or re-examining old commit messages to "align with current reality," which is pointless archaeological busywork. The solution to understanding current code is reading current documentation and recent commits, not maintaining historical commit messages like they're technical debt.
+
+### "Dependency" Integration Fingerprinter
+**Original Probability:** 0.04
+
+**Reason for Removal:**
+This is a grossly miscalibrated idea describing existing integration testing practices as novel. The tool "fingerprints library behavior" to detect that "axios treats 4xx as errors but fetch treats them as successful responses"—this is documented knowledge any developer using these libraries already knows. Integration testing, contract testing (Pact, Spring Cloud Contract), and behavior-driven testing already verify behavioral differences between libraries. The described functionality—running operations against dependencies to verify behavior matches expectations—is what integration tests ARE. Every mature testing framework includes tools for verifying library behavior and catching behavioral changes in updates. The "behavioral drift" detection is what lock files, dependency pinning, and regression test suites handle. HTTP client behavioral differences are well-documented in library documentation and countless Stack Overflow answers. This isn't a gap in tooling—it's basic integration testing dressed up with "fingerprinting" terminology. The probability should be >0.50 because behavioral testing of dependencies is solved territory. Building this means reinventing testing frameworks without acknowledging they exist.
+
 ### Code Emotional Arc Analyzer
 **Original Probability:** 0.04
 **Source:** TAILS-IDEAS.md Response 130

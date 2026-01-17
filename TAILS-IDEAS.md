@@ -488,28 +488,6 @@ For AI agents, debugging session extraction teaches problem-solving under incomp
 <probability>0.09</probability>
 </response>
 
----
-<response>
-<ideas>
-**"Test" Assumption Manifest Builder:** Test suites encode invisible assumptions about the world—that environment variables exist, that APIs return specific shapes, that timeouts never exceed thresholds. This tool extracts those assumptions into a "manifest of beliefs" by analyzing assertion patterns: `assert.equal(response.status, 200)` assumes the API returns status codes; `process.env.API_KEY` without checks assumes the variable exists. When you deploy to a new environment, you check the manifest against reality: "Staging doesn't have REDIS_URL but tests assume it exists." It transforms "tests pass locally, fail in prod" mysteries into "here are the 12 things our tests assume about the world." It's not test coverage; it's test archaeology—making implicit expectations explicit before deployment breaks them.
-</ideas>
-<probability>0.04</probability>
-</response>
-
-<response>
-<ideas>
-**"Git" Decision Fossilizer:** Commits capture code changes but not the *decision path*—alternatives considered, trade-offs evaluated, options rejected. This tool adds a `--decision` flag to `git commit` that prompts for three lines: "What was the problem?", "What approaches did you consider?", and "Why did you choose this approach?". These decision fossils are stored in `.decisions/` indexed by commit hash. Six months later, when someone wonders "why didn't they use Redis?", the fossil reveals: "Considered Redis (too complex for our scale) and SQLite (migrate path unclear); chose in-memory because deployment simplicity outweighed durability needs." It transforms archaeology from "what changed" to "how they thought," preventing teams from re-litigating settled decisions.
-</ideas>
-<probability>0.05</probability>
-</response>
-
-<response>
-<ideas>
-**"Merge" Conflict Arbiter:** Merge conflicts are treated as binary choices (yours/theirs), but they're often *philosophical* conflicts—two developers with different visions of how the code should work. This tool analyzes conflicting changes to surface the semantic intent: "Alice's version prioritizes performance (caching added); Bob's version prioritizes correctness (validation added)." It doesn't auto-merge; it facilitates dialogue by explicitly surfacing the trade-offs and suggesting "compromise patterns": apply both changes sequentially, extract the conflict into a strategy pattern, or recognize deeper architectural disagreement requiring team discussion. It transforms conflict resolution from "pick one and smash together" into architectural negotiation that prevents violating both visions. The goal isn't conflict avoidance; it's conflict *intelligence*—learning from friction points.
-</ideas>
-<probability>0.04</probability>
-</response>
-
 <response>
 <ideas>
 **"Debug" Hypothesis Graveyard:** Most debugging investigations generate dead-ends—suspected causes that seemed plausible but tested negative. These dead-ends are lost knowledge, causing future developers to waste time disproving the same theories. This tool transforms debugging into hypothesis testing: before investigating, you state "I suspect it's a race condition in the payment handler." The tool guides falsification: "What evidence would refute this? Run these three tests." When disproven, it preserves the negative result: "Race condition ruled out; symptoms persist under mutex lock." Six months later, when a similar bug appears, the graveyard reveals "Five teams independently suspected race conditions—all disproven. Check database timeout instead." It's not bug tracking; it's *investigation* tracking—preserving what didn't work so teams don't repeat the same dead-end investigations.
@@ -521,16 +499,6 @@ For AI agents, debugging session extraction teaches problem-solving under incomp
 <ideas>
 **"Error" Context Synthesizer:** Stack traces show *where* code failed, but not *what the world looked like* when it failed. This tool captures execution context at crash points: not just the error message, but the complete system state—recent log lines, environment variable values (sanitized), recent database queries, memory usage snapshots, and even the git commit of the running code. When production crashes at 3 AM, you don't just get "NullPointer at auth.js:47"; you get a time capsule: "Database connections were at 95% capacity, REDIS_URL was set to staging value (oops), last 5 queries all timed out, running code from commit #abc123 (2 days old)." It transforms debugging from "what broke?" to "here's the entire crime scene preserved exactly as it was." It's not error logging; it's forensics—preserving the complete context around failures so post-mortems aren't archaeological expeditions.
 </ideas>
-<probability>0.04</probability>
-</response>
-
-<response>
-<ideas>
-**"Commit" Intent Archaeologist:** Git commits show what changed, but not *what was intended* vs. *what actually happened*. This tool analyzes commit patterns over time to identify "missed intents"—commits where the stated goal diverged from the actual outcome. It detects patterns like: "This commit claimed to 'refactor for performance' but actually introduced a race condition" or "Commit message: 'minor typo fix' — actual change: removed critical validation logic." By comparing commit messages against semantic diff analysis, it surfaces "intent bugs" that slip through code review. The output reveals: "In the last 6 months, 23 commits (17% from @alice, 9% from @bob) claimed scope A but delivered scope B." It transforms commit hygiene from stylistic preference into semantic integrity—ensuring git history describes what actually happened, not what we thought happened.
-</ideas>
-<probability>0.03</probability>
-</response>
-
 <response>
 <ideas>
 **"Test" Data Decay Detector:** Test suites rot when test data diverges from production reality. This tool runs your tests against a *snapshot* of production data (anonymized) to detect "data drift": tests that pass on synthetic data but fail on real-world edge cases. It reveals: "Test `processPayment()` passes with fake credit card numbers but fails on 3% of real payment methods (gift cards, prepaid cards)" or "User profile tests assume `email` field exists, but 12% of production users have null emails." It's not just testing code logic; it's testing whether your test universe matches reality. The output shows "data coverage gaps": where your synthetic test data is too simple, too uniform, or just wrong. It transforms "tests pass locally, fail in prod" from mysteries into specific discrepancies between test fantasy and production reality. It's not test coverage; it's test *fidelity*—measuring how well your test data represents the real world.
@@ -558,21 +526,6 @@ For AI agents, debugging session extraction teaches problem-solving under incomp
 </ideas>
 <probability>0.05</probability>
 </response>
-
-<response>
-<ideas>
-**"Test" Execution Path Divergence Tracker:** Tests can pass for the *wrong reasons*—taking different execution paths than production, or hitting different code branches. This tool runs tests with coverage instrumentation that records *which branches were actually taken*, not just which lines exist. It reveals: "Test passes but never hits the error-handling branch (fake data always succeeds)" or "Production takes the 'retry' path 73% of the time; tests never simulate it." Unlike coverage tools that measure "did we run this line?", this measures "did we run the *same reality* as production?" The output shows "path coverage gaps": branches that production executes but tests never touch. It transforms test confidence from "all lines covered" to "all realities tested"—catching the subtle divergence where test universe and production universe take different roads through the same code.
-</ideas>
-<probability>0.03</probability>
-</response>
-
-<response>
-<ideas>
-**"Dependency" Integration Fingerprinter:** Two libraries might use the same protocol but make incompatible *assumptions* about how it works. This tool detects "integration impedance" by running real operations against dependencies and fingerprinting their behavior: "Library A's HTTP client follows redirects by default; Library B doesn't—same interface, different semantics." It surfaces behavioral differences that APIs don't document: "axios treats 4xx as errors (throws); fetch treats them as successful responses (check status manually)." Unlike type checkers that verify shapes match, this verifies *behavior matches*—catching the subtle mismatches where two libraries claim compatibility but act differently under stress. The output flags "behavioral drift": when library updates change silent assumptions. It transforms dependency swapping from "same interface, should work" to "same interface, different universe"—preventing breakage from invisible behavioral incompatibilities.
-</ideas>
-<probability>0.04</probability>
-</response>
-
 <response>
 <ideas>
 **"Error" Rate of Change Detector:** Systems produce errors, but the *rate* of error production reveals more than the errors themselves. This tool tracks not just error frequency, but error *velocity* and *acceleration*: "Authentication errors increased 15% this week (gradual drift) vs. Payment errors jumped 300% in 2 hours (sudden collapse)." Unlike error dashboards that show current state, this shows *trends*—distinguishing between "background radiation" (normal error rate) and "systemic decay" (error rate climbing). It detects "slow fires": problems that haven't triggered alarms but are steadily worsening. The output flags "velocity anomalies": when error production changes faster than the baseline. It transforms monitoring from "are we broken now?" to "are we breaking gradually?"—catching problems in the acceleration phase, not the explosion phase.
@@ -605,23 +558,7 @@ For AI agents, debugging session extraction teaches problem-solving under incomp
 <ideas>
 **"Dependency" Assumption Catalog:** Dependencies make invisible assumptions about their environment—a library might assume a global Promise implementation, that Buffer is available, or that fetch is polyfilled. This tool catalogs these implicit beliefs by analyzing dependency code and documentation: "Library X assumes process.nextTick exists (Node-specific, will break in browser)" or "Library Y requires global fetch (no polyfill included)." When you target a new environment (browser vs. Node, Edge vs. server), it surfaces "environment violations": "You're using 3 libraries that assume Node APIs—this won't run in Edge functions." Unlike compatibility checkers that test after deployment, this prevents deployment by revealing "this code assumes a world that doesn't exist in the target environment." It transforms dependency selection from "does this have the API I need?" to "does this assume a world I can provide?"
 </ideas>
-<probability>0.05</probability>
-</response>
-
-<response>
-<ideas>
-**"Test" Assumption Violation Detector:** Test suites encode implicit assumptions about execution context—that tests run in isolation, that mocks match real API behavior, that time flows linearly. This tool runs tests in "adversarial contexts" to surface these hidden assumptions: running tests in random order, with parallel execution, with intentionally slow I/O, with network latency injection. It reveals: "Test `userSignup` passes when run alone but fails after `paymentTest` (shared state pollution)" or "Test assumes 100ms timeout is sufficient; fails under simulated 300ms latency." Unlike standard test runners that verify "does this work?", this verifies "does this work ONLY in ideal conditions?" It transforms test confidence from "all green" to "all green AND tested against realistic adversity." The output shows "assumption violations": tests that pass in CI but fail in production because production violates the test's hidden assumptions about the world.
-</ideas>
 <probability>0.04</probability>
-</response>
-
-<response>
-<ideas>
-**"Commit" Intent Decay Tracker:** Git commits start with clear intent, but that intent degrades as code evolves around them. This tool tracks "intent decay" by analyzing how commits' original purposes diverge from current reality over time. It flags "zombie intents": commits claiming to "fix authentication bug" where the fix has since been refactored away, or commits claiming "add error handling" where the error handling was later removed for simplicity. It surfaces: "Commit #abc123 claimed to add retry logic; that logic was removed 6 months later but commit message still suggests it exists." Unlike git history that shows what changed, this shows whether the *reason* for the change still holds. The output highlights "intent debt": commits whose rationale has decayed, suggesting either documentation updates or re-examination of whether the change is still needed. It transforms git history from static record into living audit of whether past decisions still make sense.
-</ideas>
-<probability>0.05</probability>
-</response>
-
 <response>
 <ideas>
 **"Error" Causal Chain Reconstruction:** Stack traces show where error occurred, but not the chain of events that *caused* the error to be possible. This tool captures not just the error, but the entire execution history that made the error inevitable: the series of function calls, state mutations, and external inputs that lined up to create the failure condition. When production crashes, you don't just get "NullPointer at auth.js:47"; you get the full causal chain: "User created 2 days ago → Email verification skipped (flag enabled) → Login attempted (expects verified email) → Null dereference." It reveals not just the proximate cause, but the distal causes—the sequence of events that had to occur in that specific order for the bug to manifest. It transforms debugging from "what broke?" to "what series of events made this break inevitable?" It's not error logging; it's *causality* logging—preserving the chain of events that led to failure, not just the failure itself.
