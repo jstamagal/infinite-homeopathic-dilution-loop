@@ -744,6 +744,46 @@ The cultural impact is profound: configuration becomes actively maintained infra
 
 ---
 
+## AI Assistant's Picks (Saturday Jan 17, 2026 - Thirty-Second Set)
+
+### Favorite from TAILS-IDEAS.md
+**Code Witness Protection Program** (Response 189)
+
+### Favorite from BULK-IDEAS.md
+**Post-Incident Knowledge Extractor** (Response 195)
+
+---
+
+## Elevator Pitch: Code Witness Protection Program
+
+Deleted code loses more than just implementation—it loses battle scars. When teams deprecate features, they erase the operational trauma that explains why certain approaches fail at scale. The Code Witness Protection Program solves this by preserving the emotional and operational reality alongside deprecated code.
+
+This isn't just git history. When you retire a feature, the system captures its complete lived experience: production incidents it caused, performance degradation patterns, customer complaints, security patches required, and technical decisions that aged poorly. It preserves the 3am pages, the hotfixes, the architectural assumptions that seemed brilliant initially but proved wrong under production load.
+
+The breakthrough is preventing amnesia-driven repetition. When someone proposes "let's add real-time sync!" six months later, the Witness Protection Program surfaces detailed incident timelines from your 2023 real-time sync disaster: 47 race condition bugs, 12 data corruption incidents, 200% support ticket increase, evidence of why it failed beyond 1000 users.
+
+For AI agents, operational trauma is invaluable negative training data. They learn not just what code failed, but *how* it failed in production—the cascading failures, the unexpected edge cases, the performance cliffs. This builds institutional memory that outlasts team turnover, ensuring painful lessons stay learned.
+
+The system transforms code deletion from erasure into preservation. Every failed experiment becomes wisdom preventing future teams from repeating operational disasters. In 2026, mature teams don't just document what works—they preserve detailed evidence of what breaks, making operational history a permanent asset rather than lost tribal knowledge.
+
+---
+
+## Elevator Pitch: Post-Incident Knowledge Extractor
+
+The most valuable learning happens during fire drills, but evaporates once the flames are out. Teams write cursory postmortems that miss the nuanced debugging journeys, failed hypotheses, and breakthrough insights that occurred during incident response. The Post-Incident Knowledge Extractor automatically captures this ephemeral knowledge.
+
+The system monitors incident response in real-time: Slack conversations, debugging commands executed, code changes attempted, metrics examined, logs searched, and team hypotheses tested. It constructs a complete investigation graph showing what worked, what failed, and what led to breakthrough insights.
+
+The magic is preserving tacit knowledge that never makes postmortems: "Sarah noticed unusual memory patterns in service B even though symptoms pointed to service A," or "We wasted 20 minutes on database performance, but the actual issue was load balancer misconfiguration—document this dead-end for future responders."
+
+The extracted knowledge becomes searchable incident patterns: symptom profiles, effective debugging strategies, common dead ends, and resolution techniques. When similar incidents occur, responders get instant access: "This pattern matches 3 previous incidents—check API gateway timeout first (solved 2/3 cases)."
+
+For teams, this builds institutional knowledge surviving turnover. New oncall engineers query "how do we debug connection pool exhaustion?" and get battle-tested procedures from actual incidents, not theoretical playbooks.
+
+For AI agents, this provides context-rich training about problem-solving under pressure—learning investigation strategies, diagnostic techniques, and the reasoning connecting symptoms to root causes. Every incident becomes permanent training data rather than lost experience.
+
+---
+
 
 ## AI Assistant's Picks (Saturday Jan 17, 2026 - Twenty-Ninth Set)
 

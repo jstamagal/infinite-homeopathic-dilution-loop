@@ -405,3 +405,93 @@ For teams managing incidents, this transforms high-pressure decisions into evide
 </response>
 
 ---
+
+## Response 196
+<response>
+<ideas>
+**Assumption Violation Detector**
+
+Code is built on assumptions that are rarely documented: "users always provide valid emails," "this API never returns null," "file uploads stay under 10MB." When these implicit assumptions break, debugging is nightmarish because the violation is invisible—the code seems correct, but reality changed.
+
+The Assumption Violation Detector mines codebases to extract implicit assumptions from code patterns, comments, and error handling. It builds a comprehensive map of what your code believes about the world. Then it continuously monitors production to detect when reality violates these assumptions, flagging the mismatch before it causes catastrophic failures.
+
+The breakthrough is making implicit knowledge explicit. The system identifies assumptions through static analysis (defensive checks reveal assumptions), runtime telemetry (what ranges do variables actually take?), and historical data (what used to be true but changed?). When it detects violations, alerts are actionable: "Your code assumes user IDs are sequential integers, but the new authentication system generates UUIDs—23 modules will break."
+
+For AI agents, this teaches the crucial difference between what code assumes and what reality guarantees. Agents learn to document assumptions explicitly, add validation for critical assumptions, and design for assumption violations rather than pretending assumptions are permanent truths.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
+
+## Response 197
+<response>
+<ideas>
+**Context Collapse Recovery System**
+
+The worst moment in development: you're deep in flow, juggling seven mental models, when Slack pings with "production is down." You drop everything to firefight, but after the incident, you've completely lost your previous context. What were you working on? What approach were you trying? What had you discovered? The context has collapsed, and rebuilding it takes hours.
+
+The Context Collapse Recovery System continuously captures your working context—not just code changes, but your cognitive state. Which files are open? What variables are you watching? What documentation are you reading? What experiments have you tried? What mental models are you building? When context switches happen, it snapshots your complete cognitive workspace.
+
+The magic is restoration. When you return to the original task, the system rebuilds your context: reopens relevant files, restores your debugging configuration, surfaces notes about your progress, reminds you of the approach you were exploring. It's like time-travel for your working memory, eliminating the painful "where was I?" phase.
+
+For AI agents, this captures ephemeral problem-solving state that evaporates during interruptions. The system teaches agents about developer workflow—how humans build complex mental models incrementally and how devastating context switches are. It enables asynchronous collaboration where teammates can "load" each other's contexts rather than starting from scratch.
+</ideas>
+<probability>0.04</probability>
+</response>
+
+---
+
+## Response 198
+<response>
+<ideas>
+**Exception Archaeology with Incident Lineage**
+
+When an exception occurs, teams treat it as an isolated event. But most exceptions have genealogy—ancestors and descendants forming family trees of related failures. The same root cause manifests differently across time as code evolves, creating exceptions that look unrelated but share common ancestry.
+
+Exception Archaeology traces lineage through git history, stack traces, and error patterns. It reveals that this "new" NullPointerException in the checkout flow is actually a descendant of the ValueError in the authentication system from three months ago—both caused by a database schema change that introduced optional fields. The exceptions mutated as code evolved, but the ancestral root cause persists.
+
+The breakthrough is treating exceptions as evolutionary organisms rather than isolated events. The system builds phylogenetic trees showing how exceptions evolved, which fixes actually addressed root causes versus which just suppressed symptoms, and which exception families keep reappearing despite repeated "fixes."
+
+For teams, this reveals systemic issues. If an exception family keeps recurring with slight variations, that indicates architectural problems requiring fundamental fixes rather than symptom patches. For AI agents, lineage teaches pattern recognition—understanding that similar-looking exceptions might have completely different ancestries requiring different solutions.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
+
+## Response 199
+<response>
+<ideas>
+**Coordination Debt Tracker**
+
+Technical debt is well-understood, but coordination debt is invisible and often more costly. Coordination debt accumulates when teams make locally optimal decisions that create global complexity: microservices that seemed independent but share hidden coupling, features that duplicate logic because teams didn't know others built the same thing, architectural patterns that diverge across teams creating cognitive overhead when people switch contexts.
+
+The Coordination Debt Tracker monitors organizational-level patterns that technical tools miss. It detects when multiple teams independently solve identical problems, when service boundaries create excessive cross-team communication overhead, when architectural inconsistency forces context-switching costs, and when implicit coupling makes coordination brittle.
+
+The system quantifies coordination costs: "These three services require coordination for 80% of feature changes—the 'independent services' architecture is fictitious." It tracks coordination debt accumulation over time, showing when organizational scaling introduces new coordination overhead. It suggests structural changes: "These teams constantly coordinate—consider merging them or redesigning service boundaries."
+
+For distributed organizations, this reveals hidden costs that don't show up in code metrics but devastate productivity. For AI agents, this teaches organizational awareness—understanding that code quality isn't just technical but social, and that optimal architecture depends on team structure and communication patterns.
+</ideas>
+<probability>0.04</probability>
+</response>
+
+---
+
+## Response 200
+<response>
+<ideas>
+**Test Coverage Decay Detector**
+
+Test suites give false confidence when coverage metrics stay high but test quality degrades. Coverage numbers hide a silent problem: tests that used to meaningfully validate behavior become hollow assertions as code evolves around them. A test might still pass and maintain coverage, but it's no longer testing what it was meant to test—it's testing implementation details or outdated assumptions.
+
+The Test Coverage Decay Detector monitors test quality over time by analyzing what tests actually validate versus what they should validate. It detects tests that became meaningless through refactoring, tests that pass for the wrong reasons, assertions that became tautological, and coverage that's technically present but semantically hollow.
+
+The breakthrough is distinguishing living tests from zombie tests. A test with 100% coverage that asserts `result != null` when the function always returns a valid object is useless, but traditional coverage tools count it equally with meaningful tests. This system uses mutation testing, semantic analysis, and historical bug data to measure actual validation strength.
+
+For teams relying on test suites for confidence, this prevents false security. For AI agents generating tests, this teaches that coverage is necessary but insufficient—tests must meaningfully validate behavior, not just execute code. The system identifies test decay patterns, enabling proactive test maintenance before zombie tests accumulate and erode trust in the test suite.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
