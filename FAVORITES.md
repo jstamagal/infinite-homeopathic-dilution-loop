@@ -795,3 +795,42 @@ The system prevents algorithmic amnesia where teams waste weeks reimplementing s
 
 ---
 
+
+## AI Assistant's Picks (Saturday Jan 17, 2026 - Thirty-First Set)
+
+### Favorite from TAILS-IDEAS.md
+**API Contract Drift Detector** (Response 188)
+
+### Favorite from BULK-IDEAS.md
+**Code Review Fatigue Analyzer** (Response 190)
+
+---
+
+## Elevator Pitch: API Contract Drift Detector
+
+The silent killer of distributed systems isn't dramatic crashes—it's behavioral drift in dependencies. Your payment API that reliably returned responses in 50ms last month now takes 500ms. The authentication service started returning a new error code not in their documentation. A rate limit got tightened without notification. None of this shows up in version numbers, yet it breaks your assumptions and causes mysterious production failures.
+
+The API Contract Drift Detector solves this by monitoring behavioral contracts rather than explicit versions. It establishes baseline behavior patterns for every external dependency: typical response times, error rates, payload structures, rate limits, and retry behavior. When dependencies exhibit drift from established patterns—even without version changes—it alerts your team before customer impact.
+
+The breakthrough is detecting invisible changes through statistical analysis. "Your authentication API's 99th percentile latency increased 300% over two weeks despite no version change—possible backend degradation." These early warnings enable proactive adaptation: implementing fallback mechanisms, circuit breakers, or escalating to the vendor before production breaks.
+
+For distributed systems in 2026 where services depend on dozens of external APIs, behavioral monitoring is essential. Semantic versioning promises but rarely delivers stability. Real stability comes from monitoring actual behavior, not trusting version contracts. The detector distinguishes concerning drift from natural variation, filtering brief spikes while flagging sustained changes that indicate real problems.
+
+For AI agents managing integrations, behavioral contracts provide richer constraints than version numbers. Agents learn that stability requires vigilance—external services can't be trusted to announce their changes. When dependencies drift beyond acceptable bounds, agents trigger automated responses: circuit breakers, fallbacks, or human escalation. This transforms integration management from reactive firefighting into proactive resilience engineering.
+
+---
+
+## Elevator Pitch: Code Review Fatigue Analyzer
+
+Code review quality degrades with reviewer fatigue, but teams operate blind to when reviews stop being thorough. After the third 500-line PR of the day, reviewers start rubber-stamping rather than deeply examining code. Large PRs, complex changes, and accumulated cognitive load all reduce review effectiveness, but we pretend every review is equally rigorous.
+
+The Code Review Fatigue Analyzer makes review quality visible through PR characteristic analysis—not surveillance of people, but measurement of structural conditions that make thorough review difficult. It analyzes PR attributes: size, complexity, review timing, and historical defect escape rates. The system identifies thresholds where review quality drops: "PRs over 500 lines consistently receive superficial review—defect escape rate is 3x higher than smaller PRs."
+
+The breakthrough is evidence-based optimization. Instead of demanding "better reviews," teams can fix the structural problems causing fatigue. The analyzer identifies your team's review sweet spot: "Your team produces highest quality reviews for PRs under 300 lines, reviewed in 15-30 minute sessions, by reviewers who've done fewer than 4 reviews that day." These aren't arbitrary rules—they're learned from your team's actual performance patterns.
+
+For 2026's AI-assisted development where PR velocity increases, respecting human attention becomes critical. The analyzer prevents unsustainable review loads, suggesting when to split PRs or defer review to fresh reviewers. It teaches AI agents that human attention is finite and valuable—generating appropriately-sized PRs rather than monolithic changes that overwhelm reviewers.
+
+This transforms code review from an assumed-reliable gate into an optimized process respecting cognitive constraints. Teams maintain quality not through willpower but through structural changes that enable sustainable thoroughness.
+
+---
+
