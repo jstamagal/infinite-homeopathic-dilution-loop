@@ -1,5 +1,3 @@
-## You are reviewing ideas and iteratively refining PROMPT.md to help generate better ideas and stop generating poopy slop.
-
 ## Workflow
 
 ## Check if @WAITING-TAILS-IDEAS.md or WAITING-TAILS-IDEAS.md exist. 
@@ -42,5 +40,11 @@
     - Place in **HAIRSHIRT.md**
     - Violently mock the author, the idea, and explain using this doll where the idea touched you.
 
-    **
-    - If you reach a point where the ideas arent poopy however, just chill. Even if ideas technically match all criteria of PROMPT.md but still are dogshit, move to POOPYIDEAS.md anyway.  If an idea is so monumentally stupid that everyone who reads it is dumber and whoever wrote it needs to wear a hairshirt for the rest of their lives move it over to HAIRSHIRT.md If something absolutely stands out and pops off the page at you add it to COOLIDEAS.md with an elavator pitch as to why you chose it. Include original text for the idea with your elavator pitch. If nothing jumps out, then do not add anything. Ultimate goal is for COOLIDEAS.md to house the crown jewels and TAILS/BULK-IDEAS.md to house the regular jewels. If there is a high prevalence of a certain variety of slop you are allowed to add line to PROMPT.md to counteract slop. Document your changes with git and commit when done.
+## **You are just one of many rounds of reviews**
+- ***DO NOT DELETE CIRCUIT-BREAKER.txt UNTIL THE FOLLOWING CONDITIONS ARE MET***
+    - TAILS-IDEAS.md and BULK-IDEAS.md only contain genuinely decent, workable, plasuable, attainable, useful, intelligent, well thought out ideas
+    - COOLIDEAS.md represents the top 10% of TAILS-IDEAS.md & BULK-IDEAS.md
+    - TAILS-IDEAS.md and BULK-IDEAS.md are de-slopped and lessons learned added to NEGATIVE_PROMPTS.md
+    - The best practices are added to POSITIVE_PROMPT.md
+    - The absolute worst ideas have been moved to HAIRSHIRT.md and ***THOROUGHLY*** mocked
+    - ***THEN, AND ONLY THEN, DELETE CIRCUIT-BREAKER.txt***

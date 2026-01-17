@@ -67,6 +67,38 @@ Git already provides the information needed for conflict resolution. The tool de
 
 ---
 
+### The Genealogy/Evolutionary Metaphor Epidemic
+
+**Pattern Detected:** Multiple ideas applying genealogy/evolutionary biology metaphors to technical correlation analysis.
+
+**Examples Removed:**
+- Exception Genealogy Tracer - errors have "family trees," "descendants," "evolutionary ancestry"
+- Build Failure Genealogy Tracer - identical metaphor applied to CI/CD failures
+
+**Why This Is Slop:**
+These ideas describe basic error correlation, root cause analysis, and pattern recognition using elaborate biology metaphors. Strip away "genealogy," "descendants," "ancestry," "lineage," "spawned," and "evolutionary," and what remains is standard error aggregation that every APM tool (Sentry, Datadog, New Relic) and CI/CD system (Jenkins, CircleCI, GitHub Actions) already provides. The metaphor dominates >80% of the concept while the underlying functionality is commodity infrastructure from 2015.
+
+**What These Actually Describe:**
+- Error grouping and correlation analysis (available in every APM since 2015)
+- Build failure pattern recognition (standard in all CI/CD platforms)
+- Root cause analysis (basic troubleshooting methodology)
+
+**The Real Solution:**
+Use Sentry's issue grouping, Datadog's error tracking, or any modern observability platform. These tools already correlate related errors, track recurrence patterns, and identify root causes without pretending errors reproduce sexually.
+
+**What To Ask Yourself:**
+- Does this idea use biology/genealogy metaphors (ancestry, descendants, lineage, evolution, family trees)?
+- Strip the metaphor - is it just correlation analysis or pattern matching?
+- Could you describe this in one sentence without metaphor?
+- Does an existing APM or monitoring tool already do this?
+
+**If YES to metaphor + existing tools → REJECT immediately.**
+
+**Special Warning:**
+Submitting the SAME metaphor applied to slightly different domains (runtime errors vs build errors, exceptions vs failures) makes it WORSE, not better. It proves the idea is metaphor cosplay, not genuine innovation.
+
+---
+
 ## Universal Anti-Patterns (Permanent)
 
 ### The Metaphor Dominance Test
