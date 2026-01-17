@@ -1,5 +1,131 @@
 # Vibe Code Ideas - Saturday Jan 17, 2026
 
+## New Additions - Saturday Jan 17, 2026 Evening
+
+### TAILS Ideas (Probability <0.10)
+
+#### Response 226
+<response>
+<ideas>
+**Test Assumption Manifest Builder**
+
+Test suites encode invisible assumptions about the world—that environment variables exist, that APIs return specific shapes, that timeouts never exceed thresholds. This tool extracts those assumptions into a "manifest of beliefs" by analyzing assertion patterns: `assert.equal(response.status, 200)` assumes the API returns status codes; `process.env.API_KEY` without checks assumes the variable exists. When you deploy to a new environment, you check the manifest against reality: "Staging doesn't have REDIS_URL but tests assume it exists." It transforms "tests pass locally, fail in prod" mysteries into "here are the 12 things our tests assume about the world." It's not test coverage; it's test archaeology—making implicit expectations explicit before deployment breaks them.
+</ideas>
+<probability>0.04</probability>
+</response>
+
+---
+
+#### Response 227
+<response>
+<ideas>
+**Git Decision Fossilizer**
+
+Commits capture code changes but not the *decision path*—alternatives considered, trade-offs evaluated, options rejected. This tool adds a `--decision` flag to `git commit` that prompts for three lines: "What was the problem?", "What approaches did you consider?", and "Why did you choose this approach?". These decision fossils are stored in `.decisions/` indexed by commit hash. Six months later, when someone wonders "why didn't they use Redis?", the fossil reveals: "Considered Redis (too complex for our scale) and SQLite (migration path unclear); chose in-memory because deployment simplicity outweighed durability needs." It transforms archaeology from "what changed" to "how they thought," preventing teams from re-litigating settled decisions.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
+
+#### Response 228
+<response>
+<ideas>
+**Dependency Entropy Amplifier Detector**
+
+Dependencies don't just add bundle size; they multiply complexity—the second transitive dependency has more impact than the first. This tool measures "entropy amplification": how many transitive nodes each package pulls in relative to its functionality. It flags amplifiers: "axios adds 147 transitive deps for HTTP requests—consider native fetch (0 deps)" or "moment.js pulls in 43 deps for date formatting—try date-fns (5 deps)." The output isn't a dependency tree; it's an entropy report showing where complexity explodes: "You have 47 direct dependencies but 2,847 transitive nodes. Three libraries pull in different versions of lodash—entropy score: HIGH." It transforms dependency management from "is this safe?" into "what is this actually costing me in systemic complexity?" It's not bundle size optimization; it's complexity leak detection.
+</ideas>
+<probability>0.03</probability>
+</response>
+
+---
+
+#### Response 229
+<response>
+<ideas>
+**Merge Conflict Arbiter**
+
+Merge conflicts are treated as binary choices (yours/theirs), but they're often *philosophical* conflicts—two developers with different visions of how the code should work. This tool analyzes conflicting changes to surface the semantic intent: "Alice's version prioritizes performance (caching added); Bob's version prioritizes correctness (validation added)." It doesn't auto-merge; it facilitates dialogue by explicitly surfacing the trade-offs and suggesting "compromise patterns": apply both changes sequentially, extract the conflict into a strategy pattern, or recognize deeper architectural disagreement requiring team discussion. It transforms conflict resolution from "pick one and smash together" into architectural negotiation that prevents violating both visions. The goal isn't conflict avoidance; it's conflict *intelligence*—learning from friction points.
+</ideas>
+<probability>0.04</probability>
+</response>
+
+---
+
+#### Response 230
+<response>
+<ideas>
+**Debug Hypothesis Graveyard**
+
+Most debugging investigations generate dead-ends—suspected causes that seemed plausible but tested negative. These dead-ends are lost knowledge, causing future developers to waste time disproving the same theories. This tool transforms debugging into hypothesis testing: before investigating, you state "I suspect it's a race condition in the payment handler." The tool guides falsification: "What evidence would refute this? Run these three tests." When disproven, it preserves the negative result: "Race condition ruled out; symptoms persist under mutex lock." Six months later, when a similar bug appears, the graveyard reveals "Five teams independently suspected race conditions—all disproven. Check database timeout instead." It's not bug tracking; it's *investigation* tracking—preserving what didn't work so teams don't repeat the same dead-end investigations.
+</ideas>
+<probability>0.05</probability>
+</response>
+
+---
+
+### BULK Ideas (Probability 0.18-0.35)
+
+#### Response 231
+<response>
+<ideas>
+**Error Context Synthesizer**
+
+Stack traces show *where* code failed, but not *what the world looked like* when it failed. This tool captures execution context at crash points: not just the error message, but the complete system state—recent log lines, environment variable values (sanitized), recent database queries, memory usage snapshots, and even the git commit of the running code. When production crashes at 3 AM, you don't just get "NullPointer at auth.js:47"; you get a time capsule: "Database connections were at 95% capacity, REDIS_URL was set to staging value (oops), last 5 queries all timed out, running code from commit #abc123 (2 days old)." It transforms debugging from "what broke?" to "here's the entire crime scene preserved exactly as it was." It's not error logging; it's forensics—preserving the complete context around failures so post-mortems aren't archaeological expeditions.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+---
+
+#### Response 232
+<response>
+<ideas>
+**Commit Intent Archaeologist**
+
+Git commits show what changed, but not *what was intended* vs. *what actually happened*. This tool analyzes commit patterns over time to identify "missed intents"—commits where the stated goal diverged from the actual outcome. It detects patterns like: "This commit claimed to 'refactor for performance' but actually introduced a race condition" or "Commit message: 'minor typo fix' — actual change: removed critical validation logic." By comparing commit messages against semantic diff analysis, it surfaces "intent bugs" that slip through code review. The output reveals: "In the last 6 months, 23 commits (17% from @alice, 9% from @bob) claimed scope A but delivered scope B." It transforms commit hygiene from stylistic preference into semantic integrity—ensuring git history describes what actually happened, not what we thought happened.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+---
+
+#### Response 233
+<response>
+<ideas>
+**Test Data Decay Detector**
+
+Test suites rot when test data diverges from production reality. This tool runs your tests against a *snapshot* of production data (anonymized) to detect "data drift": tests that pass on synthetic data but fail on real-world edge cases. It reveals: "Test `processPayment()` passes with fake credit card numbers but fails on 3% of real payment methods (gift cards, prepaid cards)" or "User profile tests assume `email` field exists, but 12% of production users have null emails." It's not just testing code logic; it's testing whether your test universe matches reality. The output shows "data coverage gaps": where your synthetic test data is too simple, too uniform, or just wrong. It transforms "tests pass locally, fail in prod" from mysteries into specific discrepancies between test fantasy and production reality. It's not test coverage; it's test *fidelity*—measuring how well your test data represents the real world.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+---
+
+#### Response 234
+<response>
+<ideas>
+**Dependency Obsolescence Monitor**
+
+Dependencies don't just have security vulnerabilities—they have *architectural expiration dates*. This tool tracks whether your dependencies are still solving the right problems for your scale. It analyzes: "You're using JWT library X designed for 100 req/s, but you're at 10,000 req/s—consider library Y" or "Moment.js was perfect when you had 3 date formats, but you now handle 47 timezones—switch to date-fns + luxon." Unlike dependency updaters (which bump versions), this asks "is this dependency still the right tool for the job?" It surfaces "architectural drift": libraries that made sense at startup scale but become liabilities at growth scale. The output prioritizes by "impact vs. effort": "High impact, low effort: replace micro-optimization library (you're past the scale where it matters)" or "Low impact, high effort: migrate authentication library (painful but you've outgrown it)." It transforms dependency management from security patching to architectural alignment.
+</ideas>
+<probability>0.23</probability>
+</response>
+
+---
+
+#### Response 235
+<response>
+<ideas>
+**Regression Boundary Mapper**
+
+Most regression tests protect against *known* failure modes, but miss the *unknown* edges where systems actually break. This tool doesn't just test "does the old behavior still work?"—it maps the operational boundaries where behavior shifts: "At 10,000 concurrent users, response degradation accelerates non-linearly" or "When database connections exceed 85% capacity, error rate spikes (not gradual degradation—sudden collapse)." Unlike load testers that find max capacity, this identifies *tipping points*: the precise threshold where graceful degradation becomes catastrophic failure. It produces a "stability map" showing safe operating zones vs. danger zones. Six months later, when you add a new feature, you check: "Does this push us into the red zone?" It transforms performance monitoring from "are we fast?" to "how close are we to the cliff?"—preserving not just what works, but where the edge of the world is.
+</ideas>
+<probability>0.24</probability>
+</response>
+
+---
+
 ## TAILS Ideas (Probability <0.10)
 
 ### Response 1
