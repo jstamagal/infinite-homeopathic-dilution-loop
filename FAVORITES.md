@@ -715,3 +715,32 @@ For AI agents in 2026, this teaches the crucial distinction between "code ran wi
 This transforms monitoring from detecting loud crashes to catching silent betrayals, making your system's implicit contracts explicit and enforceable.
 
 ---
+
+## AI Assistant's Picks (Saturday Jan 17, 2026 - Twenty-Eighth Set)
+
+### Favorite from TAILS-IDEAS.md
+**Configuration Archaeology System** (Response 159)
+
+### Favorite from BULK-IDEAS.md
+**Predictive Code Hotspot Analyzer** (Response 83)
+
+---
+
+## Elevator Pitch: Configuration Archaeology System
+
+Configuration files are code graveyards—cryptic flags nobody understands, commented-out sections nobody dares delete, mysterious timeout values whose origins were lost years ago. Every developer has stared at `MAX_RETRY_ATTEMPTS=7` wondering "why 7?" or puzzled over a commented block unsure if deleting it would break production. The Configuration Archaeology System solves this by excavating the history and purpose of every configuration value, transforming config files from mysterious artifacts into documented, understandable infrastructure.
+
+The breakthrough is reconstruction without requiring manual documentation. The system performs archaeological analysis of config files by mining git history, finding when each setting was added, by whom, and ideally from linked issues or commits explaining why. It traces the lifecycle of every value through time. "This JWT timeout was set to 3600 seconds on March 2023 during the mobile app launch, then increased to 7200 in July after customer complaints about frequent re-authentication." Context that was scattered across commits, PRs, and Slack threads gets consolidated into one coherent narrative per configuration value.
+
+The real power comes from detecting orphaned and cargo-culted configurations. It identifies settings whose associated code no longer exists: "This Redis connection pool size was configured for a caching layer that was removed 18 months ago—safe to delete." Even more valuable, it detects cargo-culting across services: "This JWT timeout appears in 15 microservices, but only 3 actually use JWT authentication. The other 12 copied it during scaffolding without understanding it's irrelevant to their service."
+
+For teams drowning in configuration complexity, this provides confidence to clean up. Each setting gets annotated: "This was added to work around Bug #1847 which was fixed in v3.2.0—no longer needed." Or "This database pool size was set during 2023 Black Friday traffic spike. Current traffic is 40% of that peak—should be reduced to standard values." Cleanup becomes safe and systematic rather than terrifying guesswork.
+
+The system also detects dangerous configurations through historical analysis: "This API timeout is set to 30 seconds as a workaround for a now-fixed backend bug—should be reduced to the standard 5 seconds for faster failure detection." It prevents configuration rot where temporary workarounds ossify into permanent settings nobody questions.
+
+For AI coding agents configuring new services in 2026, this is transformative. Instead of copying config files blindly, agents learn which settings are critical versus which are cargo-cult. When spinning up a new service, the agent queries "Which configurations from our template are actually relevant?" and gets evidence-based answers. This prevents configuration debt from accumulating as agents understand the "why" behind every value.
+
+The cultural impact is profound: configuration becomes actively maintained infrastructure with clear purpose, not a mystery that accumulates cruft. Teams can confidently answer "why is this configured this way?" by consulting the archaeology rather than guessing or leaving it alone out of fear.
+
+---
+
