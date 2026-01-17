@@ -960,3 +960,42 @@ The breakthrough is monitoring behavior, not just functionality. Features can wo
 
 ---
 
+
+## AI Assistant's Picks (Saturday Jan 17, 2026 - Thirty-Sixth Set)
+
+### Favorite from TAILS-IDEAS.md
+**Shadow Execution Tracer** (Response 190)
+
+### Favorite from BULK-IDEAS.md
+**Performance Regression Detective** (Response 19)
+
+---
+
+## Elevator Pitch: Shadow Execution Tracer
+
+The most dangerous code isn't what executes or what never executes—it's what *almost* executes. That retry logic sitting dormant at `if (retries > 5)` when your production system maxes out at 4 retries? It's never been tested, yet it's one edge case away from triggering during the next traffic spike. The Shadow Execution Tracer reveals this invisible risk by monitoring how close unexecuted code paths come to activation.
+
+Traditional code coverage treats all unexecuted code equally, but there's a critical distinction: code that's genuinely unreachable versus code that's constantly on the verge of running. When your connection timeout is set at 30 seconds and production connections regularly timeout at 29.8 seconds, that timeout handling code is theoretically untested but practically crucial. The Shadow Execution Tracer measures this "near-miss" distance, identifying brittle boundaries where minor production changes will trigger untested paths.
+
+For resilience testing, this is transformative. Instead of random chaos engineering, you target the specific conditions your system already stresses but hasn't quite exceeded. You discover that circuit breaker configured at thresholds that will trip at the next minor load increase. You find error handling paths that production workloads have approached hundreds of times but never actually triggered—yet.
+
+The system reveals hidden assumptions encoded in conditionals. When near-miss analysis shows your code constantly approaching theoretical limits, it's time to adjust thresholds before production exceeds them catastrophically. This prevents the devastating pattern where "defensive" code that's never been tested fails precisely when you need it most.
+
+For AI agents in 2026, shadow execution teaches crucial nuance: not all zero-coverage code is dead code. Some is critical safety infrastructure that hasn't been needed *yet*. The tracer helps distinguish unreachable code (safe to delete) from untested-but-essential code (requiring proactive validation). When code sits at 29.8 seconds and your timeout is 30 seconds, you're not safe—you're lucky. Shadow execution makes that luck visible, measurable, and fixable before it runs out.
+
+---
+
+## Elevator Pitch: Performance Regression Detective
+
+"The site is slower after the deploy" is every team's nightmare. But which specific change caused the slowdown? In complex deployments touching dozens of services, tracking performance regressions to their source is archaeological guesswork. The Performance Regression Detective solves this by automatically detecting regressions and forensically tracing them to the exact commits responsible.
+
+The system continuously monitors performance metrics across deployments, using statistical analysis to distinguish real regressions from natural variance. When response times increase or database queries slow down, it doesn't just alert—it investigates. By correlating performance changes with deployment history and code changes, it pinpoints culprit commits with precision: "This database query added in commit X by Sarah now runs 10,000 times per request, adding 2 seconds to page load."
+
+The breakthrough is multi-service correlation in microservice architectures. A change in Service A causes slowdowns in Service C three hops away through cascading effects. Traditional monitoring shows Service C is slow; the Detective reveals the root cause in Service A's recent update. It understands the dependency graph and traces performance degradation through the system topology.
+
+For teams managing complex deployments, this transforms performance debugging from weeks of investigation into automated root cause analysis. Instead of manual bisection and profiling sessions, you get definitive answers: "These 3 commits are responsible for the 40% latency increase, with detailed evidence and suggested fixes." The system generates actionable reports that go beyond generic "database is slow" alerts to specific "this N+1 query pattern introduced in PR #456 needs optimization."
+
+For AI agents in 2026, the Detective teaches cause-and-effect relationships between code changes and performance impact. Agents learn which code patterns consistently cause regressions in production, enabling them to avoid performance pitfalls during code generation. The system makes performance accountability explicit—no more anonymous slowdowns where nobody knows what caused them.
+
+---
+
