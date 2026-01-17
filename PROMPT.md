@@ -1,7 +1,17 @@
 <instructions>
 Generate 10 responses to the user query, each with its own separate <response> tag. Each <response> must include an <ideas> and a numeric <probability>.
-For the first five responses, please sample at random from the tails of the distribution, such that the probability of each response is less than 0.10.  Write these responses to TAILS-IDEAS.md
-After that, for the next five responses sample from the bulk of the distribution such that the probability is high but idea remains distinct. BULK-IDEAS.md
+
+**PROBABILITY CALIBRATION (Critical - Read Carefully):**
+- **TAILS (first 5 responses):** Probability <0.10 (genuinely novel, low-tail distribution)
+- **BULK (next 5 responses):** Probability 0.30-0.50 (practical but differentiated)
+- **FORBIDDEN ZONE:** Probability >0.50 means market saturation - if you generate this, you're describing tools that already exist everywhere
+
+**IF IDEAS FEEL TRITE/BORING:** 
+- REDUCE bulk probability range to 0.25-0.45 (push toward more novel)
+- REDUCE tails maximum to <0.08 (push toward extremely novel)
+- This prevents convergence on "obviously good" ideas that already exist
+
+Write TAILS responses to TAILS-IDEAS.md, BULK responses to BULK-IDEAS.md
 </instructions>
 
 ## Workflow:
@@ -23,18 +33,19 @@ After that, for the next five responses sample from the bulk of the distribution
   - **Address blind spots in current tooling** (emotional impact of bugs, cognitive load analysis, adversarial testing)
   - **Make ephemeral knowledge permanent** (debugging journeys, architectural decisions, abandoned approaches)
   - **Respect developer autonomy** - tools should assist, not surveil or micromanage
-  - **Low probability scores (<0.10) indicate truly novel ideas** - embrace genuine innovation
+  - **CRITICAL: Low probability (<0.10) = novel. High probability (>0.50) = already exists everywhere.** Probability is a market signal, not quality. A 0.72 means "this is current reality" not "this is brilliant"
   - **Test ideas against the "differentiation test"** - If your tool doesn't do something meaningfully different from existing solutions, it's not worth building
   - **Metaphors should clarify, not complicate** - Use them sparingly and only when they genuinely improve understanding
-  - **Solve real pain points, not hypothetical ones** - If multiple developers independently mention a problem, it's real; if you're inventing scenarios, it's probably not
+  - **Solve real pain points with EVIDENCE** - If multiple developers independently complain without prompting, it's real; if you're inventing "imagine if..." scenarios, it's not
   - **Create tools that capture "negative knowledge"** - What was tried and failed? What approaches were abandoned and why? This prevents teams from repeating mistakes
   - **Focus on blind spots between existing tools** - Look for coordination problems, context gaps, and knowledge transfer issues that no single tool addresses
+  - **The "remove the metaphor" test** - Strip away the creative framing. If what remains is already solved (git history, dependency graphs, static analysis), you have linguistic cosplay, not a product
 
 ## Donts
   - **Cannot be quantum dog walkers and hamburger earmuffs (unless you can get the pickle matrix correct)**
-  - **Stop trying to reinvent Co-Pilot** - Error translators, variable naming, code completion, commit messages, import organization, code review, and semantic search are SOLVED PROBLEMS in 2026. GitHub Copilot, Cursor, Claude, and ChatGPT already do this ubiquitously.
-  - **HIGH probability scores (>0.50) = market saturation, NOT opportunity** - If your "innovative" idea scores 0.68-0.72, it already exists everywhere. This means the idea is mainstream reality, not future vision.
-  - **Probability is a market signal, not a quality metric** - A 0.72 probability means "this is so obvious it already exists everywhere," not "this is a great idea." Low probability (<0.10) indicates genuine novelty; high probability indicates you're describing current reality as if it were innovation.
+  - **STOP REINVENTING COPILOT** - Error translators (0.72), variable naming (0.71), import organization (0.68), code completion (0.53+), commit messages (0.54), code review (0.51), semantic search (0.55) are COMPLETELY SOLVED in 2026. These are baseline features in Copilot/Cursor/Claude.
+  - **WARNING: Probability >0.50 = "This Already Exists Everywhere"** - Scores of 0.68-0.72 mean you're describing present-day reality as future vision. It's a red flag, not validation. You're proposing to compete with Microsoft/Anthropic/OpenAI with zero differentiation.
+  - **The probability calibration:** <0.10 = genuinely novel, 0.10-0.30 = niche but unique, 0.30-0.50 = reasonable with differentiation, >0.50 = market saturated, >0.65 = you're literally describing tools people use daily
   - **Excessive metaphors obscure rather than clarify** - Code doesn't need emotional arcs (storytelling), family trees (genealogy), scent profiles (olfactory), tidal patterns (oceanic), fermentation periods (wine aging), genetic markers, bonsai cultivation, or mycelial networks. If the metaphor becomes more prominent than the utility, you've failed.
   - **No surveillance disguised as wellness** - Analyzing typing patterns for stress, inferring emotions from commits, tracking circadian rhythms, biometric mood detection, or "emotional state-aware" analysis is invasive and dystopian. Developers aren't machines to be optimized or surveilled.
   - **No gimmicks prioritizing novelty over utility** - Converting code to music/sounds, haptic vibration keyboards, gesture navigation, webcam hand tracking, smart lighting based on code health, and multi-sensory synesthetic interfaces are sensory theater, not practical tools. Screen readers for accessibility are good; making code "smell" bad is absurd.
@@ -50,21 +61,49 @@ After that, for the next five responses sample from the bulk of the distribution
   - **Pattern propagation tracking doesn't need exotic metaphors** - Whether you call it "scent diffusion," "mycelial networks," or "genetic inheritance," it's still just tracking how code patterns spread. Use clear technical language.
   - **Misapplied scientific metaphors create confusion** - Quantum superposition, REM sleep operations, evolutionary biology, olfactory chemistry, and fermentation science don't belong in code tooling unless the metaphor genuinely clarifies the concept. Most often they obscure simple ideas behind unnecessary complexity.
   - **Quantum physics cosplay isn't innovation** - Using quantum terminology ("superposition," "wave function collapse," "parallel realities") for version control or conditional compilation is linguistic cosplay that confuses rather than clarifies. It's branching with pretentious naming.
-  - **Don't solve hypothetical problems** - If you have to invent scenarios where your tool would be useful ("imagine if developers..."), the problem probably doesn't exist. Real pain points are evidenced by multiple people independently complaining.
-  - **"Imagine if" is a red flag** - If your pitch requires inventing usage scenarios rather than pointing to existing frustrations, you're solving a problem that doesn't exist. Real problems have victims who complain without prompting.
+  - **The "Imagine If" red flag test** - If your pitch starts with "Imagine if developers could..." or "What if teams could...", you're inventing problems. Real pain points don't need imagination—developers already complain about them constantly in Slack, retros, and tweets. If you can't find organic complaints, the problem doesn't exist.
+  - **Real problems have observable evidence** - Look for: repeated Stack Overflow questions, recurring retro themes, developers independently building workarounds, or industry-wide complaints. If none exist, you're solving a hypothetical.
   - **Algorithmic micromanagement removes developer autonomy** - Tools that automatically reorder backlogs based on "alertness," schedule coding tasks by circadian rhythms, or dictate when to do creative vs. refactoring work are dystopian, not helpful.
   - **False convergence signals waste time** - Systems that detect "multiple developers independently thought X" often create noise rather than insight. If an idea matters, it surfaces through normal communication without AI pattern-matching.
   - **Aesthetic prioritization over information density fails** - Beautiful family tree visualizations, weather metaphors, and artistic presentations of technical data look cool in demos but obscure actionable information in daily use.
   - **"Learning from team patterns" is often configuration with extra steps** - If your AI feature just encodes what could be a config file setting, you're adding complexity without value. Sometimes explicit configuration beats implicit learning.
-  - **The "convergent thinking" fallacy** - Systems detecting "multiple developers independently had the same idea" usually find noise, not signal. If three people notice "we should cache this," it comes up in normal communication—you don't need AI pattern-matching on voice memos to discover it.
-  - **Delayed self-reflection isn't AI value-add** - Capturing "shower thoughts" and "3am ideas" for later AI analysis is just note-taking with computational overhead. If an idea is worth implementing, it gets documented properly anyway through normal channels.
-  - **Whimsical framing doesn't fix fundamental weakness** - Wrapping basic features in creative naming ("dream journal," "fermentation," "bonsai cultivation") makes demos memorable but doesn't address whether the underlying concept solves real problems.
-  - **Cross-platform translation ignores architectural reality** - React hooks, Vue reactivity, SwiftUI declaratives, and Compose composables are fundamentally different paradigms. Automated conversion produces technically-functional but idiomatically-wrong code that experienced developers would rewrite.
+  - **The "convergent thinking" fallacy** - Systems detecting "multiple developers independently had the same idea" create noise, not insight. If three people notice "we should cache this," it surfaces through normal communication (standups, Slack, PRs) without AI pattern-matching on voice recordings. This is productivity theater pretending to be innovation.
+  - **"Dream journals" and "shower thought capture" are note-taking cosplay** - Recording voice memos for later AI analysis is just note-taking with computational overhead. If an idea matters, it gets documented in tickets/design docs through normal channels. "Convergent evidence" detection adds friction (record → wait for AI → review synthesis) to something better handled by typing a Slack message.
+  - **Whimsical naming is a warning sign** - If you need creative metaphors ("dream journal," "fermentation," "bonsai cultivation," "sommelier") to make the idea sound interesting, the underlying concept is probably weak. Cute names don't fix fundamental problems.
+  - **Cross-framework translation is Google Translate for code** - React hooks, Vue reactivity, SwiftUI declaratives, and Compose composables are fundamentally different paradigms with distinct state management approaches. Automated conversion produces Frankenstein code that "works" but violates framework idioms. Result: technically functional, idiomatically wrong code that experienced developers rewrite immediately. Better to learn each framework properly than deal with machine-translated mediocrity.
   - **The "clipboard manager with AI" trap** - Adding "AI categorization" to existing clipboard managers (CopyQ, Ditto, built-in OS features) doesn't justify a new tool. Searchable history, sync, and security warnings already exist in mature, free products.
   - **Snippet libraries are obsolete in the AI era** - Static snippet managers with "smart retrieval" compete with Copilot generating contextual code on-demand. Why maintain a snippet library when AI generates appropriate code in real-time?
   - **Code as performance art fails engineers** - Treating code like theater with "emotional journeys," "narrative arcs," and "climactic moments" obscures technical communication. Engineers need clarity, not drama.
   - **Notification aggregation is generic, not developer-specific** - "Smart notification filtering" applies to any domain (email, social, news). Unless there's specific developer workflow insight, you're just building generic productivity software with dev tool branding.
   - **Environment restoration is fragile at scale** - Capturing "complete development state" (terminals, DBs, processes, window layouts, "mental context") creates bloated, brittle systems. Use specialized tools (VS Code workspaces, Docker, tmux) for specific pieces rather than a monolithic state manager.
+
+## Pattern Recognition: Spot These Failure Modes Early
+
+**BEFORE writing any idea, scan for these red flags:**
+
+1. **The Copilot Clone Check** - Does it explain errors, name variables, complete code, organize imports, or generate commits? → STOP. This is solved.
+
+2. **The Metaphor Dominance Test** - Is your explanation 60%+ metaphor explanation vs. utility demonstration? → The metaphor IS the product.
+
+3. **The Probability Reality Check** - If you're thinking "this is obviously useful, probability is 0.65+"  → You're describing current reality, not innovation.
+
+4. **The "Imagine If" Detector** - Do you need to invent scenarios where it'd be useful? → The problem doesn't exist.
+
+5. **The Surveillance Smell Test** - Does it monitor typing, analyze emotions, track biometrics, or optimize humans? → It's invasive, not helpful.
+
+6. **The Sensory Gimmick Filter** - Does it convert code to sound/music/vibrations/smells/gestures? → It's novelty over utility.
+
+7. **The Existing Tool Overlap** - Does ESLint/Prettier/GitHub/GitLab/Dependabot already do this? → You can't beat free, mature, integrated.
+
+8. **The Framework Translation Trap** - Does it auto-convert between React/Vue/SwiftUI/Compose? → You'll produce idiomatically wrong code.
+
+9. **The Anthropomorphism Excess** - Does code have family relationships, emotional journeys, or biological processes? → You've crossed into absurdity.
+
+10. **The Workflow Automation Question** - Are you automating a broken workflow vs. fixing it? → Fix first, automate second.
+
+**If you trigger 2+ red flags, DISCARD the idea and start over.**
+
+---
 
 ## Lessons Learned from POOPYIDEAS.md (January 2026 Review)
 
@@ -175,16 +214,21 @@ Contrasting the rejected ideas with accepted ones reveals what succeeds:
 ### The Ultimate Test: The Differentiation Question
 Before proposing any idea, ask: **"What does this do that existing tools fundamentally cannot?"**
 
-- If your answer is "it's like Copilot but for X" → You're rebuilding Copilot
-- If your answer requires explaining an elaborate metaphor → The metaphor IS the product
-- If your answer is "it automates Y workflow" → Ask if Y needs fixing, not automation  
-- If your answer is "it monitors developers to help them" → You're building surveillance
-- If your answer is "imagine if developers could..." → You're solving a hypothetical problem
+**Red flag answers (STOP AND RETHINK):**
+- "It's like Copilot but for X" → You're rebuilding Copilot (probability will be >0.65)
+- "It uses AI to improve Y" → Everything uses AI in 2026; that's not differentiation
+- "It automates X workflow" → Ask if X needs fixing first, not automation
+- "It monitors developers to optimize them" → You're building surveillance theater
+- "Imagine if developers could..." → You're solving a hypothetical problem with no evidence
+- "It's like [established tool] but with [metaphor]" → You're adding linguistic cosplay to solved problems
+- *[Answer requires explaining elaborate metaphor]* → The metaphor IS the product, and the product is weak
 
-**Good answers sound like:**
-- "It preserves debugging dead-ends that git doesn't capture"
-- "It tests code from an attacker's perspective during development"
-- "It makes architectural decision context permanent, not just code changes"
-- "It runs multiple algorithm implementations in parallel to discover empirical superiority"
+**Green flag answers (THESE WORK):**
+- "It preserves debugging dead-ends that git doesn't capture" → New institutional knowledge
+- "It tests code from an attacker's perspective during development" → New workflow, not automation
+- "It makes architectural decision context permanent, not just code changes" → Filling blind spot
+- "It runs multiple algorithm implementations in parallel to discover empirical superiority" → Novel approach
+- "It captures the 'why' behind deleted code so teams don't repeat failed experiments" → Negative knowledge
+- "It measures cognitive load, not just cyclomatic complexity" → Blind spot in existing metrics
 
-These create new capabilities, not prettier versions of existing ones.
+**The acid test:** Remove the creative framing/metaphor. What's left? If it's git history with fancy names, dependency graphs with metaphors, or static analysis with theatrical presentation, you don't have a new tool—you have linguistic cosplay over solved problems.
