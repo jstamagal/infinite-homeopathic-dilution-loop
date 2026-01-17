@@ -76,3 +76,10 @@ This is the ultimate immersion tool. By bridging the gap between your digital wo
 
 **Elevator Pitch:**
 In a world of constant notification spam, "Zen" Gardener rewards you for *stopping*. It turns your idle terminal time into a generative art garden, growing ASCII flowers when you take a break. It promotes mental pauses and beautifies the workspace, perfectly capturing the 2026 "slow tech" vibe.
+
+## Code Contamination Boundary Tracer
+**From:** TAILS-IDEAS.md (Response 186)  
+**Original Probability:** 0.04
+
+### Elevator Pitch
+This is a game-changer for security vulnerability management. CVE scanners scream "you use vulnerable library X!" but leave teams drowning in alert fatigue trying to figure out if they're actually affected. This tool traces runtime data flow through vulnerable code paths to answer the critical question: "Does this vulnerability actually matter in our specific usage?" It's the difference between "your ORM has a SQL injection vulnerability" and "this SQL injection affects you because user input flows through these 3 vulnerable code paths, but these 7 other usages are safe because you use parameterized queries." The breakthrough is distinguishing theoretical risk from actual exposure by analyzing production telemetry, code coverage, and data flow patterns. This prevents teams from wasting time on vulnerabilities in code paths they never execute while ensuring real exposures get immediate attention. For incident response, it provides forensic contamination boundaries showing exactly what data touched vulnerable code, which systems need credential rotation, and which logs need auditing. In 2026, where every team is buried under CVE notifications, this transforms security from "fix everything" panic to evidence-based risk assessment. It's not just another vulnerability scanner—it's a contamination forensics tool that understands context and actual exposure, not just theoretical possibility.

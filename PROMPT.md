@@ -51,6 +51,7 @@ Produce exactly 10 responses, each in its own `<response>` tag containing:
 - Error translators, variable naming, import organization
 - Code completion, commit messages, code review
 - Semantic search, snippet managers, notification aggregators
+- Context-aware snippet expansion/completion (Copilot's core function)
 - Dependency updates (Dependabot/Renovate), branch cleanup (GitHub/GitLab)
 - Formatting (ESLint/Prettier)
 
@@ -77,6 +78,18 @@ Produce exactly 10 responses, each in its own `<response>` tag containing:
 - Forced reflection pauses
 - Moon phase dependency locks
 
+**Commit Message Archaeology:**
+- Tools that try to update or annotate immutable git history
+- "Rationale decay" detectors that suggest retroactively editing commit messages
+- Systems treating commit messages as living documents rather than historical records
+- Violates git philosophy: commits are immutable snapshots, not maintenance burdens
+
+**Trivial CLI Utilities (Prob >0.85):**
+- Simple command-line tools for universally solved problems
+- JWT decoders (jwt.io exists), cron translators (crontab.guru), markdown TOC generators (doctoc)
+- If the tool has 0.85+ probability, it's describing existing ubiquitous infrastructure
+- Research existing tools before proposing; don't reinvent commodity utilities
+
 ---
 
 ## Pre-Submission Checklist
@@ -99,6 +112,8 @@ Before finalizing ANY idea, verify it passes ALL these tests:
 | 12 | **Forced Delay** | Adds mandatory waiting to fast operations? |
 | 13 | **Joke/Satire Check** | Is this primarily satirical commentary? |
 | 14 | **Probability Honesty** | Score 0.65-0.72 thinking "obviously good"? → current reality, not innovation |
+|| 15 | **Commit Message Maintenance** | Does it try to update/annotate immutable git history retroactively? |
+|| 16 | **Trivial CLI Utility** | Probability >0.85 proposing jwt.io/crontab.guru/existing commodity tool? |
 
 **If 2+ red flags trigger → DISCARD and start over.**
 

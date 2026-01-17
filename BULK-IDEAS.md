@@ -100,16 +100,6 @@ An AI system that identifies duplicated logic across your organization's reposit
 <probability>0.41</probability>
 </response>
 
-## Response 26
-<response>
-<ideas>
-**Context-Aware Code Completion with Project Memory**
-
-Next-generation autocomplete that understands your entire project context, coding patterns, and team conventions. Suggests completions based on how your team solves similar problems elsewhere in the codebase. Learns from merged PRs to match team style automatically. Suggests entire function implementations by understanding the surrounding context and project architecture. Goes beyond syntax to understand semantic intent, dramatically reducing boilerplate and maintaining consistency.
-</ideas>
-<probability>0.53</probability>
-</response>
-
 ## Response 27
 <response>
 <ideas>
@@ -870,16 +860,6 @@ An AI system specialized in database migrations that predicts risks before apply
 <probability>0.48</probability>
 </response>
 
-## Response 136
-<response>
-<ideas>
-**Intelligent Error Recovery Suggestion Engine**
-
-An AI assistant that monitors application errors in development and production, learning which recovery strategies successfully resolve each error type. When errors occur, suggests context-aware fixes: "This database timeout usually resolves with connection pool restart—here's the command" or "This CORS error indicates missing header in deployment config—add this line." Learns from team's historical error resolutions, building a knowledge base of "error X → solution Y" patterns specific to your stack. Distinguishes between errors needing code fixes versus configuration changes versus transient issues resolving themselves. For AI agents in 2026, provides learned recovery strategies enabling autonomous error resolution for known issues. Integrates with monitoring systems to automatically execute safe recovery actions for well-understood errors, escalating novel errors to humans with context from similar historical issues.
-</ideas>
-<probability>0.54</probability>
-</response>
-
 ## Response 137
 <response>
 <ideas>
@@ -960,22 +940,6 @@ An AI system that analyzes your entire dependency tree and generates optimal, se
 <probability>0.49</probability>
 </response>
 
-
-## Response 156
-<response>
-<ideas>
-**Intelligent Import Organizer with Dependency Health Insights**
-
-Managing imports is tedious and error-prone. This AI-powered tool automatically organizes, optimizes, and audits imports across your codebase. It groups imports logically (standard library, third-party, local), removes unused imports, identifies circular dependencies, and suggests more efficient import paths. Goes beyond formatting to provide dependency health insights at import time.
-
-When you import a package, the system shows a quick health dashboard: bundle size impact, known vulnerabilities, maintenance status, breaking change probability, and alternative packages if concerning issues exist. "Warning: 'moment' is deprecated, suggest migrating to 'date-fns' (87% smaller)." It detects import antipatterns like importing entire libraries when tree-shaking would work, or importing heavy dependencies in hot paths.
-
-The AI learns your project's import style and enforces consistency: if your team prefers absolute imports over relative, it auto-converts. For JavaScript/TypeScript, it configures optimal module resolution and suggests barrel exports to simplify import paths. Detects when multiple files import the same utility functions, suggesting consolidation into shared modules.
-
-For AI agents in 2026, this ensures generated code follows project import conventions and doesn't inadvertently add problematic dependencies. During refactoring, the system automatically updates imports throughout the codebase, preventing broken references. Integrates with package managers to show real-time dependency freshness and suggest updates.
-</ideas>
-<probability>0.54</probability>
-</response>
 
 ---
 
@@ -1495,13 +1459,6 @@ For AI agents generating error handling code, this provides sophisticated strate
 </response>
 <response>
 <ideas>
-**"Cron" Translator:** A utility `cron-explain "*/5 * * * *"` that converts cryptic cron expressions into plain English, and vice-versa (`cron-gen "every 5 minutes"`).
-</ideas>
-<probability>0.94</probability>
-</response>
-
-<response>
-<ideas>
 **"Env" Validator:** `env-audit` compares your local `.env` against `.env.example`, warning of missing keys or type mismatches to prevent runtime config errors.
 </ideas>
 <probability>0.92</probability>
@@ -1520,12 +1477,6 @@ For AI agents generating error handling code, this provides sophisticated strate
 </response>
 <response>
 <ideas>
-**"JWT" Decoder:** A CLI tool `jwt-peek <token>` that decodes and color-codes JSON Web Tokens directly in the terminal. It parses the header and payload and highlights the expiration status relative to the current system time.
-</ideas>
-<probability>0.93</probability>
-</response>
-<response>
-<ideas>
 **"Zombie" Reaper:** A script `kill-zombie` that scans the process tree for "defunct" or parentless processes consuming CPU/RAM and offers a simple interactive UI to terminate them, keeping the system snappy.
 </ideas>
 <probability>0.89</probability>
@@ -1541,12 +1492,6 @@ For AI agents generating error handling code, this provides sophisticated strate
 **"IP" Geo:** A command `ip-lookup <address>` that queries public APIs to return the City, Country, ISP, and Lat/Lon of an IP address, making access log analysis significantly faster and more human-readable.
 </ideas>
 <probability>0.90</probability>
-</response>
-<response>
-<ideas>
-**"TOC" Generator:** A tool `md-toc <file.md>` that parses markdown headers and generates a hyperlinked Table of Contents, automatically inserting or updating it at the top of the file to maintain documentation standards.
-</ideas>
-<probability>0.92</probability>
 </response>
 ---
 
