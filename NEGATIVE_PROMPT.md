@@ -99,6 +99,83 @@ Submitting the SAME metaphor applied to slightly different domains (runtime erro
 
 ---
 
+### The CLI Utility Epidemic (Probability >0.85)
+
+**Pattern Detected:** Multiple ideas proposing trivial command-line utilities with probabilities between 0.88-0.92, describing existing mature tools or built-in platform features as if they're novel.
+
+**Examples Removed:**
+- "Lorem" Code Generator (0.92) - placeholder code generation
+- "Repo" Health Check (0.91) - checking for README/LICENSE files
+- "SVG" Cleaner CLI (0.92) - SVGO, which has existed since 2012
+- "Env" Validator (0.92) - dotenv-safe, existing since 2016
+- "CURL" Builder TUI (0.90) - Postman's "Generate Code" button
+- "Hex" Calc (0.91) - number base conversion in every programming language
+- Multiple more with 0.88-0.91 probabilities
+
+**Why This Is Slop:**
+When probability exceeds 0.85, the idea is describing HISTORICAL reality—tools that already exist as mature, widely-used products or are built into platforms. These submissions demonstrate complete failure to research existing solutions. PROMPT.md explicitly warns (line 87-91): "If the tool has 0.85+ probability, it's describing existing ubiquitous infrastructure."
+
+**The Pattern's Root Cause:**
+Authors answered "What CLI tool would be useful?" with "Things I use every day" without realizing THE REASON THEY USE THEM EVERY DAY IS BECAUSE THEY ALREADY EXIST. High probability (>0.85) is not validation—it's a warning that you're describing commodity infrastructure.
+
+**What Already Exists:**
+- SVG optimization: SVGO (20K+ stars, industry standard since 2012)
+- Env validation: dotenv-safe, envsafe, dotenv-vault (mature ecosystem)
+- HTTP request building: Postman, Insomnia, Hoppscotch, Browser DevTools
+- Repository health: GitHub Community tab (built-in since 2017)
+- Hex conversion: Every programming language's stdlib, calculator apps
+- Lorem generation: faker.js, every templating system
+
+**What To Ask Yourself:**
+- Is my probability >0.85? Then I'm describing existing infrastructure, not proposing innovation
+- Does this tool already exist with 1000+ GitHub stars?
+- Is this built into a major platform (GitHub, browser, IDE)?
+- Is this a math operation or trivial file check?
+- Would Googling "[idea name] tool" return 10+ existing implementations?
+
+**If YES to any → STOP. Research what exists before proposing.**
+
+**The Probability Honesty Principle:**
+- 0.85+ = Describing historical reality (mature products)
+- 0.65-0.72 = Describing current reality (daily-use tools)
+- 0.50-0.65 = Market saturation (widespread adoption)
+- <0.50 = Potentially novel if differentiated
+
+**Special Note:**
+Probability >0.85 means **85%+ of the market already has this**. You're not in a race where 15% market share is success—you're proposing to rebuild GitHub's built-in features or SVGO with a 14-year head start. That's not competition; that's tilting at windmills.
+
+---
+
+### The ">0.50 Copilot Clone" Epidemic
+
+**Pattern Detected:** Ideas with probability 0.50-0.55 describing AI-powered code assistance tools that replicate GitHub Copilot, Cursor, or mainstream AI coding assistants.
+
+**Examples Removed:**
+- Real-Time Code Review AI Assistant (0.51) - describes Copilot's core functionality
+- Team-Specific Code Style Enforcer (0.52) - Prettier + ESLint with "AI-powered" prefix
+
+**Why This Is Slop:**
+Probability >0.50 means market saturation. These ideas describe features that GitHub Copilot, Cursor, Codeium, Tabnine, and every major AI coding assistant already provides. Adding "AI-powered" to existing tools (Prettier, ESLint) doesn't create differentiation—it describes the expected evolution of those tools.
+
+**What These Actually Describe:**
+- "Real-time code feedback as you type" = GitHub Copilot (2021-present)
+- "Understands business logic and context" = Copilot's differentiator from linters
+- "Learns from team's PR feedback" = Copilot for Business feature
+- "AI-powered code formatting" = Next obvious evolution of Prettier (not a separate product)
+
+**The Market Reality:**
+In 2026, AI code assistance is not innovative—it's baseline. Proposing "AI that helps you code" is like proposing "search engine that indexes websites" after Google has dominated for 20 years.
+
+**What To Ask Yourself:**
+- Is my probability >0.50? Then I'm competing with 50%+ of the market
+- Does GitHub Copilot, Cursor, or any major AI assistant already do this?
+- Am I just adding "AI-powered" to an existing tool (ESLint, Prettier, etc.)?
+- Would this be a FEATURE of existing products, not a standalone product?
+
+**If YES → Don't compete with Microsoft, Anthropic, Google, and Amazon in their core market.**
+
+---
+
 ## Universal Anti-Patterns (Permanent)
 
 ### The Metaphor Dominance Test
